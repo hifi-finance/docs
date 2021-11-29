@@ -1,0 +1,70 @@
+---
+id: protocol
+title: Protocol
+sidebar_position: 1
+---
+
+# Protocol Overview
+
+Hifi is a fixed-rate, fixed-term lending protocol based on the [The Yield
+Protocol](https://research.paradigm.xyz/Yield.pdf) paper. The protocol is implemented in a system
+of Ethereum smart contracts.
+
+![Hifi Diagram](/img/overview/diagram.png)
+
+## Core Ideas
+
+### hTokens are Synthetics
+
+If there's something you need to know about Hifi, it's the fact that the protocol issues synthetic assets called
+hTokens, which track an arbitrary underlying asset.
+
+Let's take as an example an hToken with the symbol "hUSDC". This is a synthetic asset that tracks the USDC stablecoin. Borrowers mint hUSDC by
+depositing collateral, which can be any asset (say, ETH). Lenders sell their USDC in exchange for hUSDC. After
+expiration, any holder of hUSDC can redeem the synthetic asset in exchange for USDC.
+
+### Interest Rates
+
+Unlike most decentralized finance protocols, interest rates on Hifi are not controlled by the protocol
+developer. It is the open market that dictates the interest rate that participants pay or receive.
+
+When we issue an hToken, we also create a [Hifi pool](../technical-reference/market-making/hifi-pool) for the hToken and
+the underlying. Anyone can provide liquidity to this pool and earn fees from trades. The amount of hTokens
+bought or sold in the pool iis used in calculating the effective interest rate.
+
+Say you are interested in lending 10,000 USDC on Hifi. You open the [Hifi interface](https://app.hifi.finance) and you get
+quoted an interest rate of 5%. Supposing the expiration date is 1 year into the future, you will receive ~10,500 hUSDC in
+exchange for your 10,000 USDC at maturity. Thus, if you hold on to your hUSDC tokens for 1 year, you will be able to
+redeem it for 10,500 USDC.
+
+### Collateralization
+
+Similar to other decentralized finance protocols, Hifi has over-collateralization rules. That is, borrowers must be
+over-collateralized before they can mint hTokens.
+
+While for high-profile assets like ETH Hifi will use the industry standard of 150%, the margin requirement for an arbitrary collateral depends on several factors:
+
+- Quality of collateral asset
+- How reliable the oracle price feed is
+- Market conditions (recall Black Thursday)
+
+When the value of the borrower's collateral falls below this collateralization ratio, it is said that the account has fallen "underwater" and it can be liquidated. Read more about this in the [Security](./security.md) section.
+
+## Code Base
+
+The smart contract code is publicly verifiable on GitHub:
+
+- https://github.com/hifi-finance/hifi
+
+The git commit that we used for deploying on mainnet is [f7a85c5](https://github.com/hifi-finance/hifi/commit/f7a85c55aba99eb04cecc0c47d2ec174c1855a68). All contracts have their source code verified on
+Etherscan and Polygonscan.
+
+## Protocol Math
+
+The Hifi protocol uses the [PRBMath](https://github.com/hifi-finance/prb-math) fixed-point math library to represent
+fractional quantities with sufficient precision. This library is especially needed in our
+[AMM](../technical-reference/market-making/hifi-pool), but we're also using it in the
+[BalanceSheet](../technical-reference/core/balance-sheet.md) contract.
+
+Most numbers are represented as a "UD60x18" (an unsigned integer scaled by 10^18) in order to perform math operation at
+a high level of precision. So number values in Hifi have 18 decimals of precision, just like ETH is equal to 10^18 wei.

@@ -1,0 +1,33 @@
+---
+id: lending
+title: Lending
+sidebar_position: 2
+---
+
+# Lending
+
+To lend, access the "Lend" tab in the [Hifi Interface](https://app.hifi.finance). You will need some underlying
+tokens to do this (e.g. USDC).
+
+When you lend in Hifi, you are buying future cash payments at a discount. These future cash payments are represented by
+tokens that we call "hTokens". An hToken is a token that can be redeemed one-for-one for an underlying asset on some future date.
+HTokens don't pay interest themselves, rather the interest is determined by the difference between the face value of
+the token and the price you pay for it.
+
+The fixed interest rate you receive when lending is determined by our built-in [automated
+market](../technical-reference/market-making/hifi-pool.md). The more you lend, the lower your interest rate may be.
+
+## Lending Explained
+
+To lend at a fixed rate, you simply buy hTokens at a discount to their face value. The discount you receive is
+equivalent to locking in a fixed return that can be calculated based on the time until an hToken can be redeemed.
+
+hTokens can be held until the maturity date, upon which they may be redeemed for principal plus interest.
+
+You can also exit your lending position early by selling your fyToken for an underlying asset. But because hTokens are traded freely, changes in interest rates may affect the amount of underlying assets you receive when redeeming early.
+
+Don't fret if you don't redeem hTokens right away. There is no deadline for redeeming hTokens.
+
+## Example
+
+If on Jan 31, 2022, you buy 1,000 hUSDC that expire in March 2022 for 988 USDC you will earn an implied rate of interest of 5% APR.

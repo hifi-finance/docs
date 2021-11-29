@@ -1,0 +1,117 @@
+---
+id: security
+title: Security
+sidebar_position: 3
+---
+
+# Security
+
+The security of the Hifi protocol is our outmost priority. Our team has invested considerable effort to create a
+protocol that is safe and reliable. All contract code and balances are publicly verifiable in our GitHub repository, and
+security researchers are eligible for a bug bounty for reporting undiscovered vulnerabilities.
+
+## Philosophy
+
+The Hifi protocol has currently not been audited yet, but audits are just one piece of the puzzle when it comes to securing a
+financial protocol. We believe that is equally important to invest in and be wary of the following areas:
+
+- [x] Good and reliable testing infrastructure
+- [x] High code coverage
+- [x] High-quality internal documentation (code comments adhering to NatSpec)
+- [x] Conformity to best practices
+- [x] Complexity minimization
+
+We argue that [we have taken good care](https://twitter.com/PaulRBerg/status/1467253180484317186) of these areas.
+
+## Liquidations
+
+Liquidating dangerous vaults is perhaps the most important on-chain operation in the Hifi protocol. When the value of a
+borrower's collateral falls below the collateral ratio, the protocol allows any Ethereum account to liquidate the
+borrower's vault.
+
+The liquidation flow of Hifi is similar to [Compound's](https://compound.finance/), in that there is no auction. Every collateral listed on Hifi has
+an associated `liquidationIncentive` field, which is part of a formula that calculates the amount of collateral that
+liquidators earn when successfully liquidating a vault. For instance, if the incentive is 10% and the value of the
+seized collateral is $5,000, the liquidator would earn $500 worth of collateral.
+
+Anyone can be a Hifi liquidator on Hifi, but familiarity with the smart contract API is requisite. To automate the
+process, we wrote a liquidator bot that can easily be run on a cloud computing platform like Google Cloud:
+
+- https://github.com/hifi-finance/hifi-liquidator-js
+
+### Price Data
+
+Hifi is relying on the [Chainlink Price Feeds](https://docs.chain.link/) to gather price data. At the time of writing this, Chainlink is the leading
+oracle network for Ethereum smart contracts.
+
+## Bug Bounty
+
+Security is core to our values, and we value the input of hackers acting in good faith to help us maintain the highest
+standard for the security and safety of the Ethereum ecosystem. The Hifi protocol depends on new technology that may
+contain undiscovered vulnerabilities.
+
+Hifi encourages the community to audit our contracts and security; we also encourage the responsible disclosure of any issues. This program is intended to recognize the value of working with the community of independent security researchers, and sets out our definition of good faith in the context of finding and reporting vulnerabilities, as well as what you can expect from us in return.
+
+### Rewards
+
+Hifi offers substantial rewards for discoveries that can prevent the loss of assets, the freezing of assets, or harm to
+a user, commensurate with the severity and exploitability of the vulnerability. Hifi will pay a reward of $500 to
+\$20,000 for eligible discoveries according to the terms and conditions provided below.
+
+### Scope
+
+The primary scope of the bug bounty program is for vulnerabilities affecting the on-chain Hifi protocol, deployed to
+Polygon Mainnet, for contract addresses listed in this developer documentation.
+
+This list may change as new contracts are deployed, or as existing contracts are removed from usage. Vulnerabilities in
+contracts built on top of the Protocol by third-party developers (such as smart contract wallets) are not in-scope, nor
+are vulnerabilities that require ownership of an admin key.
+
+The secondary scope of the bug bounty program is for vulnerabilities affecting the Hifi Interface hosted at
+[app.hifi.finance](https://app.hifi.finance) that could conceivably result in exploitation of user accounts.
+
+Finally, test contracts (Rinkeby and other testnets) and staging servers are out of scope, unless the discovered
+vulnerability also affects the protocol or the Hifi Interface, or could otherwise be exploited in a way that risks user
+funds.
+
+### Disclosure
+
+Submit all bug bounty disclosures to [security@hifi.finance](mailto:security@hifi.finance). The disclosure must include
+clear and concise steps to reproduce the discovered vulnerability in either written or video format. Hifi will follow up
+promptly with acknowledgement of the disclosure.
+
+### Terms and Conditions
+
+To be eligible for bug bounty reward consideration, you must:
+
+- Identify an original, previously unreported, non-public vulnerability within the scope of the Hifi bug bounty program as
+  described above.
+- Include sufficient detail in your disclosure to enable our engineers to quickly reproduce, understand,
+  and fix the vulnerability.
+- Be reporting in an individual capacity, or if employed by a company, reporting with the company’s written approval to submit a disclosure to Hifi.
+- Not be subject to US sanctions or reside in a US-embargoed country.
+- Not be a current or former Hifi employee, vendor, contractor, or employee of a Hifi
+  vendor or contractor.
+
+To encourage vulnerability research and to avoid any confusion between good-faith hacking and malicious attack, we
+require that you:
+
+- Play by the rules, including following the terms and conditions of this program and any other relevant agreements. If there is any inconsistency between this program and any other relevant agreements, the terms of this program will prevail.
+- Report any vulnerability you've discovered promptly.
+- Avoid violating the privacy of others, disrupting our systems, destroying data, or harming user experience.
+- Use only [security@hifi.finance](mailto:security@hifi.finance) to discuss vulnerabilities with us.
+- Keep the details of any discovered vulnerabilities confidential until they are fixed.
+- Perform testing only on in-scope systems, and respect systems and activities which are out-of-scope.
+- Only interact with accounts you own or with explicit permission from the account holder.
+- Not engage in blackmail, extortion, or any other unlawful conduct.
+
+When working with us according to this program, you can expect us to:
+
+- Pay generous rewards for eligible discoveries based on the severity and exploitability of the discovery, at Hifi's sole discretion.
+- Extend Safe Harbor for your vulnerability research that is related to this program, meaning we will not threaten or bring any legal action against anyone who makes a good faith effort to comply with our bug bounty program.
+- Work with you to understand and validate your report, including a timely initial response to the submission.
+- Work to remediate discovered vulnerabilities in a timely manner.
+- Recognize your contribution to improving our security if you are the first to report a unique vulnerability, and your
+  report triggers a code or configuration change.
+
+**All reward determinations, including eligibility and payment amount, are made at Hifi's sole discretion. Hifi reserves the right to reject submissions and alter the terms and conditions of this program.**
