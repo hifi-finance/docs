@@ -7,9 +7,11 @@
 !.yarn/versions
 **/.cache-loader
 **/.docusaurus
+**/.firebase
 **/build
 **/dist
 **/node_modules
+
 
 # files
 *.env
