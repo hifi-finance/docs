@@ -4,6 +4,10 @@ title: Protocol
 sidebar_position: 1
 ---
 
+import LinkPreview from "../../src/components/LinkPreview";
+
+<LinkPreview url="https://github.com/hifi-finance/hifi" />
+
 # Protocol Overview
 
 Hifi is a fixed-rate, fixed-term lending protocol based on the [The Yield
@@ -54,7 +58,7 @@ When the value of the borrower's collateral falls below this collateralization r
 
 The smart contract code is publicly verifiable on GitHub:
 
-- https://github.com/hifi-finance/hifi
+<LinkPreview url="https://github.com/hifi-finance/hifi" />
 
 The git commit that we used for deploying on mainnet is [f7a85c5](https://github.com/hifi-finance/hifi/commit/f7a85c55aba99eb04cecc0c47d2ec174c1855a68). All contracts have their source code verified on
 Etherscan and Polygonscan.
@@ -66,5 +70,5 @@ fractional quantities with sufficient precision. This library is especially need
 [AMM](../technical-reference/market-making/hifi-pool), but we're also using it in the
 [BalanceSheet](../technical-reference/core/balance-sheet.md) contract.
 
-Most numbers are represented as a "UD60x18" (an unsigned integer scaled by 10^18) in order to perform math operation at
+Most numbers are represented as a "UD60x18" (unsigned integers scaled by 10^18) in order to perform math operation at
 a high level of precision. So number values in Hifi have 18 decimals of precision, just like ETH is equal to 10^18 wei.

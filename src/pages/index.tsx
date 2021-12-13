@@ -61,6 +61,10 @@ const Card = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const CenterCard = styled(Card)`
   align-items: center;
   display: grid;
@@ -79,7 +83,7 @@ const CenterCard = styled(Card)`
   }
 `;
 
-const StyledGithubIcon = styled.div`
+const StyledGitHubIcon = styled.div`
   svg {
     fill: var(--ifm-font-color-base);
   }
@@ -94,7 +98,7 @@ export default function Home(): JSX.Element {
         <HomepageHeader />
         <FlexGrowDiv />
         <BodyWrapper>
-          <Link style={{ textDecoration: "none" }} href={"https://discord.com/invite/mhtSRz6"}>
+          <StyledLink href={"https://discord.com/invite/mhtSRz6"}>
             <CenterCard>
               <img src="img/social/discord.svg" style={{ width: "48px", height: "48px" }} />
               <div>
@@ -102,8 +106,8 @@ export default function Home(): JSX.Element {
                 <p>Hop in to the #development channel to get help.</p>
               </div>
             </CenterCard>
-          </Link>
-          <Link style={{ textDecoration: "none" }} href={"https://gov.hifi.finance/"}>
+          </StyledLink>
+          <StyledLink href={"https://gov.hifi.finance/"}>
             <CenterCard>
               <ChatIcon style={{ width: "48px", height: "48px" }} />
               <div>
@@ -111,21 +115,21 @@ export default function Home(): JSX.Element {
                 <p>Discuss governance and more.</p>
               </div>
             </CenterCard>
-          </Link>
+          </StyledLink>
 
-          <Link style={{ textDecoration: "none" }} href={"https://github.com/hifi-finance"}>
+          <StyledLink href={"https://github.com/hifi-finance"}>
             <CenterCard>
-              <StyledGithubIcon>
+              <StyledGitHubIcon>
                 <GitHubIcon />{" "}
-              </StyledGithubIcon>
+              </StyledGitHubIcon>
               <div>
                 <h3>GitHub</h3>
                 <p>View all Hifi code repositories.</p>
               </div>
             </CenterCard>
-          </Link>
+          </StyledLink>
         </BodyWrapper>
-        {/* <FlexGrowDiv /> */}
+        <FlexGrowDiv />
       </OuterWrapper>
     </Layout>
   );
