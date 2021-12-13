@@ -6,8 +6,17 @@ sidebar_position: 2
 
 # Lending
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ST9vUAAKWMs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 To lend, access the "Lend" tab in the [Hifi Interface](https://app.hifi.finance). You will need some underlying
 tokens to do this (e.g. USDC).
+
+:::note
+Make sure to have funds available on Polygon.
+:::
+
+1. Head over to the lend page, and select market.
+2. Select the amount you want to deposit, click on "Lend < asset >" ("Lend USDC" for example), and confirm the transaction in your wallet.
 
 When you lend in Hifi, you are buying future cash payments at a discount. These future cash payments are represented by
 tokens that we call "hTokens". An hToken is a token that can be redeemed one-for-one for an underlying asset on some future date.

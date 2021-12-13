@@ -6,7 +6,24 @@ sidebar_position: 3
 
 # Adding Liquidity
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5NU6dIAoJyE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 To provide liquidity, access the "Pool" tab in the [Hifi Interface](https://app.hifi.finance).
+
+The first step is to make sure you have ported over your assets from Ethereum over to the Polygon network.
+
+1. First, head over to the pool page in our interface and select the market you want to provide liquidity to.
+2. Select the amount of liquidity you are looking to provide and choose your pooling strategy
+
+:::tip
+"Buy & pool" is typically best for small amounts of money, and "Borrow & pool" is best for large amounts of money.
+:::
+
+3. Hit "Add liquidity" and confirm the transaction in your wallet
+
+:::info
+Right now, being a liquidity provider gives you a portion of the fees for every single borrow or lending action that happens in this particular market. Adding liquidity to the Hifi lending markets is a great way to put your assets to work for you.
+:::
 
 To improve the liquidity of hTokens, Hifi has implemented a custom liquidity provider that is designed to enable
 efficient trading between hTokens and their underlying assets. You can read more about this design in the [Yield

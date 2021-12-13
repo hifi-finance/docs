@@ -6,14 +6,20 @@ sidebar_position: 1
 
 # Borrowing
 
-To lend, access the "Borrow" tab in the [Hifi Interface](https://app.hifi.finance). You will need some collateral
-tokens to do this (e.g. WBTC or WETH).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SAQF9Fca8D8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Borrowing on Hifi is a simple three-step process:
+To borrow, access the "Borrow" tab in the [Hifi Interface](https://app.hifi.finance).
 
-1. You choose an asset you want to borrow
-2. You add collateral
-3. You review and initiate the transaction.
+1. First, make sure you have a wallet loaded with a few MATIC tokens (Polygon's native asset), and some collateral (like WETH or WBTC) to deposit.
+2. Next, connect your wallet. The page should reload with updated balances.
+3. Now is the time to deposit your collateral: click on the available collateral option, select the amount you would like to deposit and click on "Deposit collateral".
+
+:::tip
+The first time you will be doing this, you will need to set up the vault. This only has to be done once. Click on "Confirm" after the vault setup transaction was executed.
+:::
+
+4. Once your collateral deposit is done, click on the market you would like to borrow from. Select which amount you would like to borrow, and click on "Borrow < asset >".
+5. As soon as this transaction is finished, you will receive the amount you borrowed in your wallet.
 
 The fixed interest rate you receive when borrowing is determined by our built-in [automated
 market](../technical-reference/market-making/hifi-pool.md). The more you borrow, the higher your interest rate may be. All loans in Hifi require over-collateralization with a greater value of collateral than debt. If you do not maintain a sufficient amount of collateral in your vault at all times, your vault may be liquidated.
