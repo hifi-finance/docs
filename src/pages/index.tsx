@@ -11,10 +11,11 @@ import HomepageHeader from "../components/HomepageHeader";
 const OuterWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0rem auto;
+  margin: 0rem;
+  width: 100%;
 `;
 
-const BodyWrapper = styled.div`
+const BodyWrapper = styled.main`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 16px;
@@ -35,7 +36,6 @@ const BodyWrapper = styled.div`
 `;
 
 const FlexGrowDiv = styled.div`
-  flex-direction: row;
   flex-grow: 1;
 `;
 
@@ -89,7 +89,7 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <Layout title={siteConfig.title} description="Technical Documentation for the Hifi Protocol">
+    <Layout description="Technical Documentation for the Hifi Protocol" title={siteConfig.title}>
       <OuterWrapper>
         <HomepageHeader />
         <FlexGrowDiv />
@@ -125,7 +125,7 @@ export default function Home(): JSX.Element {
             </CenterCard>
           </Link>
         </BodyWrapper>
-        <FlexGrowDiv />
+        {/* <FlexGrowDiv /> */}
       </OuterWrapper>
     </Layout>
   );

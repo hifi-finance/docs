@@ -8,8 +8,20 @@
 :root {
   --ifm-color-primary: rgb(110, 46, 244);
   --ifm-code-font-size: 95%;
+}
+
+html[data-theme="light"] {
   --ifm-link-color: rgb(28, 30, 33);
 }
+
+html[data-theme="dark"] {
+  --ifm-link-color: rgb(240, 242, 248);
+}
+
+html[data-theme="dark"] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
@@ -18,10 +30,10 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-.navbar__item.active {
-  display: inline-block;
+.main-wrapper {
+  display: flex;
 }
 
-html[data-theme="dark"] .docusaurus-highlight-code-line {
-  background-color: rgba(0, 0, 0, 0.3);
+.navbar__item.active {
+  display: inline-block;
 }
