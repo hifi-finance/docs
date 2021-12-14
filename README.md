@@ -1,6 +1,6 @@
 # Hifi Docs
 
-Contributing to the HIFI docs is a great way to get involved in the Hifi dev community and help other devs along the way.
+Contributing to the Hifi docs is a great way to get involved in the Hifi dev community and help other devs along the way.
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
