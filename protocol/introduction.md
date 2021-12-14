@@ -17,7 +17,7 @@ own project. These are the main areas that we will cover:
 
 Let's dive right in.
 
-:::note
+:::info
 If you have any questions, join the #development channel in our [Discord server](https://discord.com/invite/mhtSRz6).
 Our team, and members of the community, look forward to helping you.‌
 :::

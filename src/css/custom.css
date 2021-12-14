@@ -8,7 +8,6 @@
 :root {
   --ifm-color-primary: rgb(110, 46, 244);
   --ifm-code-font-size: 95%;
-  --ifm-link-color: rgb(28, 30, 33);
 }
 
 .docusaurus-highlight-code-line {
@@ -24,10 +23,6 @@
 
 .navbar__item.active {
   display: inline-block;
-}
-
-html[data-theme="dark"] {
-  --ifm-link-color: rgb(240, 242, 248);
 }
 
 html[data-theme="dark"] .docusaurus-highlight-code-line {

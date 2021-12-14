@@ -18,11 +18,11 @@ const OuterWrapper = styled.div`
 const BodyWrapper = styled.main`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 1rem;
   justify-content: center;
   margin: 0rem auto;
   max-width: 960px;
-  padding: 1rem 0;
+  padding: 1rem 0rem;
 
   @media (max-width: 960px) {
     grid-template-columns: 1fr;
@@ -39,47 +39,38 @@ const FlexGrowDiv = styled.div`
   flex-grow: 1;
 `;
 
-const Card = styled.div`
-  display: flex;
-  max-height: 250px;
-  min-width: 350px;
-  padding: 1rem;
-  flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
-  border: 1px solid transparent;
-  border-radius: 20px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-
-  &:hover {
-    border: 1px solid var(--ifm-color-emphasis-400);
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
-  }
-
-  @media (max-width: 960px) {
-    width: 100%;
-  }
-`;
-
 const StyledLink = styled(Link)`
-  text-decoration: none;
-`;
-
-const CenterCard = styled(Card)`
   align-items: center;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 1.5rem;
+  color: var(--ifm-font-color-base);
   display: grid;
   flex-direction: row;
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 3rem 1fr;
   justify-content: space-between;
-  gap: 24px;
+  gap: 1.5rem;
+  max-height: 250px;
   min-width: 250px;
+  padding: 1rem;
 
   h3 {
     margin-bottom: 0.25rem;
   }
 
   p {
-    margin-bottom: 0px;
+    margin-bottom: 0rem;
+  }
+
+  &:active,
+  &:hover {
+    border: 1px solid var(--ifm-color-emphasis-400);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+    color: var(--ifm-font-color-base);
+    text-decoration: none;
+  }
+
+  @media (max-width: 960px) {
+    width: 100%;
   }
 `;
 
@@ -99,34 +90,29 @@ export default function Home(): JSX.Element {
         <FlexGrowDiv />
         <BodyWrapper>
           <StyledLink href={"https://discord.com/invite/mhtSRz6"}>
-            <CenterCard>
-              <img src="img/social/discord.svg" style={{ width: "48px", height: "48px" }} />
-              <div>
-                <h3>Discord</h3>
-                <p>Hop in to the #development channel to get help.</p>
-              </div>
-            </CenterCard>
+            <img src="img/social/discord.svg" style={{ width: "48px", height: "48px" }} />
+            <div>
+              <h3>Discord</h3>
+              <p>Hop in to the #development channel to get help.</p>
+            </div>
           </StyledLink>
+
           <StyledLink href={"https://gov.hifi.finance/"}>
-            <CenterCard>
-              <ChatIcon style={{ width: "48px", height: "48px" }} />
-              <div>
-                <h3>Forum</h3>
-                <p>Discuss governance and more.</p>
-              </div>
-            </CenterCard>
+            <ChatIcon style={{ width: "48px", height: "48px" }} />
+            <div>
+              <h3>Forum</h3>
+              <p>Discuss governance and more.</p>
+            </div>
           </StyledLink>
 
           <StyledLink href={"https://github.com/hifi-finance"}>
-            <CenterCard>
-              <StyledGitHubIcon>
-                <GitHubIcon />{" "}
-              </StyledGitHubIcon>
-              <div>
-                <h3>GitHub</h3>
-                <p>View all Hifi code repositories.</p>
-              </div>
-            </CenterCard>
+            <StyledGitHubIcon>
+              <GitHubIcon size={48} />{" "}
+            </StyledGitHubIcon>
+            <div>
+              <h3>GitHub</h3>
+              <p>View all Hifi code repositories.</p>
+            </div>
           </StyledLink>
         </BodyWrapper>
         <FlexGrowDiv />
