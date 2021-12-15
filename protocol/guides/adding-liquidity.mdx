@@ -1,34 +1,39 @@
 ---
 id: adding-liquidity
 title: Adding Liquidity
-sidebar_position: 3
+sidebar_position: 4
 ---
+
+import YouTubeEmbed from "../../src/components/YouTubeEmbed";
 
 # Adding Liquidity
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5NU6dIAoJyE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<YouTubeEmbed embedId="5NU6dIAoJyE" />
+
+---
 
 To provide liquidity, access the "Pool" tab in the [Hifi Interface](https://app.hifi.finance).
 
-The first step is to make sure you have ported over your assets from Ethereum over to the Polygon network.
-
-1. First, head over to the pool page in our interface and select the market you want to provide liquidity to.
-2. Select the amount of liquidity you are looking to provide and choose your pooling strategy
+1. Ensure you have ported over your assets from Ethereum to the Polygon network.
+2. Head over to the "Pool" tab and select the market you want to provide liquidity to.
+3. Input the amount of liquidity you would like to provide and choose your pooling strategy.
 
 :::tip
-"Buy & pool" is typically best for small amounts of money, and "Borrow & pool" is best for large amounts of money.
+"Buy & pool" is typically best for small amounts of money. "Borrow & pool" works better for larger amounts.
 :::
 
-3. Hit "Add liquidity" and confirm the transaction in your wallet
+4. Hit "Add liquidity" and confirm the transaction in your wallet.
 
 :::info
-Right now, being a liquidity provider gives you a portion of the fees for every single borrow or lending action that happens in this particular market. Adding liquidity to the Hifi lending markets is a great way to put your assets to work for you.
+Being a liquidity provider gives you a portion of the fees paid on every single trade that occurs in this particular
+market. Adding liquidity to the Hifi markets is a great way to put your idle capital at work, since the risk of
+impermanent loss is low.
 :::
 
-To improve the liquidity of hTokens, Hifi has implemented a custom liquidity provider that is designed to enable
-efficient trading between hTokens and their underlying assets. You can read more about this design in the [Yield
-Space](https://yield.is/YieldSpace.pdf) whitepaper to get a deeper understanding of the calculations
-and the overall mechanism. The Hifi Interface integrates the AMM seamlessly into the user experience.
+To improve the liquidity of hTokens, Hifi has implemented a custom liquidity provider designed to enable efficient
+trading between hTokens and their underlying assets. You can read more about this design in the [Yield
+Space](https://yield.is/YieldSpace.pdf) whitepaper to get a deeper understanding of the calculations and the overall
+mechanism. The Hifi Interface integrates the AMM seamlessly into the user experience.
 
 :::info
 The Hifi Protocol relies on users called liquidity providers to provide essentially liquidity for borrowers and lenders.
@@ -45,8 +50,9 @@ occur only when interest rates change. This should tend to reduce the "impermane
 
 Like other automated liquidity providers, users may choose to provide liquidity to Hifi pools to earn fees from future trades. Hifi uses a custom fee model that is optimized for hTokens. Rather than charge a fee that is a percentage of the amount of the asset bought or sold, Hifi charges a fee that is proportional to both interest rate and time to maturity. This fee model ensures that fees never result in the unreasonable amount on interest rates paid by borrowers (hToken sellers) and earned by lenders (hToken buyers).
 
-Similar to Uniswap v2, providing liquidity to YieldSpace will grant you Liquidity Provider shares. If you are providing liquidity for hUSDCMar22, you get hUSDCMar22LP
-tokens which represent your share of the pool. These tokens are ERC-20 tokens and may further be composed in the DeFi ecosystem.
+Similar to Uniswap v2, providing liquidity to YieldSpace will grant you Liquidity Provider shares. If you are providing
+liquidity for hUSDCMar22, you get hUSDCMar22LP tokens which represent your share of the pool. These tokens are ERC-20
+tokens and may further be composed in the DeFi ecosystem.
 
 Each hToken has an associated Hifi pool that permits trading between that hToken and its underlying asset. Swapping hTokens with different maturities needs to be done manually.
 
