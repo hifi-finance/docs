@@ -1,3 +1,6 @@
+const katex = require("rehype-katex");
+const math = require("remark-math");
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   baseUrl: "/",
@@ -18,6 +21,8 @@ const config = {
           editUrl: "https://github.com/hifi-finance/docs/tree/main/",
           includeCurrentVersion: true,
           path: "protocol",
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
           routeBasePath: "protocol/",
           sidebarPath: require.resolve("./sidebars.js"),
         },
@@ -26,6 +31,13 @@ const config = {
         },
       }),
     ],
+  ],
+  stylesheets: [
+    {
+      href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
+      integrity: "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+      crossorigin: "anonymous",
+    },
   ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */

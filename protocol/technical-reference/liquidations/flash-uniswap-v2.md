@@ -32,19 +32,15 @@ function getRepayAmount(
 Calculates the amount of that must be repaid to Uniswap. When the collateral is not the underlying, the formula applied
 is:
 
-```text
-               (otherTokenReserves * underlyingAmount) * 1000
-repayAmount = -----------------------------------------------
-               (underlyingReserves - underlyingAmount) * 997
-```
+$$
+repayAmount = \frac{(otherTokenReserves * underlyingAmount) * 1000}{(underlyingReserves - underlyingAmount) * 997}
+$$
 
-Otherwise, the formula is:
+Otherwise, the formula used is:
 
-```text
-             underlyingAmount * 1000
-repayAmount = ---------------------
-                      997
-```
+$$
+repayAmount = \frac{underlyingAmount * 1000}{997}
+$$
 
 See "getAmountIn" and "getAmountOut" in UniswapV2Library.sol. Flash swaps that are repaid via the corresponding pair token is akin to a normal swap, so the 0.3% LP fee applies.
 

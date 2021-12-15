@@ -1,18 +1,18 @@
 # Hifi Docs
 
-Contributing to the Hifi docs is a great way to get involved in the Hifi dev community and help other devs along the way.
+Contributing to the Hifi docs is a great way to get involved in the dev community and help other people along the way.
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
 ## Installation
 
-```
+```bash
 $ yarn
 ```
 
 ## Local Development
 
-```
+```bash
 $ yarn start
 ```
 
@@ -20,7 +20,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ## Build
 
-```
+```bash
 $ yarn build
 ```
 

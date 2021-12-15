@@ -168,7 +168,10 @@ Note that this is for informational purposes only, it doesn't say anything about
 liquidated.
 
 The formula applied:
-repayAmount = (seizableCollateralAmount _ collateralPriceUsd) / (liquidationIncentive _ underlyingPriceUsd)
+
+$$
+repayAmount = \frac{seizableCollateralAmount * collateralPrice}{liquidationIncentive * underlyingPrice}
+$$
 
 #### Parameters
 
@@ -198,7 +201,10 @@ Calculates the amount of collateral that can be seized when liquidating a borrow
 is for informational purposes only, it doesn't say anything about whether the user can be liquidated.
 
 The formula applied:
-seizableCollateralAmount = repayAmount _ liquidationIncentive _ underlyingPriceUsd / collateralPriceUsd
+
+$$
+seizableCollateralAmount = \frac{repayAmount * liquidationIncentive * underlyingPrice}{collateralPrice}
+$$
 
 #### Parameters
 
