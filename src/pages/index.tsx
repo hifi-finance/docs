@@ -5,8 +5,8 @@ import { ChatIcon } from "@heroicons/react/outline";
 import Layout from "@theme/Layout";
 import React from "react";
 
-import GitHubIcon from "../components/GitHubIcon";
 import HomepageHeader from "../components/HomepageHeader";
+import GitHubIcon from "../icons/GitHubIcon";
 
 const OuterWrapper = styled.div`
   display: flex;
