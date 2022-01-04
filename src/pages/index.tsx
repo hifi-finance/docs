@@ -97,7 +97,7 @@ export default function Home(): JSX.Element {
             </div>
           </StyledLink>
 
-          <StyledLink href={"https://gov.hifi.finance/"}>
+          <StyledLink href={"https://forum.hifi.finance/"}>
             <ChatIcon style={{ width: "48px", height: "48px" }} />
             <div>
               <h3>Forum</h3>
