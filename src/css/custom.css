@@ -5,6 +5,7 @@
  */
 
 /* You can override the default Infima variables here. */
+/* TODO: Need to add ifm color shades for primary colors */
 :root {
   --ifm-color-primary: rgb(110, 46, 244);
   --ifm-code-font-size: 95%;
@@ -27,4 +28,13 @@
 
 html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.hero--primary {
+  --ifm-hero-background-color: var(--ifm-font-color-base-inverse);
+  --ifm-hero-text-color: var(--ifm-font-color-base);
+}
+
+html[data-theme="dark"] .button--primary {
+  color: var(--ifm-button-color-inverse);
 }
