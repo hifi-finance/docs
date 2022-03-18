@@ -1,5 +1,5 @@
 ---
-id: htoken
+id: h-token
 title: HToken
 sidebar_position: 4
 ---
@@ -16,13 +16,23 @@ Zero-coupon bond that tracks an ERC-20 underlying asset.
 function balanceSheet() external returns (contract IBalanceSheetV1)
 ```
 
-The unique BalanceSheet associated with this HToken.
+Returns the BalanceSheet contract this HToken is connected to.
 
-#### Return Values
+### getDepositorBalance
 
-| Type | Description            |
-| :--- | :--------------------- |
-|      | BalanceSheet contract. |
+```solidity
+function getDepositorBalance() external returns (uint256 amount)
+```
+
+Returns the balance of the given depositor.
+
+### fintroller
+
+```solidity
+function fintroller() external returns (contract IFintroller)
+```
+
+Returns the Fintroller contract this HToken is connected to.
 
 ### isMatured
 
@@ -60,7 +70,7 @@ The amount of underlying redeemable after maturation.
 function underlying() external returns (contract IErc20)
 ```
 
-The Erc20 underlying, or target, asset for this HToken.
+The Erc20 underlying asset for this HToken.
 
 ### underlyingPrecisionScalar
 
@@ -96,6 +106,29 @@ Requirements:
 | `holder`     | address | The account whose hTokens to burn. |
 | `burnAmount` | uint256 | The amount of hTokens to burn.     |
 
+### depositUnderlying
+
+```solidity
+function depositUnderlying(
+    uint256 underlyingAmount
+) external
+```
+
+Deposits underlying in exchange for an equivalent amount of hTokens.
+Emits a {DepositUnderlying} event.
+
+Requirements:
+
+- The Fintroller must allow this action to be performed.
+- The underlying amount to deposit cannot be zero.
+- The caller must have allowed this contract to spend `underlyingAmount` tokens.
+
+#### Parameters
+
+| Name               | Type    | Description                          |
+| :----------------- | :------ | :----------------------------------- |
+| `underlyingAmount` | uint256 | The amount of underlying to deposit. |
+
 ### mint
 
 ```solidity
@@ -124,7 +157,7 @@ Requirements:
 
 ```solidity
 function redeem(
-    uint256 hTokenAmount
+    uint256 underlyingAmount
 ) external
 ```
 
@@ -134,8 +167,8 @@ Emits a {Redeem} event.
 
 Requirements:
 
-- Must be called after maturation.
-- The amount to redeem cannot be zero.
+- Can only be called after maturation.
+- The amount of underlying to redeem cannot be zero.
 - There must be enough liquidity in the contract.
 
 #### Parameters
@@ -144,41 +177,16 @@ Requirements:
 | :------------- | :------ | :-------------------------------------------------------- |
 | `hTokenAmount` | uint256 | The amount of hTokens to redeem for the underlying asset. |
 
-### supplyUnderlying
-
-```solidity
-function supplyUnderlying(
-    uint256 underlyingAmount
-) external
-```
-
-Mints hTokens by supplying an equivalent amount of underlying.
-
-Emits a {SupplyUnderlying} event.
-
-Requirements:
-
-- The amount to supply cannot be zero.
-- The caller must have allowed this contract to spend `underlyingAmount` tokens.
-
-#### Parameters
-
-| Name               | Type    | Description                         |
-| :----------------- | :------ | :---------------------------------- |
-| `underlyingAmount` | uint256 | The amount of underlying to supply. |
-
 ### \_setBalanceSheet
 
 ```solidity
 function _setBalanceSheet(
-    contract IBalanceSheetV1 newBalanceSheet
+    contract IBalanceSheetV2 newBalanceSheet
 ) external
 ```
 
-Updates the address of the BalanceSheet contract.
-
+Updates the BalanceSheet contract this HToken is connected to.
 Throws a {SetBalanceSheet} event.
-
 Requirements:
 
 - The caller must be the owner.
@@ -187,7 +195,30 @@ Requirements:
 
 | Name              | Type                     | Description                                   |
 | :---------------- | :----------------------- | :-------------------------------------------- |
-| `newBalanceSheet` | contract IBalanceSheetV1 | The address of the new BalanceSheet contract. |
+| `newBalanceSheet` | contract IBalanceSheetV2 | The address of the new BalanceSheet contract. |
+
+### withdrawUnderlying
+
+```solidity
+function withdrawUnderlying(
+    uint256 underlyingAmount
+) external
+```
+
+Withdraws underlying in exchange for hTokens.
+
+Emits a {WithdrawUnderlying} event.
+
+Requirements:
+
+- The underlying amount to withdraw cannot be zero.
+- Can only be called before maturation.
+
+#### Parameters
+
+| Name               | Type    | Description                           |
+| :----------------- | :------ | :------------------------------------ |
+| `underlyingAmount` | uint256 | The amount of underlying to withdraw. |
 
 ## Events
 
@@ -230,31 +261,31 @@ Emitted when tokens are minted.
 ### Redeem
 
 ```solidity
-  event Redeem(
+event Redeem(
     address account,
-    uint256 hTokenAmount,
-    uint256 underlyingAmount
-  )
+    uint256 underlyingAmount,
+    uint256 hTokenAmount
+)
 ```
 
-Emitted when hTokens are redeemed.
+Emitted when underlying is redeemed.
 
 #### Parameters
 
-| Name               | Type    | Description                               |
-| :----------------- | :------ | :---------------------------------------- |
-| `account`          | address | The account redeeming the hTokens.        |
-| `hTokenAmount`     | uint256 | The amount of redeemed hTokens.           |
-| `underlyingAmount` | uint256 | The amount of received underlying tokens. |
+| Name               | Type    | Description                           |
+| :----------------- | :------ | :------------------------------------ |
+| `account`          | address | The account redeeming the underlying. |
+| `underlyingAmount` | uint256 | The amount of redeemed underlying.    |
+| `hTokenAmount`     | uint256 | The amount of provided hTokens.       |
 
 ### SetBalanceSheet
 
 ```solidity
-  event SetBalanceSheet(
+event SetBalanceSheet(
     address owner,
-    contract IBalanceSheetV1 oldBalanceSheet,
-    contract IBalanceSheetV1 newBalanceSheet
-  )
+    contract IBalanceSheetV2 oldBalanceSheet,
+    contract IBalanceSheetV2 newBalanceSheet
+)
 ```
 
 Emitted when the BalanceSheet is set.
@@ -264,8 +295,8 @@ Emitted when the BalanceSheet is set.
 | Name              | Type                     | Description                          |
 | :---------------- | :----------------------- | :----------------------------------- |
 | `owner`           | address                  | The address of the owner.            |
-| `oldBalanceSheet` | contract IBalanceSheetV1 | The address of the old BalanceSheet. |
-| `newBalanceSheet` | contract IBalanceSheetV1 | The address of the new BalanceSheet. |
+| `oldBalanceSheet` | contract IBalanceSheetV2 | The address of the old BalanceSheet. |
+| `newBalanceSheet` | contract IBalanceSheetV2 | The address of the new BalanceSheet. |
 
 ### SupplyUnderlying
 
@@ -286,3 +317,23 @@ Emitted when underlying is supplied in exchange for an equivalent amount of hTok
 | `account`          | address | The account supplying underlying.  |
 | `underlyingAmount` | uint256 | The amount of supplied underlying. |
 | `hTokenAmount`     | uint256 | The amount of minted hTokens.      |
+
+### WithdrawUnderlying
+
+```solidity
+event WithdrawUnderlying(
+    address depositor,
+    uint256 underlyingAmount,
+    uint256 hTokenAmount
+)
+```
+
+Emitted when a depositor withdraws previously deposited underlying.
+
+#### Parameters
+
+| Name               | Type    | Description                         |
+| :----------------- | :------ | :---------------------------------- |
+| `depositor`        | address | The address of the depositor.       |
+| `underlyingAmount` | uint256 | The amount of withdrawn underlying. |
+| `hTokenAmount`     | uint256 | The amount of minted hTokens.       |
