@@ -46,7 +46,7 @@ Emits a {TrackPool} event.
 
 Requirements:
 
-- The pool shouldn't have already been tracked.
+- The pool shouldn't be tracked.
 
 #### Parameters
 
@@ -68,7 +68,7 @@ Emits an {UntrackPool} event.
 
 Requirements:
 
-- The pool should have been tracked.
+- The pool should be tracked.
 
 #### Parameters
 

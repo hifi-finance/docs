@@ -21,7 +21,7 @@ Returns the BalanceSheet contract this HToken is connected to.
 ### getDepositorBalance
 
 ```solidity
-function getDepositorBalance() external returns (uint256 amount)
+function getDepositorBalance(address depositor) external returns (uint256 amount)
 ```
 
 Returns the balance of the given depositor.

@@ -410,33 +410,69 @@ Requirements:
 ```solidity
 event AddLiquidity(
     uint256 maturity,
-    address indexed provider,
+    address provider,
     uint256 underlyingAmount,
     uint256 hTokenAmount,
     uint256 poolTokenAmount
-);
+)
 ```
+
+Emitted when liquidity is added to the AMM.
+
+#### Parameters
+
+| Name               | Type    | Description                            |
+| :----------------- | :------ | :------------------------------------- |
+| `maturity`         | uint256 | The maturity of the hToken.            |
+| `provider`         | address | The address of the liquidity provider. |
+| `underlyingAmount` | uint256 | The amount of underlying provided.     |
+| `hTokenAmount`     | uint256 | The amount of hTokens provided.        |
+| `poolTokenAmount`  | uint256 | The amount of pool tokens minted.      |
 
 ### RemoveLiquidity
 
 ```solidity
 event RemoveLiquidity(
     uint256 maturity,
-    address indexed provider,
+    address provider,
     uint256 underlyingAmount,
     uint256 hTokenAmount,
     uint256 poolTokenAmount
-);
+)
 ```
+
+Emitted when liquidity is removed from the AMM.
+
+#### Parameters
+
+| Name               | Type    | Description                             |
+| :----------------- | :------ | :-------------------------------------- |
+| `maturity`         | uint256 | The maturity of the hToken.             |
+| `provider`         | address | The address of the liquidity withdrawn. |
+| `underlyingAmount` | uint256 | The amount of underlying withdrawn.     |
+| `hTokenAmount`     | uint256 | The amount of hTokens provided.         |
+| `poolTokenAmount`  | uint256 | The amount of pool tokens burned.       |
 
 ### Trade
 
 ```solidity
 event Trade(
     uint256 maturity,
-    address indexed from,
-    address indexed to,
+    address from,
+    address to,
     int256 underlyingAmount,
     int256 hTokenAmount
-);
+)
 ```
+
+Emitted when a trade is made in the AMM.
+
+#### Parameters
+
+| Name               | Type    | Description                                    |
+| :----------------- | :------ | :--------------------------------------------- |
+| `maturity`         | uint256 | The maturity of the hToken.                    |
+| `from`             | address | The account sending the tokens to the AMM.     |
+| `to`               | address | The account receiving the tokens from the AMM. |
+| `underlyingAmount` | int256  | The amount of underlying bought or sold.       |
+| `hTokenAmount`     | int256  | The amount of hTokens bought or sold.          |
