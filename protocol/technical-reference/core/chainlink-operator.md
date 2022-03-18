@@ -72,7 +72,7 @@ has 8 decimals.
 
 Requirements:
 
-- The feed must have been previously set.
+- The feed must be set.
 - The price returned by the oracle cannot be zero.
 
 #### Parameters
@@ -120,7 +120,7 @@ Emits a {DeleteFeed} event.
 Requirements:
 
 - The caller must be the owner.
-- The feed must have been previously set.
+- The feed must be set already.
 
 #### Parameters
 

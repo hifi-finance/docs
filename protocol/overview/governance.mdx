@@ -40,7 +40,8 @@ The ephemeral nature of the hTokens permits us to make changes to their source c
 
 Smart contracts are powerful technology, but the fact that they are immutable once deployed brings risks. We hedge against these risks in the following ways:
 
-1. We made two of our smart contracts upgradeable (the [BalanceSheet](../technical-reference/core/balance-sheet.md) and the [Fintroller](../technical-reference/core/fintroller.md)).
+1. We designed the [BalanceSheet](../technical-reference/core/balance-sheet.md)) contract to be upgradeable. This is
+   the contract that holds all users' collateral deposits.
 2. We enforced caps on how much debt can be taken on by borrowers.
 3. We gave ourselves the ability to pause most operations (except for collateral withdrawals).
 

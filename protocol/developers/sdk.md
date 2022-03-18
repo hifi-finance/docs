@@ -36,7 +36,7 @@ $ yarn add @hifi/protocol
 #### Solidity
 
 ```solidity
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
 import "@hifi/protocol/contracts/core/balanceSheet/IBalanceSheetV1.sol";
@@ -89,7 +89,7 @@ $ yarn add @hifi/amm
 #### Solidity
 
 ```solidity
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
 import "@hifi/amm/contracts/IHifiPool.sol";
@@ -137,7 +137,7 @@ $ yarn add @hifi/proxy-target
 You will likely never need to interact with the smart contracts from Solidity. Though for the sake of completeness, here is a code snippet for how to do that:
 
 ```solidity
-// SPDX-License-Identifier: Unlicense
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4;
 
 import "@hifi/proxy-target/contracts/IHifiProxyTarget.sol";

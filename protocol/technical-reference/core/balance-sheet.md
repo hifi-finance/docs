@@ -12,6 +12,8 @@ users.
 When a user borrow hTokens, a vault is opened for them in the `BalanceSheet`. All vaults are recorded and managed in
 this contract.
 
+This is the only upgradeable contract in the Hifi protocol. The most up to date version is the [BalanceSheetV2](https://github.com/hifi-finance/hifi/blob/%40hifi/protocol%401.9.0/packages/protocol/contracts/core/balance-sheet/BalanceSheetV2.sol).
+
 ## Constant Functions
 
 ### getBondList
@@ -266,8 +268,8 @@ Emits a {DepositCollateral} event.
 
 Requirements:
 
-- The amount to deposit cannot be zero.
 - The Fintroller must allow this action to be performed.
+- The amount to deposit cannot be zero.
 - The caller must have allowed this contract to spend `collateralAmount` tokens.
 - The new collateral amount cannot exceed the collateral ceiling.
 
@@ -364,6 +366,29 @@ Requirements:
 | `bond`        | contract IHToken | The address of the bond contract                    |
 | `repayAmount` | uint256          | The amount of hTokens to repay.                     |
 
+### setFintroller
+
+```solidity
+function setFintroller(
+    contract IFintroller newFintroller
+) external
+```
+
+Updates the Fintroller contract this BalanceSheet is connected to.
+
+Emits a {SetFintroller} event.
+
+Requirements:
+
+- The caller must be the owner.
+- The new address cannot be the zero address.
+
+#### Parameters
+
+| Name            | Type                 | Description                  |
+| :-------------- | :------------------- | :--------------------------- |
+| `newFintroller` | contract IFintroller | The new Fintroller contract. |
+
 ### setOracle
 
 ```solidity
@@ -372,7 +397,7 @@ function setOracle(
 ) external
 ```
 
-Updates the oracle contract's address saved in storage.
+Updates the oracle contract.
 
 Emits a {SetOracle} event.
 
@@ -505,6 +530,26 @@ Emitted when a borrow is repaid.
 | `repayAmount`   | uint256          | The amount of repaid funds.       |
 | `newDebtAmount` | uint256          | The amount of the new debt.       |
 
+### SetFintroller
+
+```solidity
+event SetFintroller(
+    address owner,
+    address oldFintroller,
+    address newFintroller
+)
+```
+
+Emitted when a new Fintroller contract is set.
+
+#### Parameters
+
+| Name            | Type    | Description                                 |
+| :-------------- | :------ | :------------------------------------------ |
+| `owner`         | address | The address of the owner.                   |
+| `oldFintroller` | address | The address of the old Fintroller contract. |
+| `newFintroller` | address | The address of the new Fintroller contract. |
+
 ### SetOracle
 
 ```solidity
@@ -515,15 +560,15 @@ event SetOracle(
 )
 ```
 
-Emitted when a new oracle is set.
+Emitted when a new oracle contract is set.
 
 #### Parameters
 
-| Name        | Type    | Description                    |
-| :---------- | :------ | :----------------------------- |
-| `owner`     | address | The address of the owner.      |
-| `oldOracle` | address | The address of the old oracle. |
-| `newOracle` | address | The address of the new oracle. |
+| Name        | Type    | Description                             |
+| :---------- | :------ | :-------------------------------------- |
+| `owner`     | address | The address of the owner.               |
+| `oldOracle` | address | The address of the old oracle contract. |
+| `newOracle` | address | The address of the new oracle contract. |
 
 ### WithdrawCollateral
 
