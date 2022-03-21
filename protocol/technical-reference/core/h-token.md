@@ -240,6 +240,26 @@ Emitted when tokens are burnt.
 | `holder`     | address | The address of the holder.  |
 | `burnAmount` | uint256 | The amount of burnt tokens. |
 
+### DepositUnderlying
+
+```solidity
+event DepositUnderlying(
+    address depositor,
+    uint256 depositUnderlyingAmount,
+    uint256 hTokenAmount
+)
+```
+
+Emitted when underlying is deposited in exchange for an equivalent amount of hTokens.
+
+#### Parameters
+
+| Name                      | Type    | Description                         |
+| :------------------------ | :------ | :---------------------------------- |
+| `depositor`               | address | The address of the depositor.       |
+| `depositUnderlyingAmount` | uint256 | The amount of deposited underlying. |
+| `hTokenAmount`            | uint256 | The amount of minted hTokens.       |
+
 ### Mint
 
 ```solidity
@@ -297,26 +317,6 @@ Emitted when the BalanceSheet is set.
 | `owner`           | address                  | The address of the owner.            |
 | `oldBalanceSheet` | contract IBalanceSheetV2 | The address of the old BalanceSheet. |
 | `newBalanceSheet` | contract IBalanceSheetV2 | The address of the new BalanceSheet. |
-
-### SupplyUnderlying
-
-```solidity
-  event SupplyUnderlying(
-    address account,
-    uint256 underlyingAmount,
-    uint256 hTokenAmount
-  )
-```
-
-Emitted when underlying is supplied in exchange for an equivalent amount of hTokens.
-
-#### Parameters
-
-| Name               | Type    | Description                        |
-| :----------------- | :------ | :--------------------------------- |
-| `account`          | address | The account supplying underlying.  |
-| `underlyingAmount` | uint256 | The amount of supplied underlying. |
-| `hTokenAmount`     | uint256 | The amount of minted hTokens.      |
 
 ### WithdrawUnderlying
 

@@ -15,7 +15,7 @@ Controls the financial permissions and risk parameters for the Hifi protocol.
 ```solidity
 function getBond(
     contract IHToken bond
-) external returns (struct SFintrollerV1.Bond)
+) external returns (struct IFintroller.Bond)
 ```
 
 Returns the Bond struct instance associated to the given address.
@@ -24,9 +24,9 @@ It is not an error to provide an invalid address.
 
 #### Parameters
 
-| Type             | Description                       |
-| :--------------- | :-------------------------------- |
-| contract IHToken | The address of the bond contract. |
+| Name   | Type             | Description                       |
+| :----- | :--------------- | :-------------------------------- |
+| `bond` | contract IHToken | The address of the bond contract. |
 
 #### Return Values
 
@@ -63,7 +63,7 @@ The bond must be listed.
 ```solidity
 function getCollateral(
     contract IErc20 collateral
-) external returns (struct SFintrollerV1.Collateral)
+) external returns (struct IFintroller.Collateral)
 ```
 
 Returns the Collateral struct instance associated to the given address.
@@ -168,15 +168,38 @@ The collateral must be listed.
 
 #### Parameters
 
-| Name         | Type            | Description                                        |
-| :----------- | :-------------- | :------------------------------------------------- |
-| `collateral` | contract IErc20 | The collateral contract to make the check against. |
+| Name         | Type            | Description                               |
+| :----------- | :-------------- | :---------------------------------------- |
+| `collateral` | contract IErc20 | The collateral to make the check against. |
 
 #### Return Values
 
 | Name   | Type            | Description                          |
 | :----- | :-------------- | :----------------------------------- |
 | `bool` | contract IErc20 | true = allowed, false = not allowed. |
+
+### getDepositUnderlyingAllowed
+
+```solidity
+function getDepositUnderlyingAllowed(
+    contract IHToken bond
+) external returns (bool)
+```
+
+Checks if underlying deposits are allowed.
+The bond must be listed.
+
+#### Parameters
+
+| Name   | Type             | Description                         |
+| :----- | :--------------- | :---------------------------------- |
+| `bond` | contract IHToken | The bond to make the check against. |
+
+#### Return Values
+
+| Name   | Type             | Description                          |
+| :----- | :--------------- | :----------------------------------- |
+| `bool` | contract IHToken | true = allowed, false = not allowed. |
 
 ### getLiquidationIncentive
 
@@ -293,6 +316,15 @@ Checks if the collateral is listed.
 | Name   | Type            | Description                   |
 | :----- | :-------------- | :---------------------------- |
 | `bool` | contract IErc20 | true = listed, otherwise not. |
+
+### maxBonds
+
+```solidity
+function maxBonds(
+) external returns (uint256)
+```
+
+Returns the maximum number of bond markets a single account can enter.
 
 ## Non-Constant Functions
 
@@ -468,6 +500,29 @@ Requirements:
 | `bond`           | contract IHToken | The bond to update the debt ceiling for. |
 | `newDebtCeiling` | uint256          | The new debt ceiling.                    |
 
+### setDepositUnderlyingAllowed
+
+```solidity
+function setDepositUnderlyingAllowed(
+    contract IHToken bond,
+    bool state
+) external
+```
+
+Updates the state of the permission accessed by the hToken before an underlying deposit.
+Emits a {SetDepositUnderlyingAllowed} event.
+
+Requirements:
+
+- The caller must be the owner.
+
+#### Parameters
+
+| Name    | Type             | Description                            |
+| :------ | :--------------- | :------------------------------------- |
+| `bond`  | contract IHToken | The bond to update the permission for. |
+| `state` | bool             | The new state to put in storage.       |
+
 ### setLiquidationIncentive
 
 ```solidity
@@ -608,11 +663,11 @@ Emitted when a new collateral is listed.
 ### SetBorrowAllowed
 
 ```solidity
-  event SetBorrowAllowed(
+event SetBorrowAllowed(
     address owner,
     contract IHToken bond,
     bool state
-  )
+)
 ```
 
 Emitted when the borrow permission is updated.
@@ -709,6 +764,26 @@ Emitted when the deposit collateral permission is updated.
 | `owner` | address         | The address of the contract owner.        |
 | `state` | contract IErc20 | True if depositing collateral is allowed. |
 
+### SetDepositUnderlyingAllowed
+
+```solidity
+event SetDepositUnderlyingAllowed(
+    address owner,
+    contract IHToken bond,
+    bool state
+)
+```
+
+Emitted when the deposit underlying permission is set.
+
+#### Parameters
+
+| Name    | Type             | Description                            |
+| :------ | :--------------- | :------------------------------------- |
+| `owner` | address          | The address of the contract owner.     |
+| `bond`  | contract IHToken | The related HToken.                    |
+| `state` | bool             | True if deposit underlying is allowed. |
+
 ### SetLiquidateBorrowAllowed
 
 ```solidity
@@ -771,25 +846,25 @@ Emitted when a new max bonds value is set.
 | `oldMaxBonds` | uint256 | The address of the old max bonds value. |
 | `newMaxBonds` | uint256 | The address of the new max bonds value. |
 
-### SetRedeemHTokensAllowed
+### SetRedeemAllowed
 
 ```solidity
-event SetRedeemHTokensAllowed(
+event SetRedeemAllowed(
     address owner,
     contract IHToken bond,
     bool state
 )
 ```
 
-Emitted when the redeem hTokens permission is updated.
+Emitted when the redeem permission is updated.
 
 #### Parameters
 
-| Name    | Type             | Description                           |
-| :------ | :--------------- | :------------------------------------ |
-| `owner` | address          | The address of the contract owner.    |
-| `bond`  | contract IHToken | The related HToken.                   |
-| `state` | bool             | True if redeeming hTokens is allowed. |
+| Name    | Type             | Description                        |
+| :------ | :--------------- | :--------------------------------- |
+| `owner` | address          | The address of the contract owner. |
+| `bond`  | contract IHToken | The related HToken.                |
+| `state` | bool             | True if redeeming is allowed.      |
 
 ### SetRepayBorrowAllowed
 
@@ -810,23 +885,3 @@ Emitted when the repay borrow permission is updated.
 | `owner` | address          | The address of the contract owner.  |
 | `bond`  | contract IHToken | The related HToken.                 |
 | `state` | bool             | True if repaying borrow is allowed. |
-
-### SetSupplyUnderlyingAllowed
-
-```solidity
-event SetSupplyUnderlyingAllowed(
-    address owner,
-    contract IHToken bond,
-    bool state
-)
-```
-
-Emitted when the supply underlying permission is set.
-
-#### Parameters
-
-| Name    | Type             | Description                              |
-| :------ | :--------------- | :--------------------------------------- |
-| `owner` | address          | The address of the contract owner.       |
-| `bond`  | contract IHToken | The related HToken.                      |
-| `state` | bool             | True if supplying underlying is allowed. |
