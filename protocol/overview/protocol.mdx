@@ -63,15 +63,27 @@ The smart contract code is publicly verifiable on GitHub:
   title="GitHub - hifi-finance/hifi: Monorepo implementing the Hifi fixed-rate, fixed-term lending protocol"
 />
 
-The git commit that we used for deploying on mainnet is [f7a85c5](https://github.com/hifi-finance/hifi/commit/f7a85c55aba99eb04cecc0c47d2ec174c1855a68). All contracts have their source code verified on
-Etherscan and Polygonscan.
+We're taking great care of our smart contract releases by tagging, versioning and publishing to npm. In addition, we're
+maintaining detailed CHANGELOG files for each package in the monorepo.
+
+All contracts have their source code verified on Etherscan and Polygonscan.
+
+## Licensing
+
+The smart contracts in the
+[protocol](https://github.com/hifi-finance/hifi/tree/%40hifi/protocol%401.9.0/packages/protocol) and the
+[amm](https://github.com/hifi-finance/hifi/tree/%40hifi/amm%401.9.1/packages/amm) packages are released under the
+[BUSL-1.1](https://github.com/hifi-finance/hifi/blob/7ea0664879e2f122306369d1fc3206c94bf1cbeb/LICENSE.md) license. The
+expiry date of this license is set to June 1, 2024, at which time the code will start being licensed under LPGL v3.
+
+All other contracts are licensed under LGPL v3, except for our testing-related contracts which are unlicensed.
 
 ## Protocol Math
 
-The Hifi protocol uses the [PRBMath](https://github.com/hifi-finance/prb-math) fixed-point math library to represent
-fractional quantities with sufficient precision. This library is especially needed in our
-[AMM](../technical-reference/market-making/hifi-pool), but we're also using it in the
+The Hifi protocol uses the [PRBMath](https://github.com/paulrberg/prb-math) fixed-point math library to represent
+fractional quantities with sufficient precision. We need this library especially in the AMM
+[AMM](../technical-reference/market-making/hifi-pool), but it's also helpful in calculating account liquidities in the
 [BalanceSheet](../technical-reference/core/balance-sheet.md) contract.
 
 Most numbers are represented as a "UD60x18" (unsigned integers scaled by 10^18) in order to perform math operation at
-a high level of precision. So number values in Hifi have 18 decimals of precision, just like ETH is equal to 10^18 wei.
+a high enough level of precision. Thus in Hifi numbers have 18 decimals of precision, similar to how ETH is equal to 10^18 wei.
