@@ -92,8 +92,8 @@ Calculates the current account liquidity.
 
 | Name                 | Type    | Description                                             |
 | :------------------- | :------ | :------------------------------------------------------ |
-| `excessLiquidity`    | address | account liquidity in excess of collateral requirements. |
-| `shortfallLiquidity` |         | account shortfall below collateral requirements         |
+| `excessLiquidity`    | uint256 | account liquidity in excess of collateral requirements. |
+| `shortfallLiquidity` | uint256 | account shortfall below collateral requirements         |
 
 ### getDebtAmount
 
@@ -150,10 +150,10 @@ Caveats:
 
 #### Return Values
 
-| Name                 | Type            | Description                                                          |
-| :------------------- | :-------------- | :------------------------------------------------------------------- |
-| `excessLiquidity`    | address         | hypothetical account liquidity in excess of collateral requirements. |
-| `shortfallLiquidity` | contract IErc20 | hypothetical account shortfall below collateral requirements         |
+| Name                 | Type    | Description                                                          |
+| :------------------- | :------ | :------------------------------------------------------------------- |
+| `excessLiquidity`    | uint256 | hypothetical account liquidity in excess of collateral requirements. |
+| `shortfallLiquidity` | uint256 | hypothetical account shortfall below collateral requirements         |
 
 ### getRepayAmount
 
@@ -185,9 +185,9 @@ $$
 
 #### Return Values
 
-| Name          | Type            | Description                                  |
-| :------------ | :-------------- | :------------------------------------------- |
-| `repayAmount` | contract IErc20 | The amount of hTokens that should be repaid. |
+| Name          | Type    | Description                                  |
+| :------------ | :------ | :------------------------------------------- |
+| `repayAmount` | uint256 | The amount of hTokens that should be repaid. |
 
 ### getSeizableCollateralAmount
 
@@ -218,9 +218,9 @@ $$
 
 #### Return Values
 
-| Name                       | Type             | Description                        |
-| :------------------------- | :--------------- | :--------------------------------- |
-| `seizableCollateralAmount` | contract IHToken | The amount of seizable collateral. |
+| Name                       | Type    | Description                        |
+| :------------------------- | :------ | :--------------------------------- |
+| `seizableCollateralAmount` | uint256 | The amount of seizable collateral. |
 
 ## Non-Constant Functions
 
@@ -284,8 +284,8 @@ Requirements:
 
 ```solidity
 function liquidateBorrow(
-    address bond,
-    contract IHToken borrower,
+    address borrower,
+    contract IHToken bond,
     uint256 repayAmount,
     contract IErc20 collateral
 ) external
@@ -307,8 +307,8 @@ Requirements:
 
 | Name          | Type             | Description                             |
 | :------------ | :--------------- | :-------------------------------------- |
-| `bond`        | address          | The address of the bond contract.       |
-| `borrower`    | contract IHToken | The account to liquidate.               |
+| `borrower`    | address          | The account to liquidate.               |
+| `bond`        | contract IHToken | The address of the bond contract.       |
 | `repayAmount` | uint256          | The amount of hTokens to repay.         |
 | `collateral`  | contract IErc20  | The address of the collateral contract. |
 
@@ -589,3 +589,173 @@ Emitted when collateral is withdrawn.
 | `account`          | address         | The address of the borrower.        |
 | `collateral`       | contract IErc20 | The related collateral.             |
 | `collateralAmount` | uint256         | The amount of withdrawn collateral. |
+
+## Custom Errors
+
+### BalanceSheet\_\_BondMatured
+
+```solidity
+error BalanceSheet__BondMatured(contract IHToken bond)
+```
+
+Emitted when the bond matured.
+
+### BalanceSheet\_\_BorrowMaxBonds
+
+```solidity
+error BalanceSheet__BorrowMaxBonds(contract IHToken bond, uint256 newBondListLength, uint256 maxBonds)
+```
+
+Emitted when the account exceeds the maximum numbers of bonds permitted.
+
+### BalanceSheet\_\_BorrowNotAllowed
+
+```solidity
+error BalanceSheet__BorrowNotAllowed(contract IHToken bond)
+```
+
+Emitted when borrows are not allowed by the Fintroller contract.
+
+### BalanceSheet\_\_BorrowZero
+
+```solidity
+error BalanceSheet__BorrowZero()
+```
+
+Emitted when borrowing a zero amount of hTokens.
+
+### BalanceSheet\_\_CollateralCeilingOverflow
+
+```solidity
+error BalanceSheet__CollateralCeilingOverflow(uint256 newTotalSupply, uint256 debtCeiling)
+```
+
+Emitted when the new collateral amount exceeds the collateral ceiling.
+
+### BalanceSheet\_\_DebtCeilingOverflow
+
+```solidity
+error BalanceSheet__DebtCeilingOverflow(uint256 newCollateralAmount, uint256 debtCeiling)
+```
+
+Emitted when the new total amount of debt exceeds the debt ceiling.
+
+### BalanceSheet\_\_DepositCollateralNotAllowed
+
+```solidity
+error BalanceSheet__DepositCollateralNotAllowed(contract IErc20 collateral)
+```
+
+Emitted when collateral deposits are not allowed by the Fintroller contract.
+
+### BalanceSheet\_\_DepositCollateralZero
+
+```solidity
+error BalanceSheet__DepositCollateralZero()
+```
+
+Emitted when depositing a zero amount of collateral.
+
+### BalanceSheet\_\_FintrollerZeroAddress
+
+```solidity
+error BalanceSheet__FintrollerZeroAddress()
+```
+
+Emitted when setting the Fintroller contract to the zero address.
+
+### BalanceSheet\_\_LiquidateBorrowInsufficientCollateral
+
+```solidity
+error BalanceSheet__LiquidateBorrowInsufficientCollateral(address account, uint256 vaultCollateralAmount, uint256 seizableAmount)
+```
+
+Emitted when there is not enough collateral to seize.
+
+### BalanceSheet\_\_LiquidateBorrowNotAllowed
+
+```solidity
+error BalanceSheet__LiquidateBorrowNotAllowed(contract IHToken bond)
+```
+
+Emitted when borrow liquidations are not allowed by the Fintroller contract.
+
+### BalanceSheet\_\_LiquidateBorrowSelf
+
+```solidity
+error BalanceSheet__LiquidateBorrowSelf(address account)
+```
+
+Emitted when the borrower is liquidating themselves.
+
+### BalanceSheet\_\_LiquidityShortfall
+
+```solidity
+error BalanceSheet__LiquidityShortfall(address account, uint256 shortfallLiquidity)
+```
+
+Emitted when there is a liquidity shortfall.
+
+### BalanceSheet\_\_NoLiquidityShortfall
+
+```solidity
+error BalanceSheet__NoLiquidityShortfall(address account)
+```
+
+Emitted when there is no liquidity shortfall.
+
+### BalanceSheet\_\_OracleZeroAddress
+
+```solidity
+error BalanceSheet__OracleZeroAddress()
+```
+
+Emitted when setting the oracle contract to the zero address.
+
+### BalanceSheet\_\_RepayBorrowInsufficientBalance
+
+```solidity
+error BalanceSheet__RepayBorrowInsufficientBalance(contract IHToken bond, uint256 repayAmount, uint256 hTokenBalance)
+```
+
+Emitted when the repayer does not have enough hTokens to repay the debt.
+
+### BalanceSheet\_\_RepayBorrowInsufficientDebt
+
+```solidity
+error BalanceSheet__RepayBorrowInsufficientDebt(contract IHToken bond, uint256 repayAmount, uint256 debtAmount)
+```
+
+Emitted when repaying more debt than the borrower owes.
+
+### BalanceSheet\_\_RepayBorrowNotAllowed
+
+```solidity
+error BalanceSheet__RepayBorrowNotAllowed(contract IHToken bond)
+```
+
+Emitted when borrow repays are not allowed by the Fintroller contract.
+
+### BalanceSheet\_\_RepayBorrowZero
+
+```solidity
+error BalanceSheet__RepayBorrowZero()
+```
+
+Emitted when repaying a borrow with a zero amount of hTokens.
+
+### BalanceSheet\_\_WithdrawCollateralUnderflow
+
+```solidity
+error BalanceSheet__WithdrawCollateralUnderflow(address account, uint256 vaultCollateralAmount, uint256 withdrawAmount)
+```
+
+Emitted when withdrawing more collateral than there is in the vault.
+
+### BalanceSheet\_\_WithdrawCollateralZero
+
+```solidity
+error BalanceSheet__WithdrawCollateralZero()
+```
+
+Emitted when withdrawing a zero amount of collateral.

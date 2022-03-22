@@ -84,7 +84,7 @@ amount of underlying invested.
 | Name               | Type    | Description                                                        |
 | :----------------- | :------ | :----------------------------------------------------------------- |
 | `hTokenRequired`   | uint256 | The hypothetical amount of hTokens required to mint new LP tokens. |
-| `poolTokensMinted` |         | The amount of LP tokens to mint.                                   |
+| `poolTokensMinted` | uint256 | The amount of LP tokens to mint.                                   |
 
 ### getBurnOutputs
 
@@ -107,7 +107,7 @@ Calculates how much underlying and hToken would be returned for a given amount o
 | Name                 | Type    | Description                                 |
 | :------------------- | :------ | :------------------------------------------ |
 | `underlyingReturned` | uint256 | The amount of reserve underlying retrieved. |
-| `hTokenReturned`     |         | The amount of reserve hToken retrieved.     |
+| `hTokenReturned`     | uint256 | The amount of reserve hToken retrieved.     |
 
 ### getQuoteForSellingHToken
 
@@ -246,7 +246,7 @@ Requirements:
 | Name                 | Type    | Description                                 |
 | :------------------- | :------ | :------------------------------------------ |
 | `underlyingReturned` | uint256 | The amount of reserve underlying retrieved. |
-| `hTokenReturned`     |         | The amount of reserve hToken retrieved.     |
+| `hTokenReturned`     | uint256 | The amount of reserve hToken retrieved.     |
 
 ### buyHToken
 
@@ -278,7 +278,7 @@ Requirements:
 
 | Name           | Type    | Description                                                            |
 | :------------- | :------ | :--------------------------------------------------------------------- |
-| `underlyingIn` | address | The amount of underlying that will be taken from the caller's account. |
+| `underlyingIn` | uint256 | The amount of underlying that will be taken from the caller's account. |
 
 ### buyUnderlying
 
@@ -308,7 +308,7 @@ Requirements:
 
 | Name       | Type    | Description                                                         |
 | :--------- | :------ | :------------------------------------------------------------------ |
-| `hTokenIn` | address | The amount of hTokens that will be taken from the caller's account. |
+| `hTokenIn` | uint256 | The amount of hTokens that will be taken from the caller's account. |
 
 ### mint
 
@@ -369,7 +369,7 @@ Requirements:
 
 | Name            | Type    | Description                                                            |
 | :-------------- | :------ | :--------------------------------------------------------------------- |
-| `underlyingOut` | address | The amount of underlying that will be transferred to the `to` account. |
+| `underlyingOut` | uint256 | The amount of underlying that will be transferred to the `to` account. |
 
 ### sellUnderlying
 
@@ -401,7 +401,7 @@ Requirements:
 
 | Name        | Type    | Description                                                           |
 | :---------- | :------ | :-------------------------------------------------------------------- |
-| `hTokenOut` | address | The amount of hTokenOut that will be transferred to the `to` account. |
+| `hTokenOut` | uint256 | The amount of hTokenOut that will be transferred to the `to` account. |
 
 ## Events
 
@@ -476,3 +476,102 @@ Emitted when a trade is made in the AMM.
 | `to`               | address | The account receiving the tokens from the AMM. |
 | `underlyingAmount` | int256  | The amount of underlying bought or sold.       |
 | `hTokenAmount`     | int256  | The amount of hTokens bought or sold.          |
+
+## Custom Errors
+
+### HifiPool\_\_BondMatured
+
+```solidity
+error HifiPool__BondMatured()
+```
+
+Emitted when the bond matured.
+
+### HifiPool\_\_BuyHTokenZero
+
+```solidity
+error HifiPool__BuyHTokenZero()
+```
+
+Emitted when attempting to buy a zero amount of hTokens.
+
+### HifiPool\_\_BuyHTokenUnderlyingZero
+
+```solidity
+error HifiPool__BuyHTokenUnderlyingZero()
+```
+
+Emitted when attempting to buy hTokens with a zero amount of underlying.
+
+### HifiPool\_\_BuyUnderlyingZero
+
+```solidity
+error HifiPool__BuyUnderlyingZero()
+```
+
+Emitted when attempting to buy a zero amount of underlying.
+
+### HifiPool\_\_BurnZero
+
+```solidity
+error HifiPool__BurnZero()
+```
+
+Emitted when offering zero underlying to mint LP tokens.
+
+### HifiPool\_\_MintZero
+
+```solidity
+error HifiPool__MintZero()
+```
+
+Emitted when offering zero underlying to mint LP tokens.
+
+### HifiPool\_\_NegativeInterestRate
+
+```solidity
+error HifiPool__NegativeInterestRate(uint256 virtualHTokenReserves, uint256 hTokenOut, uint256 normalizedUnderlyingReserves, uint256 normalizedUnderlyingIn)
+```
+
+Emitted when buying hTokens or selling underlying and the resultant hToken reserves would become
+smaller than the underlying reserves.
+
+### HifiPool\_\_SellHTokenZero
+
+```solidity
+error HifiPool__SellHTokenZero()
+```
+
+Emitted when attempting to sell a zero amount of hToken.
+
+### HifiPool\_\_SellHTokenUnderlyingZero
+
+```solidity
+error HifiPool__SellHTokenUnderlyingZero()
+```
+
+Emitted when attempting to sell hTokens in exchange for a zero amount of underlying.
+
+### HifiPool\_\_SellUnderlyingZero
+
+```solidity
+error HifiPool__SellUnderlyingZero()
+```
+
+Emitted when attempting to sell a zero amount of underlying.
+
+### HifiPool\_\_ToInt256CastOverflow
+
+```solidity
+error HifiPool__ToInt256CastOverflow(uint256 number)
+```
+
+Emitted when trying to convert a uint256 number that doesn&#x27;t fit within int256.
+
+### HifiPool\_\_VirtualHTokenReservesOverflow
+
+```solidity
+error HifiPool__VirtualHTokenReservesOverflow(uint256 hTokenBalance, uint256 totalSupply)
+```
+
+Emitted when the hToken balance added to the total supply of LP tokens overflows uint256.

@@ -102,3 +102,46 @@ Emitted when a flash swap is made and an account is liquidated.
 | `repayAmount`      | uint256 | The amount of collateral that had to be repaid by the liquidator. |
 | `subsidyAmount`    | uint256 | The amount of collateral subsidized by the liquidator.            |
 | `profitAmount`     | uint256 | The amount of collateral pocketed as profit by the liquidator.    |
+
+## Custom Errors
+
+### FlashUniswapV2\_\_CallNotAuthorized
+
+```solidity
+error FlashUniswapV2__CallNotAuthorized(address caller);
+```
+
+Emitted when the caller is not the Uniswap V2 pair contract.
+
+### FlashUniswapV2\_\_FlashBorrowCollateral
+
+```solidity
+error FlashUniswapV2__FlashBorrowCollateral(address collateral, address underlying);
+```
+
+Emitted when the flash borrowed asset is the collateral instead of the underlying.
+
+### FlashUniswapV2\_\_LiquidateUnderlyingBackedVault
+
+```solidity
+error FlashUniswapV2__LiquidateUnderlyingBackedVault(address borrower, address underlying);
+```
+
+Emitted when liquidating a vault backed by underlying.
+
+### FlashUniswapV2\_\_TurnoutNotSatisfied
+
+```solidity
+error FlashUniswapV2__TurnoutNotSatisfied(uint256 seizeAmount, uint256 repayAmount, int256 turnout);
+```
+
+Emitted when the liquidation either does not yield a sufficient profit or it costs more
+than what the subsidizer is willing to pay.
+
+### FlashUniswapV2\_\_UnderlyingNotInPool(IUniswapV2Pair
+
+```solidity
+error FlashUniswapV2__UnderlyingNotInPool(IUniswapV2Pair pair, address token0, address token1, IErc20 underlying);
+```
+
+Emitted when neither the token0 nor the token1 is the underlying.

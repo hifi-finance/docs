@@ -24,9 +24,9 @@ It is not an error to provide an invalid address.
 
 #### Parameters
 
-| Name   | Type             | Description                       |
-| :----- | :--------------- | :-------------------------------- |
-| `bond` | contract IHToken | The address of the bond contract. |
+| Name  | Type                    | Description      |
+| :---- | :---------------------- | :--------------- |
+| `[0]` | struct IFintroller.Bond | The bond object. |
 
 #### Return Values
 
@@ -54,9 +54,9 @@ The bond must be listed.
 
 #### Return Values
 
-| Name   | Type             | Description                          |
-| :----- | :--------------- | :----------------------------------- |
-| `bool` | contract IHToken | true = allowed, false = not allowed. |
+| Name  | Type | Description                               |
+| :---- | :--- | :---------------------------------------- |
+| `[0]` | bool | bool true = allowed, false = not allowed. |
 
 ### getCollateral
 
@@ -78,9 +78,9 @@ It is not an error to provide an invalid address.
 
 #### Return Values
 
-| Type            | Description        |
-| :-------------- | :----------------- |
-| contract IErc20 | collateral object. |
+| Name  | Type                          | Description            |
+| :---- | :---------------------------- | :--------------------- |
+| `[0]` | struct IFintroller.Collateral | The collateral object. |
 
 ### getCollateralCeiling
 
@@ -150,9 +150,9 @@ It is not an error to provide an invalid address.
 
 #### Return Values
 
-| Type             | Description                                                            |
-| :--------------- | :--------------------------------------------------------------------- |
-| contract IHToken | debt ceiling as a uint256, or zero if an invalid address was provided. |
+| Name  | Type    | Description                                                                |
+| :---- | :------ | :------------------------------------------------------------------------- |
+| `[0]` | uint256 | The debt ceiling as a uint256, or zero if an invalid address was provided. |
 
 ### getDepositCollateralAllowed
 
@@ -174,9 +174,9 @@ The collateral must be listed.
 
 #### Return Values
 
-| Name   | Type            | Description                          |
-| :----- | :-------------- | :----------------------------------- |
-| `bool` | contract IErc20 | true = allowed, false = not allowed. |
+| Name  | Type | Description                               |
+| :---- | :--- | :---------------------------------------- |
+| `[0]` | bool | bool true = allowed, false = not allowed. |
 
 ### getDepositUnderlyingAllowed
 
@@ -197,9 +197,9 @@ The bond must be listed.
 
 #### Return Values
 
-| Name   | Type             | Description                          |
-| :----- | :--------------- | :----------------------------------- |
-| `bool` | contract IHToken | true = allowed, false = not allowed. |
+| Name  | Type | Description                               |
+| :---- | :--- | :---------------------------------------- |
+| `[0]` | bool | bool true = allowed, false = not allowed. |
 
 ### getLiquidationIncentive
 
@@ -221,9 +221,9 @@ It is not an error to provide an invalid address.
 
 #### Return Values
 
-| Type            | Description                                                        |
-| :-------------- | :----------------------------------------------------------------- |
-| contract IErc20 | liquidation incentive, or zero if an invalid address was provided. |
+| Name  | Type    | Description                                                            |
+| :---- | :------ | :--------------------------------------------------------------------- |
+| `[0]` | uint256 | The liquidation incentive, or zero if an invalid address was provided. |
 
 ### getLiquidateBorrowAllowed
 
@@ -245,9 +245,9 @@ The bond must be listed.
 
 #### Return Values
 
-| Name   | Type             | Description                          |
-| :----- | :--------------- | :----------------------------------- |
-| `bool` | contract IHToken | true = allowed, false = not allowed. |
+| Name  | Type | Description                               |
+| :---- | :--- | :---------------------------------------- |
+| `[0]` | bool | bool true = allowed, false = not allowed. |
 
 ### getRepayBorrowAllowed
 
@@ -269,9 +269,9 @@ The bond must be listed.
 
 #### Return Values
 
-| Name   | Type             | Description                          |
-| :----- | :--------------- | :----------------------------------- |
-| `bool` | contract IHToken | true = allowed, false = not allowed. |
+| Name  | Type | Description                               |
+| :---- | :--- | :---------------------------------------- |
+| `[0]` | bool | bool true = allowed, false = not allowed. |
 
 ### isBondListed
 
@@ -291,9 +291,9 @@ Checks if the bond is listed.
 
 #### Return Values
 
-| Name   | Type             | Description                   |
-| :----- | :--------------- | :---------------------------- |
-| `bool` | contract IHToken | true = listed, otherwise not. |
+| Name  | Type | Description                        |
+| :---- | :--- | :--------------------------------- |
+| `[0]` | bool | bool true = listed, otherwise not. |
 
 ### isCollateralListed
 
@@ -313,9 +313,9 @@ Checks if the collateral is listed.
 
 #### Return Values
 
-| Name   | Type            | Description                   |
-| :----- | :-------------- | :---------------------------- |
-| `bool` | contract IErc20 | true = listed, otherwise not. |
+| Name  | Type | Description                        |
+| :---- | :--- | :--------------------------------- |
+| `[0]` | bool | bool true = listed, otherwise not. |
 
 ### maxBonds
 
@@ -450,30 +450,6 @@ Requirements:
 | `collateral`         | contract IErc20 | The collateral to update the collateral ratio for. |
 | `newCollateralRatio` | uint256         | The new collateral ratio.                          |
 
-### setDepositCollateralAllowed
-
-```solidity
-function setDepositCollateralAllowed(
-    contract IErc20 collateral,
-    bool state
-) external
-```
-
-Updates the state of the permission accessed by the BalanceSheet before a collateral deposit.
-
-Emits a {SetDepositCollateralAllowed} event.
-
-Requirements:
-
-- The caller must be the owner.
-
-#### Parameters
-
-| Name         | Type            | Description                                  |
-| :----------- | :-------------- | :------------------------------------------- |
-| `collateral` | contract IErc20 | The collateral to update the permission for. |
-| `state`      | bool            | The new state to put in storage.             |
-
 ### setDebtCeiling
 
 ```solidity
@@ -500,6 +476,30 @@ Requirements:
 | `bond`           | contract IHToken | The bond to update the debt ceiling for. |
 | `newDebtCeiling` | uint256          | The new debt ceiling.                    |
 
+### setDepositCollateralAllowed
+
+```solidity
+function setDepositCollateralAllowed(
+    contract IErc20 collateral,
+    bool state
+) external
+```
+
+Updates the state of the permission accessed by the BalanceSheet before a collateral deposit.
+
+Emits a {SetDepositCollateralAllowed} event.
+
+Requirements:
+
+- The caller must be the owner.
+
+#### Parameters
+
+| Name         | Type            | Description                                  |
+| :----------- | :-------------- | :------------------------------------------- |
+| `collateral` | contract IErc20 | The collateral to update the permission for. |
+| `state`      | bool            | The new state to put in storage.             |
+
 ### setDepositUnderlyingAllowed
 
 ```solidity
@@ -510,6 +510,7 @@ function setDepositUnderlyingAllowed(
 ```
 
 Updates the state of the permission accessed by the hToken before an underlying deposit.
+
 Emits a {SetDepositUnderlyingAllowed} event.
 
 Requirements:
@@ -751,7 +752,8 @@ Emitted when the debt ceiling for a bond is updated.
 ```solidity
 event SetDepositCollateralAllowed(
     address owner,
-    contract IErc20 state
+    contract IErc20 collateral,
+    bool state
 )
 ```
 
@@ -759,10 +761,11 @@ Emitted when the deposit collateral permission is updated.
 
 #### Parameters
 
-| Name    | Type            | Description                               |
-| :------ | :-------------- | :---------------------------------------- |
-| `owner` | address         | The address of the contract owner.        |
-| `state` | contract IErc20 | True if depositing collateral is allowed. |
+| Name         | Type            | Description                               |
+| :----------- | :-------------- | :---------------------------------------- |
+| `owner`      | address         | The address of the contract owner.        |
+| `collateral` | contract IErc20 |                                           |
+| `state`      | bool            | True if depositing collateral is allowed. |
 
 ### SetDepositUnderlyingAllowed
 
@@ -885,3 +888,77 @@ Emitted when the repay borrow permission is updated.
 | `owner` | address          | The address of the contract owner.  |
 | `bond`  | contract IHToken | The related HToken.                 |
 | `state` | bool             | True if repaying borrow is allowed. |
+
+## Custom Errors
+
+### Fintroller\_\_BondNotListed
+
+```solidity
+error Fintroller__BondNotListed(contract IHToken bond)
+```
+
+Emitted when interacting with a bond that is not listed.
+
+### Fintroller\_\_CollateralDecimalsOverflow
+
+```solidity
+error Fintroller__CollateralDecimalsOverflow(uint256 decimals)
+```
+
+Emitted when listing a collateral that has more than 18 decimals.
+
+### Fintroller\_\_CollateralDecimalsZero
+
+```solidity
+error Fintroller__CollateralDecimalsZero()
+```
+
+Emitted when listing a collateral that has zero decimals.
+
+### Fintroller\_\_CollateralNotListed
+
+```solidity
+error Fintroller__CollateralNotListed(contract IErc20 collateral)
+```
+
+Emitted when interacting with a collateral that is not listed.
+
+### Fintroller\_\_CollateralRatioOverflow
+
+```solidity
+error Fintroller__CollateralRatioOverflow(uint256 newCollateralRatio)
+```
+
+Emitted when setting a new collateral ratio that is above the upper bound.
+
+### Fintroller\_\_CollateralRatioUnderflow
+
+```solidity
+error Fintroller__CollateralRatioUnderflow(uint256 newCollateralRatio)
+```
+
+Emitted when setting a new collateral ratio that is below the lower bound.
+
+### Fintroller\_\_DebtCeilingUnderflow
+
+```solidity
+error Fintroller__DebtCeilingUnderflow(uint256 newDebtCeiling, uint256 totalSupply)
+```
+
+Emitted when setting a new debt ceiling that is below the total supply of hTokens.
+
+### Fintroller\_\_LiquidationIncentiveOverflow
+
+```solidity
+error Fintroller__LiquidationIncentiveOverflow(uint256 newLiquidationIncentive)
+```
+
+Emitted when setting a new liquidation incentive that is above the upper bound.
+
+### Fintroller\_\_LiquidationIncentiveUnderflow
+
+```solidity
+error Fintroller__LiquidationIncentiveUnderflow(uint256 newLiquidationIncentive)
+```
+
+Emitted when setting a new liquidation incentive that is below the lower bound.

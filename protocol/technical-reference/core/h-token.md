@@ -21,10 +21,18 @@ Returns the BalanceSheet contract this HToken is connected to.
 ### getDepositorBalance
 
 ```solidity
-function getDepositorBalance(address depositor) external returns (uint256 amount)
+function getDepositorBalance(
+    address depositor
+) external returns (uint256 amount)
 ```
 
 Returns the balance of the given depositor.
+
+#### Parameters
+
+| Name        | Type    |
+| :---------- | :------ |
+| `depositor` | address |
 
 ### fintroller
 
@@ -44,9 +52,9 @@ Checks if the bond matured.
 
 #### Return Values
 
-| Type | Description                               |
-| :--- | :---------------------------------------- |
-| bool | true = bond matured, otherwise it didn't. |
+| Name  | Type | Description                                    |
+| :---- | :--- | :--------------------------------------------- |
+| `[0]` | bool | bool true = bond matured, otherwise it didn't. |
 
 ### maturity
 
@@ -173,9 +181,9 @@ Requirements:
 
 #### Parameters
 
-| Name           | Type    | Description                                               |
-| :------------- | :------ | :-------------------------------------------------------- |
-| `hTokenAmount` | uint256 | The amount of hTokens to redeem for the underlying asset. |
+| Name               | Type    | Description                         |
+| :----------------- | :------ | :---------------------------------- |
+| `underlyingAmount` | uint256 | The amount of underlying to redeem. |
 
 ### \_setBalanceSheet
 
@@ -225,10 +233,10 @@ Requirements:
 ### Burn
 
 ```solidity
-  event Burn(
+event Burn(
     address holder,
     uint256 burnAmount
-  )
+)
 ```
 
 Emitted when tokens are burnt.
@@ -263,10 +271,10 @@ Emitted when underlying is deposited in exchange for an equivalent amount of hTo
 ### Mint
 
 ```solidity
-  event Mint(
+event Mint(
     address beneficiary,
     uint256 mintAmount
-  )
+)
 ```
 
 Emitted when tokens are minted.
@@ -337,3 +345,109 @@ Emitted when a depositor withdraws previously deposited underlying.
 | `depositor`        | address | The address of the depositor.       |
 | `underlyingAmount` | uint256 | The amount of withdrawn underlying. |
 | `hTokenAmount`     | uint256 | The amount of minted hTokens.       |
+
+## Custom Errors
+
+### HToken\_\_BondMatured
+
+```solidity
+error HToken__BondMatured(uint256 now, uint256 maturity)
+```
+
+Emitted when the bond matured.
+
+### HToken\_\_BondNotMatured
+
+```solidity
+error HToken__BondNotMatured(uint256 now, uint256 maturity)
+```
+
+Emitted when the bond did not mature.
+
+### HToken\_\_BurnNotAuthorized
+
+```solidity
+error HToken__BurnNotAuthorized(address caller)
+```
+
+Emitted when burning hTokens and the caller is not the BalanceSheet contract.
+
+### HToken\_\_DepositUnderlyingNotAllowed
+
+```solidity
+error HToken__DepositUnderlyingNotAllowed()
+```
+
+Emitted when underlying deposits are not allowed by the Fintroller contract.
+
+### HToken\_\_DepositUnderlyingZero
+
+```solidity
+error HToken__DepositUnderlyingZero()
+```
+
+Emitted when depositing a zero amount of underlying.
+
+### HToken\_\_MaturityPassed
+
+```solidity
+error HToken__MaturityPassed(uint256 now, uint256 maturity)
+```
+
+Emitted when the maturity is in the past.
+
+### HToken\_\_MintNotAuthorized
+
+```solidity
+error HToken__MintNotAuthorized(address caller)
+```
+
+Emitted when minting hTokens and the caller is not the BalanceSheet contract.
+
+### HToken\_\_RedeemInsufficientLiquidity
+
+```solidity
+error HToken__RedeemInsufficientLiquidity(uint256 underlyingAmount, uint256 totalUnderlyingReserve)
+```
+
+Emitted when redeeming more underlying that there is in the reserve.
+
+### HToken\_\_RedeemZero
+
+```solidity
+error HToken__RedeemZero()
+```
+
+Emitted when redeeming a zero amount of underlying.
+
+### HToken\_\_UnderlyingDecimalsOverflow
+
+```solidity
+error HToken__UnderlyingDecimalsOverflow(uint256 decimals)
+```
+
+Emitted when constructing the contract and the underlying has more than 18 decimals.
+
+### HToken\_\_UnderlyingDecimalsZero
+
+```solidity
+error HToken__UnderlyingDecimalsZero()
+```
+
+Emitted when constructing the contract and the underlying has zero decimals.
+
+### HToken\_\_WithdrawUnderlyingUnderflow
+
+```solidity
+error HToken__WithdrawUnderlyingUnderflow(address depositor, uint256 availableAmount, uint256 underlyingAmount)
+```
+
+Emitted when withdrawing more underlying than there is available.
+
+### HToken\_\_WithdrawUnderlyingZero
+
+```solidity
+error HToken__WithdrawUnderlyingZero()
+```
+
+Emitted when withdrawing a zero amount of underlying.

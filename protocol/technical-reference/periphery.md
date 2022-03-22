@@ -1292,12 +1292,13 @@ Requirements:
 
 #### Parameters
 
-| Name           | Type                     | Description                                                                      |
-| :------------- | :----------------------- | :------------------------------------------------------------------------------- |
-| `hifiPool`     | contract IHifiPool       | The address of the HifiPool contract.                                            |
-| `balanceSheet` | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
-| `underlyingIn` | uint256                  | The exact amount of underlying that the user wants to sell.                      |
-| `minHTokenOut` | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
+| Name             | Type                     | Description                                                                      |
+| :--------------- | :----------------------- | :------------------------------------------------------------------------------- |
+| `hifiPool`       | contract IHifiPool       | The address of the HifiPool contract.                                            |
+| `balanceSheet`   | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
+| `underlyingIn`   | uint256                  | The exact amount of underlying that the user wants to sell.                      |
+| `minHTokenOut`   | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
+| amount to repay. |
 
 amount to repay.
 
@@ -1323,16 +1324,15 @@ Requirements:
 
 #### Parameters
 
-| Name           | Type                     | Description                                                                      |
-| :------------- | :----------------------- | :------------------------------------------------------------------------------- |
-| `hifiPool`     | contract IHifiPool       | The address of the HifiPool contract.                                            |
-| `balanceSheet` | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
-| `underlyingIn` | uint256                  | The exact amount of underlying that the user wants to sell.                      |
-| `minHTokenOut` | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
-
-amount to repay.
-|`deadline` | uint256 | The deadline beyond which the signature is not valid anymore.
-|`signatureUnderlying` | bytes | The packed signature for the underlying.
+| Name                  | Type                     | Description                                                                      |
+| :-------------------- | :----------------------- | :------------------------------------------------------------------------------- |
+| `hifiPool`            | contract IHifiPool       | The address of the HifiPool contract.                                            |
+| `balanceSheet`        | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
+| `underlyingIn`        | uint256                  | The exact amount of underlying that the user wants to sell.                      |
+| `minHTokenOut`        | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
+| amount to repay.      |
+| `deadline`            | uint256                  | The deadline beyond which the signature is not valid anymore.                    |
+| `signatureUnderlying` | bytes                    | The packed signature for the underlying.                                         |
 
 ### sellUnderlyingWithSignature
 
@@ -1470,3 +1470,29 @@ Emitted when hTokens are borrowed and sold for underlying.
 | `borrower`         | address | The address of the borrower.             |
 | `borrowAmount`     | uint256 | The amount of hTokens borrowed and sold. |
 | `underlyingAmount` | uint256 | The amount of underlying bought.         |
+
+## Custom Errors
+
+### HifiProxyTarget\_\_AddLiquidityHTokenSlippage
+
+```solidity
+error HifiProxyTarget__AddLiquidityHTokenSlippage(uint256 expectedHTokenRequired, uint256 actualHTokenRequired)
+```
+
+Emitted when the hToken slippage is higher than what the user is willing to tolerate.
+
+### HifiProxyTarget\_\_AddLiquidityUnderlyingSlippage
+
+```solidity
+error HifiProxyTarget__AddLiquidityUnderlyingSlippage(uint256 expectedUnderlyingRequired, uint256 actualUnderlyingRequired)
+```
+
+Emitted when the underlying slippage is higher than what the user is willing to tolerate.
+
+### HifiProxyTarget\_\_TradeSlippage
+
+```solidity
+error HifiProxyTarget__TradeSlippage(uint256 expectedAmount, uint256 actualAmount)
+```
+
+Emitted when the slippage is higher than what the user is willing to tolerate.

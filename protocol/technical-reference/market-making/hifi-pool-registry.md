@@ -26,9 +26,9 @@ Whether AMM pool is being tracked or not.
 
 #### Return Values
 
-| Name   | Type    | Description                            |
-| :----- | :------ | :------------------------------------- |
-| `bool` | address | true = pool is tracked, otherwise not. |
+| Name  | Type | Description                                 |
+| :---- | :--- | :------------------------------------------ |
+| `[0]` | bool | bool true = pool is tracked, otherwise not. |
 
 ## Non-Constant Functions
 
@@ -81,11 +81,45 @@ Requirements:
 ### TrackPool
 
 ```solidity
-event TrackPool(IHifiPool indexed pool);
+event TrackPool(
+    contract IHifiPool pool
+)
 ```
+
+#### Parameters
+
+| Name   | Type               |
+| :----- | :----------------- |
+| `pool` | contract IHifiPool |
 
 ### UntrackPool
 
 ```solidity
-event UntrackPool(IHifiPool indexed pool);
+event UntrackPool(
+    contract IHifiPool pool
+)
 ```
+
+#### Parameters
+
+| Name   | Type               |
+| :----- | :----------------- |
+| `pool` | contract IHifiPool |
+
+## Custom Errors
+
+### HifiPoolRegistry\_\_PoolAlreadyTracked
+
+```solidity
+error HifiPoolRegistry__PoolAlreadyTracked(contract IHifiPool pool)
+```
+
+Emitted when the pool to be tracked is already tracked.
+
+### HifiPoolRegistry\_\_PoolNotTracked
+
+```solidity
+error HifiPoolRegistry__PoolNotTracked(contract IHifiPool pool)
+```
+
+Emitted when the pool to be untracked is not tracked.

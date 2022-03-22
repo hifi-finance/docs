@@ -190,3 +190,29 @@ Emitted when a feed is set.
 | :------ | :--------------------- | :----------------- |
 | `asset` | contract IErc20        | The related asset. |
 | `feed`  | contract IAggregatorV3 | The related feed.  |
+
+## Custom Errors
+
+### ChainlinkOperator\_\_DecimalsMismatch
+
+```solidity
+error ChainlinkOperator__DecimalsMismatch(string symbol, uint256 decimals)
+```
+
+Emitted when the decimal precision of the feed is not the same as the expected number.
+
+### ChainlinkOperator\_\_FeedNotSet
+
+```solidity
+error ChainlinkOperator__FeedNotSet(string symbol)
+```
+
+Emitted when trying to interact with a feed not set yet.
+
+### ChainlinkOperator\_\_PriceZero
+
+```solidity
+error ChainlinkOperator__PriceZero(string symbol)
+```
+
+Emitted when the price returned by the oracle is zero.
