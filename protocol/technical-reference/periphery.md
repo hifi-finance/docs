@@ -738,18 +738,17 @@ Requirements:
 | `hToken`           | contract IHToken | The address of the HToken contract.  |
 | `underlyingAmount` | uint256          | The amount of underlying to deposit. |
 
-### depositUnderlyingAndBorrowHTokenAndAddLiquidity
+### depositUnderlyingAndMintHTokenAndAddLiquidity
 
 ```solidity
-function depositUnderlyingAndBorrowHTokenAndAddLiquidity(
+function depositUnderlyingAndMintHTokenAndAddLiquidity(
     contract IHifiPool hifiPool,
     uint256 depositAmount,
     uint256 underlyingOffered
 ) external
 ```
 
-Deposits underlying in the HToken contract to mint hTokens, borrows hTokens and adds liquidity
-to the AMM.
+Deposits underlying in the HToken contract to mint hTokens, and adds liquidity to the AMM.
 
 Requirements:
 
@@ -757,16 +756,16 @@ Requirements:
 
 #### Parameters
 
-| Name                | Type               | Description                                        |
-| :------------------ | :----------------- | :------------------------------------------------- |
-| `hifiPool`          | contract IHifiPool | The address of the HifiPool contract.              |
-| `depositAmount`     | uint256            | The amount of underlying to deposit as collateral. |
-| `underlyingOffered` | uint256            | The amount of underlying to invest.                |
+| Name                | Type               | Description                                                               |
+| :------------------ | :----------------- | :------------------------------------------------------------------------ |
+| `hifiPool`          | contract IHifiPool | The address of the HifiPool contract.                                     |
+| `depositAmount`     | uint256            | The amount of underlying to deposit to mint equivalent amount of hTokens. |
+| `underlyingOffered` | uint256            | The amount of underlying to invest.                                       |
 
-### depositUnderlyingAndBorrowHTokenAndAddLiquidityWithSignature
+### depositUnderlyingAndMintHTokenAndAddLiquidityWithSignature
 
 ```solidity
-function depositUnderlyingAndBorrowHTokenAndAddLiquidityWithSignature(
+function depositUnderlyingAndMintHTokenAndAddLiquidityWithSignature(
     contract IHifiPool hifiPool,
     uint256 depositAmount,
     uint256 underlyingOffered,
@@ -775,7 +774,7 @@ function depositUnderlyingAndBorrowHTokenAndAddLiquidityWithSignature(
 ) external
 ```
 
-Deposits underlying as collateral into the vault, borrows hTokens and adds liquidity to the AMM using
+Deposits underlying in the HToken contract to mint hTokens, and adds liquidity to the AMM using
 EIP-2612 signatures.
 
 Requirements:
@@ -785,13 +784,13 @@ Requirements:
 
 #### Parameters
 
-| Name                  | Type               | Description                                                   |
-| :-------------------- | :----------------- | :------------------------------------------------------------ |
-| `hifiPool`            | contract IHifiPool | The address of the HifiPool contract.                         |
-| `depositAmount`       | uint256            | The amount of underlying to deposit as collateral.            |
-| `underlyingOffered`   | uint256            | The amount of underlying to invest.                           |
-| `deadline`            | uint256            | The deadline beyond which the signature is not valid anymore. |
-| `signatureUnderlying` | bytes              | The packed signature for the underlying.                      |
+| Name                  | Type               | Description                                                               |
+| :-------------------- | :----------------- | :------------------------------------------------------------------------ |
+| `hifiPool`            | contract IHifiPool | The address of the HifiPool contract.                                     |
+| `depositAmount`       | uint256            | The amount of underlying to deposit to mint equivalent amount of hTokens. |
+| `underlyingOffered`   | uint256            | The amount of underlying to invest.                                       |
+| `deadline`            | uint256            | The deadline beyond which the signature is not valid anymore.             |
+| `signatureUnderlying` | bytes              | The packed signature for the underlying.                                  |
 
 ### depositUnderlyingAndRepayBorrow
 
@@ -998,71 +997,6 @@ Requirements:
 | `deadline`         | uint256            | The deadline beyond which the signature is not valid anymore. |
 | `signatureLPToken` | bytes              | The packed signature for LP tokens.                           |
 
-### removeLiquidityAndRepayBorrowAndWithdrawCollateral
-
-```solidity
-function removeLiquidityAndRepayBorrowAndWithdrawCollateral(
-    contract IHifiPool hifiPool,
-    contract IBalanceSheetV2 balanceSheet,
-    contract IErc20 collateral,
-    uint256 poolTokensBurned,
-    uint256 repayAmount,
-    uint256 withdrawAmount
-) external
-```
-
-Removes liquidity from the AMM, repays the borrow and withdraws collateral.
-
-Requirements:
-
-- The caller must have allowed the DSProxy to spend `poolTokensBurned` tokens.
-
-#### Parameters
-
-| Name               | Type                     | Description                               |
-| :----------------- | :----------------------- | :---------------------------------------- |
-| `hifiPool`         | contract IHifiPool       | The address of the HifiPool contract.     |
-| `balanceSheet`     | contract IBalanceSheetV2 | The address of the BalanceSheet contract. |
-| `collateral`       | contract IErc20          | The address of the collateral contract.   |
-| `poolTokensBurned` | uint256                  | The amount of LP tokens to burn.          |
-| `repayAmount`      | uint256                  | The amount of hTokens to repay.           |
-| `withdrawAmount`   | uint256                  | The amount of collateral to withdraw.     |
-
-### removeLiquidityAndRepayBorrowAndWithdrawCollateralWithSignature
-
-```solidity
-function removeLiquidityAndRepayBorrowAndWithdrawCollateralWithSignature(
-    contract IHifiPool hifiPool,
-    contract IBalanceSheetV2 balanceSheet,
-    contract IErc20 collateral,
-    uint256 poolTokensBurned,
-    uint256 repayAmount,
-    uint256 withdrawAmount,
-    uint256 deadline,
-    bytes signatureLPToken
-) external
-```
-
-Removes liquidity from the AMM, repays the borrow and withdraws collateral using EIP-2612 signatures.
-
-Requirements:
-
-- The `signature` must be a valid signed approval given by the caller to the DSProxy to spend `poolTokensBurned`
-  for the given `deadline` and the caller's current nonce.
-
-#### Parameters
-
-| Name               | Type                     | Description                                                   |
-| :----------------- | :----------------------- | :------------------------------------------------------------ |
-| `hifiPool`         | contract IHifiPool       | The address of the HifiPool contract.                         |
-| `balanceSheet`     | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                     |
-| `collateral`       | contract IErc20          | The address of the collateral contract.                       |
-| `poolTokensBurned` | uint256                  | The amount of LP tokens to burn.                              |
-| `repayAmount`      | uint256                  | The amount of hTokens to repay.                               |
-| `withdrawAmount`   | uint256                  | The amount of collateral to withdraw.                         |
-| `deadline`         | uint256                  | The deadline beyond which the signature is not valid anymore. |
-| `signatureLPToken` | bytes                    | The packed signature for LP tokens.                           |
-
 ### removeLiquidityAndSellHToken
 
 ```solidity
@@ -1115,6 +1049,61 @@ Requirements:
 | `minUnderlyingOut` | uint256            | The minimum amount of underlying that the user is willing to accept. |
 | `deadline`         | uint256            | The deadline beyond which the signature is not valid anymore.        |
 | `signatureLPToken` | bytes              | The packed signature for LP tokens.                                  |
+
+### removeLiquidityAndWithdrawUnderlying
+
+```solidity
+function removeLiquidityAndWithdrawUnderlying(
+    contract IHifiPool hifiPool,
+    uint256 poolTokensBurned,
+    uint256 withdrawAmount
+) external
+```
+
+Removes liquidity from the AMM, and withdraws underlying in exchange for hTokens.
+
+Requirements:
+
+- The caller must have allowed the DSProxy to spend `poolTokensBurned` tokens.
+- Can only be called before maturation.
+
+#### Parameters
+
+| Name               | Type               | Description                                                   |
+| :----------------- | :----------------- | :------------------------------------------------------------ |
+| `hifiPool`         | contract IHifiPool | The address of the HifiPool contract.                         |
+| `poolTokensBurned` | uint256            | The amount of LP tokens to burn.                              |
+| `withdrawAmount`   | uint256            | The amount of underlying to withdraw in exchange for hTokens. |
+
+### removeLiquidityAndWithdrawUnderlyingWithSignature
+
+```solidity
+function removeLiquidityAndWithdrawUnderlyingWithSignature(
+    contract IHifiPool hifiPool,
+    uint256 poolTokensBurned,
+    uint256 withdrawAmount,
+    uint256 deadline,
+    bytes signatureLPToken
+) external
+```
+
+Removes liquidity from the AMM, and withdraws underlying in exchange for hTokens
+using EIP-2612 signatures.
+
+Requirements:
+
+- The `signature` must be a valid signed approval given by the caller to the DSProxy to spend `poolTokensBurned`
+  for the given `deadline` and the caller's current nonce.
+
+#### Parameters
+
+| Name               | Type               | Description                                                   |
+| :----------------- | :----------------- | :------------------------------------------------------------ |
+| `hifiPool`         | contract IHifiPool | The address of the HifiPool contract.                         |
+| `poolTokensBurned` | uint256            | The amount of LP tokens to burn.                              |
+| `withdrawAmount`   | uint256            | The amount of underlying to withdraw in exchange for hTokens. |
+| `deadline`         | uint256            | The deadline beyond which the signature is not valid anymore. |
+| `signatureLPToken` | bytes              | The packed signature for LP tokens.                           |
 
 ### removeLiquidityWithSignature
 
@@ -1292,15 +1281,12 @@ Requirements:
 
 #### Parameters
 
-| Name             | Type                     | Description                                                                      |
-| :--------------- | :----------------------- | :------------------------------------------------------------------------------- |
-| `hifiPool`       | contract IHifiPool       | The address of the HifiPool contract.                                            |
-| `balanceSheet`   | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
-| `underlyingIn`   | uint256                  | The exact amount of underlying that the user wants to sell.                      |
-| `minHTokenOut`   | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
-| amount to repay. |
-
-amount to repay.
+| Name           | Type                     | Description                                                                                       |
+| :------------- | :----------------------- | :------------------------------------------------------------------------------------------------ |
+| `hifiPool`     | contract IHifiPool       | The address of the HifiPool contract.                                                             |
+| `balanceSheet` | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                                         |
+| `underlyingIn` | uint256                  | The exact amount of underlying that the user wants to sell.                                       |
+| `minHTokenOut` | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum amount to repay. |
 
 ### sellUnderlyingAndRepayBorrowWithSignature
 
@@ -1324,15 +1310,14 @@ Requirements:
 
 #### Parameters
 
-| Name                  | Type                     | Description                                                                      |
-| :-------------------- | :----------------------- | :------------------------------------------------------------------------------- |
-| `hifiPool`            | contract IHifiPool       | The address of the HifiPool contract.                                            |
-| `balanceSheet`        | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                        |
-| `underlyingIn`        | uint256                  | The exact amount of underlying that the user wants to sell.                      |
-| `minHTokenOut`        | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum |
-| amount to repay.      |
-| `deadline`            | uint256                  | The deadline beyond which the signature is not valid anymore.                    |
-| `signatureUnderlying` | bytes                    | The packed signature for the underlying.                                         |
+| Name                  | Type                     | Description                                                                                       |
+| :-------------------- | :----------------------- | :------------------------------------------------------------------------------------------------ |
+| `hifiPool`            | contract IHifiPool       | The address of the HifiPool contract.                                                             |
+| `balanceSheet`        | contract IBalanceSheetV2 | The address of the BalanceSheet contract.                                                         |
+| `underlyingIn`        | uint256                  | The exact amount of underlying that the user wants to sell.                                       |
+| `minHTokenOut`        | uint256                  | The minimum amount of hTokens that the user is willing to accept and the maximum amount to repay. |
+| `deadline`            | uint256                  | The deadline beyond which the signature is not valid anymore.                                     |
+| `signatureUnderlying` | bytes                    | The packed signature for the underlying.                                                          |
 
 ### sellUnderlyingWithSignature
 
