@@ -1,5 +1,7 @@
 # directories
 .yarn/
+**/.cache-loader
+**/.docusaurus
 **/build
 **/dist
 **/node_modules
