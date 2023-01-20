@@ -13,7 +13,7 @@ Zero-coupon bond that tracks an ERC-20 underlying asset.
 ### balanceSheet
 
 ```solidity
-function balanceSheet() external returns (contract IBalanceSheetV1)
+function balanceSheet() external returns (contract IBalanceSheetV2)
 ```
 
 Returns the BalanceSheet contract this HToken is connected to.
@@ -123,6 +123,7 @@ function depositUnderlying(
 ```
 
 Deposits underlying in exchange for an equivalent amount of hTokens.
+
 Emits a {DepositUnderlying} event.
 
 Requirements:
@@ -194,7 +195,9 @@ function _setBalanceSheet(
 ```
 
 Updates the BalanceSheet contract this HToken is connected to.
+
 Throws a {SetBalanceSheet} event.
+
 Requirements:
 
 - The caller must be the owner.

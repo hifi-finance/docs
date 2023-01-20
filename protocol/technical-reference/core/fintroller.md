@@ -24,15 +24,15 @@ It is not an error to provide an invalid address.
 
 #### Parameters
 
-| Name  | Type                    | Description      |
-| :---- | :---------------------- | :--------------- |
-| `[0]` | struct IFintroller.Bond | The bond object. |
+| Name   | Type             | Description                       |
+| :----- | :--------------- | :-------------------------------- |
+| `bond` | contract IHToken | The address of the bond contract. |
 
 #### Return Values
 
-| Type             | Description  |
-| :--------------- | :----------- |
-| contract IHToken | bond object. |
+| Name  | Type                    | Description      |
+| :---- | :---------------------- | :--------------- |
+| `[0]` | struct IFintroller.Bond | The bond object. |
 
 ### getBorrowAllowed
 
@@ -102,9 +102,9 @@ It is not an error to provide an invalid address.
 
 #### Return Values
 
-| Type            | Description                                                                  |
-| :-------------- | :--------------------------------------------------------------------------- |
-| contract IErc20 | collateral ceiling as a uint256, or zero if an invalid address was provided. |
+| Name  | Type    | Description                                                                      |
+| :---- | :------ | :------------------------------------------------------------------------------- |
+| `[0]` | uint256 | The collateral ceiling as a uint256, or zero if an invalid address was provided. |
 
 ### getCollateralRatio
 
@@ -126,9 +126,9 @@ It is not an error to provide an invalid address.
 
 #### Return Values
 
-| Type            | Description                                                   |
-| :-------------- | :------------------------------------------------------------ |
-| contract IErc20 | collateral ratio, or zero if an invalid address was provided. |
+| Name  | Type    | Description                                                       |
+| :---- | :------ | :---------------------------------------------------------------- |
+| `[0]` | uint256 | The collateral ratio, or zero if an invalid address was provided. |
 
 ### getDebtCeiling
 
@@ -187,6 +187,7 @@ function getDepositUnderlyingAllowed(
 ```
 
 Checks if underlying deposits are allowed.
+
 The bond must be listed.
 
 #### Parameters
@@ -320,11 +321,18 @@ Checks if the collateral is listed.
 ### maxBonds
 
 ```solidity
-function maxBonds(
-) external returns (uint256)
+function maxBonds() external returns (uint256)
 ```
 
 Returns the maximum number of bond markets a single account can enter.
+
+### maxCollaterals
+
+```solidity
+function maxCollaterals() external returns (uint256)
+```
+
+Returns the maximum number of Collaterals a single account can deposit.
 
 ## Non-Constant Functions
 
@@ -598,6 +606,28 @@ Requirements:
 | :------------ | :------ | :------------------- |
 | `newMaxBonds` | uint256 | New max bonds value. |
 
+### setMaxCollaterals
+
+```solidity
+function setMaxCollaterals(
+    uint256 newMaxCollaterals
+) external
+```
+
+Sets max collaterals value, which controls how many collaterals a single account can deposit.
+
+Emits a {SetMaxCollaterals} event.
+
+Requirements:
+
+- The caller must be the owner.
+
+#### Parameters
+
+| Name                | Type    | Description                |
+| :------------------ | :------ | :------------------------- |
+| `newMaxCollaterals` | uint256 | New max collaterals value. |
+
 ### setRepayBorrowAllowed
 
 ```solidity
@@ -843,31 +873,31 @@ Emitted when a new max bonds value is set.
 
 #### Parameters
 
-| Name          | Type    | Description                             |
-| :------------ | :------ | :-------------------------------------- |
-| `owner`       | address | The address indexed owner.              |
-| `oldMaxBonds` | uint256 | The address of the old max bonds value. |
-| `newMaxBonds` | uint256 | The address of the new max bonds value. |
+| Name          | Type    | Description                |
+| :------------ | :------ | :------------------------- |
+| `owner`       | address | The address indexed owner. |
+| `oldMaxBonds` | uint256 | The old max bonds value.   |
+| `newMaxBonds` | uint256 | The new max bonds value.   |
 
-### SetRedeemAllowed
+### SetMaxCollaterals
 
 ```solidity
-event SetRedeemAllowed(
+event SetMaxCollaterals(
     address owner,
-    contract IHToken bond,
-    bool state
+    uint256 oldMaxCollaterals,
+    uint256 newMaxCollaterals
 )
 ```
 
-Emitted when the redeem permission is updated.
+Emitted when a new max collaterals value is set.
 
 #### Parameters
 
-| Name    | Type             | Description                        |
-| :------ | :--------------- | :--------------------------------- |
-| `owner` | address          | The address of the contract owner. |
-| `bond`  | contract IHToken | The related HToken.                |
-| `state` | bool             | True if redeeming is allowed.      |
+| Name                | Type    | Description                    |
+| :------------------ | :------ | :----------------------------- |
+| `owner`             | address | The address indexed owner.     |
+| `oldMaxCollaterals` | uint256 | The old max collaterals value. |
+| `newMaxCollaterals` | uint256 | The new max collaterals value. |
 
 ### SetRepayBorrowAllowed
 
@@ -899,6 +929,38 @@ error Fintroller__BondNotListed(contract IHToken bond)
 
 Emitted when interacting with a bond that is not listed.
 
+### Fintroller\_\_BondBorrowAllowedWithLiquidateBorrowDisallowed
+
+```solidity
+error Fintroller__BondBorrowAllowedWithLiquidateBorrowDisallowed()
+```
+
+Emitted when allowing borrow for a bond when liquidate borrow is disallowed.
+
+### Fintroller\_\_BondLiquidateBorrowAllowedWithRepayBorrowDisallowed
+
+```solidity
+error Fintroller__BondLiquidateBorrowAllowedWithRepayBorrowDisallowed()
+```
+
+Emitted when allowing liquidate borrow for a bond when repay borrow is disallowed.
+
+### Fintroller\_\_BondLiquidateBorrowDisallowedWithBorrowAllowed
+
+```solidity
+error Fintroller__BondLiquidateBorrowDisallowedWithBorrowAllowed()
+```
+
+Emitted when disallowing liquidate borrow for a bond when borrow is allowed.
+
+### Fintroller\_\_BondRepayBorrowDisallowedWithLiquidateBorrowAllowed
+
+```solidity
+error Fintroller__BondRepayBorrowDisallowedWithLiquidateBorrowAllowed()
+```
+
+Emitted when disallowing repay borrow for a bond when liquidate borrow is allowed.
+
 ### Fintroller\_\_CollateralDecimalsOverflow
 
 ```solidity
@@ -923,6 +985,14 @@ error Fintroller__CollateralNotListed(contract IErc20 collateral)
 
 Emitted when interacting with a collateral that is not listed.
 
+### Fintroller\_\_CollateralRatioBelowLiquidationIncentive
+
+```solidity
+error Fintroller__CollateralRatioBelowLiquidationIncentive(uint256 newCollateralRatio)
+```
+
+Emitted when setting a new collateral ratio that is below the liquidation incentive
+
 ### Fintroller\_\_CollateralRatioOverflow
 
 ```solidity
@@ -946,6 +1016,14 @@ error Fintroller__DebtCeilingUnderflow(uint256 newDebtCeiling, uint256 totalSupp
 ```
 
 Emitted when setting a new debt ceiling that is below the total supply of hTokens.
+
+### Fintroller\_\_LiquidationIncentiveAboveCollateralRatio
+
+```solidity
+error Fintroller__LiquidationIncentiveAboveCollateralRatio(uint256 newLiquidationIncentive)
+```
+
+Emitted when setting a new liquidation incentive that is higher than the collateral ratio.
 
 ### Fintroller\_\_LiquidationIncentiveOverflow
 

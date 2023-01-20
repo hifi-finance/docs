@@ -13,19 +13,19 @@ Integration of Uniswap V2 flash swaps for liquidating underwater accounts in Hif
 ### balanceSheet
 
 ```solidity
-function balanceSheet() external view returns (IBalanceSheetV2);
+function balanceSheet() external returns (contract IBalanceSheetV2)
 ```
 
-The `BalanceSheet` contract
+The `BalanceSheet` contract.
 
 ### getRepayAmount
 
 ```solidity
 function getRepayAmount(
-    IUniswapV2Pair pair,
-    IErc20 underlying,
+    contract IUniswapV2Pair pair,
+    contract IErc20 underlying,
     uint256 underlyingAmount
-) external view returns (uint256 repayAmount);
+) external returns (uint256 repayAmount)
 ```
 
 Calculates the amount of that must be repaid to Uniswap. When the collateral is not the underlying, the formula used is:
@@ -44,22 +44,22 @@ See "getAmountIn" and "getAmountOut" in `UniswapV2Library`. Flash swaps that are
 
 #### Parameters
 
-| Name               | Type                    | Description                             |
-| :----------------- | :---------------------- | :-------------------------------------- |
-| `pair`             | contract IUniswapV2Pair | The Uniswap V2 pair contract            |
-| `underlying`       | contract IErc20         | The address of the underlying contract  |
-| `underlyingAmount` | uint256                 | The amount of underlying flash borrowed |
+| Name               | Type                    | Description                              |
+| :----------------- | :---------------------- | :--------------------------------------- |
+| `pair`             | contract IUniswapV2Pair | The Uniswap V2 pair contract.            |
+| `underlying`       | contract IErc20         | The address of the underlying contract.  |
+| `underlyingAmount` | uint256                 | The amount of underlying flash borrowed. |
 
 #### Return Values
 
-| Name          | Type    | Description                            |
-| :------------ | :------ | :------------------------------------- |
-| `repayAmount` | uint256 | The minimum amount that must be repaid |
+| Name          | Type    | Description                             |
+| :------------ | :------ | :-------------------------------------- |
+| `repayAmount` | uint256 | The minimum amount that must be repaid. |
 
 ### uniV2Factory
 
 ```solidity
-function uniV2Factory() external view returns (address);
+function uniV2Factory() external returns (address)
 ```
 
 The address of the UniswapV2Factory contract.
@@ -67,7 +67,7 @@ The address of the UniswapV2Factory contract.
 ### uniV2PairInitCodeHash
 
 ```solidity
-function uniV2PairInitCodeHash() external view returns (bytes32);
+function uniV2PairInitCodeHash() external returns (bytes32)
 ```
 
 The init code hash of the UniswapV2Pair contract.
@@ -78,15 +78,15 @@ The init code hash of the UniswapV2Pair contract.
 
 ```solidity
 event FlashSwapAndLiquidateBorrow(
-    address indexed liquidator,
-    address indexed borrower,
-    address indexed bond,
+    address liquidator,
+    address borrower,
+    address bond,
     uint256 underlyingAmount,
     uint256 seizeAmount,
     uint256 repayAmount,
     uint256 subsidyAmount,
     uint256 profitAmount
-);
+)
 ```
 
 Emitted when a flash swap is made and an account is liquidated.
@@ -99,6 +99,7 @@ Emitted when a flash swap is made and an account is liquidated.
 | `borrower`         | address | The address of the borrower account being liquidated.             |
 | `bond`             | address | The address of the hToken contract.                               |
 | `underlyingAmount` | uint256 | The amount of underlying flash borrowed.                          |
+| `seizeAmount`      | uint256 | The amount of collateral seized.                                  |
 | `repayAmount`      | uint256 | The amount of collateral that had to be repaid by the liquidator. |
 | `subsidyAmount`    | uint256 | The amount of collateral subsidized by the liquidator.            |
 | `profitAmount`     | uint256 | The amount of collateral pocketed as profit by the liquidator.    |
@@ -108,7 +109,7 @@ Emitted when a flash swap is made and an account is liquidated.
 ### FlashUniswapV2\_\_CallNotAuthorized
 
 ```solidity
-error FlashUniswapV2__CallNotAuthorized(address caller);
+error FlashUniswapV2__CallNotAuthorized(address caller)
 ```
 
 Emitted when the caller is not the Uniswap V2 pair contract.
@@ -116,7 +117,7 @@ Emitted when the caller is not the Uniswap V2 pair contract.
 ### FlashUniswapV2\_\_FlashBorrowCollateral
 
 ```solidity
-error FlashUniswapV2__FlashBorrowCollateral(address collateral, address underlying);
+error FlashUniswapV2__FlashBorrowCollateral(address collateral, address underlying)
 ```
 
 Emitted when the flash borrowed asset is the collateral instead of the underlying.
@@ -124,7 +125,7 @@ Emitted when the flash borrowed asset is the collateral instead of the underlyin
 ### FlashUniswapV2\_\_LiquidateUnderlyingBackedVault
 
 ```solidity
-error FlashUniswapV2__LiquidateUnderlyingBackedVault(address borrower, address underlying);
+error FlashUniswapV2__LiquidateUnderlyingBackedVault(address borrower, address underlying)
 ```
 
 Emitted when liquidating a vault backed by underlying.
@@ -132,16 +133,16 @@ Emitted when liquidating a vault backed by underlying.
 ### FlashUniswapV2\_\_TurnoutNotSatisfied
 
 ```solidity
-error FlashUniswapV2__TurnoutNotSatisfied(uint256 seizeAmount, uint256 repayAmount, int256 turnout);
+error FlashUniswapV2__TurnoutNotSatisfied(uint256 seizeAmount, uint256 repayAmount, int256 turnout)
 ```
 
 Emitted when the liquidation either does not yield a sufficient profit or it costs more
 than what the subsidizer is willing to pay.
 
-### FlashUniswapV2\_\_UnderlyingNotInPool(IUniswapV2Pair
+### FlashUniswapV2\_\_UnderlyingNotInPool
 
 ```solidity
-error FlashUniswapV2__UnderlyingNotInPool(IUniswapV2Pair pair, address token0, address token1, IErc20 underlying);
+error FlashUniswapV2__UnderlyingNotInPool(contract IUniswapV2Pair pair, address token0, address token1, contract IErc20 underlying)
 ```
 
 Emitted when neither the token0 nor the token1 is the underlying.

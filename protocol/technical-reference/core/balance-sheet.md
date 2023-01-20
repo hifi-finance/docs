@@ -12,7 +12,7 @@ users.
 When a user borrow hTokens, a vault is opened for them in the `BalanceSheet`. All vaults are recorded and managed in
 this contract.
 
-This is the only upgradeable contract in the Hifi protocol. The most up to date version is the [BalanceSheetV2](https://github.com/hifi-finance/hifi/blob/%40hifi/protocol%401.9.0/packages/protocol/contracts/core/balance-sheet/BalanceSheetV2.sol).
+This is the only upgradeable contract in the Hifi protocol. The most up to date version is the [BalanceSheetV2](https://github.com/hifi-finance/hifi/blob/%40hifi/protocol%401.11.0/packages/protocol/contracts/core/balance-sheet/BalanceSheetV2.sol).
 
 ## Constant Functions
 
@@ -607,6 +607,14 @@ error BalanceSheet__BorrowMaxBonds(contract IHToken bond, uint256 newBondListLen
 ```
 
 Emitted when the account exceeds the maximum numbers of bonds permitted.
+
+### BalanceSheet\_\_DepositMaxCollaterals
+
+```solidity
+error BalanceSheet__DepositMaxCollaterals(contract IErc20 collateral, uint256 newCollateralListLength, uint256 maxCollaterals)
+```
+
+Emitted when the account exceeds the maximum numbers of collateral permitted.
 
 ### BalanceSheet\_\_BorrowNotAllowed
 

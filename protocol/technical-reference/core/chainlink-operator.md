@@ -28,9 +28,11 @@ Gets the official feed for a symbol.
 
 #### Return Values
 
-| Name      | Type   | Description                     |
-| :-------- | :----- | :------------------------------ |
-| `address` | string | asset, address id, bool isSet). |
+| Name  | Type                   | Description                              |
+| :---- | :--------------------- | :--------------------------------------- |
+| `[0]` | contract IErc20        | (address asset, address id, bool isSet). |
+| `[1]` | contract IAggregatorV3 |                                          |
+| `[2]` | bool                   |                                          |
 
 ### getNormalizedPrice
 
@@ -55,9 +57,9 @@ Requirements:
 
 #### Return Values
 
-| Type   | Description       |
-| :----- | :---------------- |
-| string | normalized price. |
+| Name  | Type    | Description           |
+| :---- | :------ | :-------------------- |
+| `[0]` | uint256 | The normalized price. |
 
 ### getPrice
 
@@ -83,9 +85,9 @@ Requirements:
 
 #### Return Values
 
-| Type   | Description                          |
-| :----- | :----------------------------------- |
-| string | denominated in USD, with 8 decimals. |
+| Name  | Type    | Description                                    |
+| :---- | :------ | :--------------------------------------------- |
+| `[0]` | uint256 | The price denominated in USD, with 8 decimals. |
 
 ### pricePrecision
 
@@ -102,6 +104,14 @@ function pricePrecisionScalar() external returns (uint256)
 ```
 
 The ratio between normalized precision (1e18) and the Chainlink price precision (1e8).
+
+### priceStalenessThreshold
+
+```solidity
+function priceStalenessThreshold() external returns (uint256)
+```
+
+The Chainlink price staleness threshold.
 
 ## Non-Constant Functions
 
@@ -153,6 +163,28 @@ Requirements:
 | `asset` | contract IErc20        | The address of the Erc20 contract for which to get the price. |
 | `feed`  | contract IAggregatorV3 | The address of the Chainlink price feed contract.             |
 
+### setPriceStalenessThreshold
+
+```solidity
+function setPriceStalenessThreshold(
+    uint256 newPriceStalenessThreshold
+) external
+```
+
+Sets the Chainlink price staleness threshold.
+
+Emits a {SetPriceStalenessThreshold} event.
+
+Requirements:
+
+- The caller must be the owner.
+
+#### Parameters
+
+| Name                         | Type    | Description                                  |
+| :--------------------------- | :------ | :------------------------------------------- |
+| `newPriceStalenessThreshold` | uint256 | The new Chainlink price staleness threshold. |
+
 ## Events
 
 ### DeleteFeed
@@ -191,6 +223,24 @@ Emitted when a feed is set.
 | `asset` | contract IErc20        | The related asset. |
 | `feed`  | contract IAggregatorV3 | The related feed.  |
 
+### SetPriceStalenessThreshold
+
+```solidity
+event SetPriceStalenessThreshold(
+    uint256 oldPriceStalenessThreshold,
+    uint256 newPriceStalenessThreshold
+)
+```
+
+Emitted when the Chainlink price staleness threshold is set.
+
+#### Parameters
+
+| Name                         | Type    | Description                                  |
+| :--------------------------- | :------ | :------------------------------------------- |
+| `oldPriceStalenessThreshold` | uint256 | The old Chainlink price staleness threshold. |
+| `newPriceStalenessThreshold` | uint256 | The new Chainlink price staleness threshold. |
+
 ## Custom Errors
 
 ### ChainlinkOperator\_\_DecimalsMismatch
@@ -209,10 +259,18 @@ error ChainlinkOperator__FeedNotSet(string symbol)
 
 Emitted when trying to interact with a feed not set yet.
 
-### ChainlinkOperator\_\_PriceZero
+### ChainlinkOperator\_\_PriceLessThanOrEqualToZero
 
 ```solidity
-error ChainlinkOperator__PriceZero(string symbol)
+error ChainlinkOperator__PriceLessThanOrEqualToZero(string symbol)
 ```
 
-Emitted when the price returned by the oracle is zero.
+Emitted when the price returned by the oracle is less than or equal to zero.
+
+### ChainlinkOperator\_\_PriceStale
+
+```solidity
+error ChainlinkOperator__PriceStale(string symbol)
+```
+
+Emitted when the latest price update timestamp returned by the oracle is too old.

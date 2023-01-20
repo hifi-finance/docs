@@ -164,8 +164,7 @@ Requirements:
 ### getNormalizedUnderlyingReserves
 
 ```solidity
-function getNormalizedUnderlyingReserves(
-) external returns (uint256 normalizedUnderlyingReserves)
+function getNormalizedUnderlyingReserves() external returns (uint256 normalizedUnderlyingReserves)
 ```
 
 Returns the normalized underlying reserves, i.e. the Erc20 balance scaled to have 18 decimals.
@@ -173,8 +172,7 @@ Returns the normalized underlying reserves, i.e. the Erc20 balance scaled to hav
 ### getVirtualHTokenReserves
 
 ```solidity
-function getVirtualHTokenReserves(
-) external returns (uint256 virtualHTokenReserves)
+function getVirtualHTokenReserves() external returns (uint256 virtualHTokenReserves)
 ```
 
 Returns the virtual hToken reserves, as explained in the whitepaper.
@@ -184,8 +182,7 @@ Adds the Erc20 hToken balance to the total supply of LP tokens.
 ### maturity
 
 ```solidity
-function maturity(
-) external returns (uint256)
+function maturity() external returns (uint256)
 ```
 
 The unix timestamp at which the hToken expires.
@@ -193,8 +190,7 @@ The unix timestamp at which the hToken expires.
 ### hToken
 
 ```solidity
-function hToken(
-) external returns (contract IHToken)
+function hToken() external returns (contract IHToken)
 ```
 
 The hToken traded in this pool.
@@ -202,8 +198,7 @@ The hToken traded in this pool.
 ### underlying
 
 ```solidity
-function underlying(
-) external returns (contract IErc20)
+function underlying() external returns (contract IErc20)
 ```
 
 The underlying token traded in this pool.
@@ -211,8 +206,7 @@ The underlying token traded in this pool.
 ### underlyingPrecisionScalar
 
 ```solidity
-function underlyingPrecisionScalar(
-) external returns (uint256)
+function underlyingPrecisionScalar() external returns (uint256)
 ```
 
 The ratio between our native precision (18) and the underlying precision.
