@@ -13,24 +13,11 @@ HTokens are rotated frequently because they each have a different expiration dat
 Ethereum is a like a blueprint. Multiple independent networks conform to this blueprint, without interacting directly with one another.
 :::
 
-## Mainnets
-
-### Polygon
+### Ethereum Mainnet
 
 | Contract          | Address                                    |
 | ----------------- | ------------------------------------------ |
-| BalanceSheet      | 0x5B92712bb68b41abf6c153e807Fc10bc4a9e290d |
-| ChainlinkOperator | 0xa47E598BE87AdaC5EBea3c9b9B2ed6539270c0EA |
-| Fintroller        | 0x945cd71CAA7eB26313654259E666D5bcD3f46eFB |
-| HifiPoolRegistry  | 0xE9f2F4035b97dadB0044B0695Bfaaab723F53b5a |
-
-## Testnets
-
-### Rinkeby
-
-| Contract          | Address                                    |
-| ----------------- | ------------------------------------------ |
-| BalanceSheet      | 0x93A3677eab94ce90e07b4BC243DB2F8B1351c5B7 |
-| ChainlinkOperator | 0xA9Dc2CEDcdbc9325c6ad672e9124e4b8318526e9 |
-| Fintroller        | 0xb1f48f875F643ebEF7388aB9959f5Cb558341F10 |
-| HifiPoolRegistry  | 0x9BCFF4a0825e722A9d0f5439f7c871ff68237DBC |
+| BalanceSheet      | 0x452467A37f7A0c1EA8432A52b8bbe3Cc31E9513b |
+| ChainlinkOperator | 0xaFf0bb2f5C6E773ceE07E9465968f91Ca12A7EFe |
+| Fintroller        | 0xEe46E4B672286392Fcb5308A58dCDb8f0bFcA8c3 |
+| HifiPoolRegistry  | 0xbfFa648d87f1df00a82A6169D6AC38E9d990b0bC |

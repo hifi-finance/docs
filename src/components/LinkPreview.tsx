@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import React from "react";
 
 import GitHubIcon from "../icons/GitHubIcon";
+import EthereumIcon from "../icons/EthereumIcon";
 import PolygonIcon from "../icons/PolygonIcon";
 
 const Wrapper = styled(Link)`
@@ -53,7 +54,7 @@ const Subtitle = styled.span`
 
 interface LinkPreviewProps {
   href: string;
-  icon: "github" | "polygonscan";
+  icon: "github" | "etherscan" | "polygonscan";
   subtitle: string;
   title: string;
 }
@@ -61,7 +62,15 @@ interface LinkPreviewProps {
 export default function LinkPreview(props: LinkPreviewProps): JSX.Element {
   return (
     <Wrapper href={props.href}>
-      <IconWrapper>{props.icon == "github" ? <GitHubIcon size={32} /> : <PolygonIcon size={32} />}</IconWrapper>
+      <IconWrapper>
+        {props.icon == "github" ? (
+          <GitHubIcon size={32} />
+        ) : props.icon == "etherscan" ? (
+          <EthereumIcon size={32} />
+        ) : (
+          <PolygonIcon size={32} />
+        )}
+      </IconWrapper>
       <LabelWrapper>
         <Title>{props.title}</Title>
         <Subtitle>{props.subtitle}</Subtitle>
