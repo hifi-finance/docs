@@ -4,10 +4,30 @@ Contributing to the Hifi docs is a great way to get involved in the dev communit
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
+### Prerequisites
+
+- NVM
+- Yarn package manager
+
 ## Installation
 
+1. Clone the repository:
+
 ```bash
-$ yarn
+$ git clone https://github.com/hifi-finance/docs.git
+$ cd docs
+```
+
+2. Set the version of Node to use locally within the project:
+
+```bash
+$ nvm use
+```
+
+3. Install the dependencies with Yarn:
+
+```bash
+$ yarn install
 ```
 
 ## Local Development
