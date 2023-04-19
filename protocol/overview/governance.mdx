@@ -8,7 +8,11 @@ import LinkPreview from "../../src/components/LinkPreview";
 
 # Governance
 
-With time, we will transition to a system whereby any user of the protocol can cast their opinion in the governance of Hifi.
+Hifi Governance and ERC-20 token implementation are each based on a common foundation stemming from Compound's GovernorBravo Smart Contracts. To meet our requirements we are pulling our ERC-20 token implementation from Uniswap's fork of Compound Governance, and pulling the Governance smart contracts from Ampleforth's fork of Compound Governance.
+
+We chose Uniswap for the token implementation because it comes with the ERC-2612 functionality along with a governance based minting functionality we require. Uniswap's code for token implementation is in a direct fork from the Compound token implementation.
+
+The foundation of our governance contracts came from the Ampleforth fork of GovernorBravo, because similar to us and unlike Uniswap or Compound, they did not have legacy GovernorAlpha smart contracts before their GovernorBravo implementation. All changes we have made on top of this fork are outlined in COMMITLOG.md. Briefly, those changes include updating the Solidity version, adding support for our token swap, and integrating our token requirements to the codebase.
 
 ## Modus Operandi
 
