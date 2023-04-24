@@ -139,7 +139,7 @@ Emitted when timelock admin cancel the transaction.
 event ExecuteTransaction(bytes32 txHash, address target, uint256 value, string signature, bytes data, uint256 eta)
 ```
 
-Emitted when transaction is executed. 
+Emitted when transaction is executed.
 
 ### NewAdmin
 

@@ -187,18 +187,18 @@ Gets actions of a proposal
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type    | Description            |
+| ---------- | ------- | ---------------------- |
 | proposalId | uint256 | the id of the proposal |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| targets | address[] | proposal targets |
-| values | uint256[] | proposal values |
-| signatures | string[] | proposal signatures |
-| calldatas | bytes[] | proposal calldatas |
+| Name       | Type      | Description         |
+| ---------- | --------- | ------------------- |
+| targets    | address[] | proposal targets    |
+| values     | uint256[] | proposal values     |
+| signatures | string[]  | proposal signatures |
+| calldatas  | bytes[]   | proposal calldatas  |
 
 ### getReceipt
 
@@ -210,16 +210,16 @@ Gets the receipt for a voter on a given proposal.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| proposalId | uint256 | the id of proposal |
-| voter | address | The address of the voter |
+| Name       | Type    | Description              |
+| ---------- | ------- | ------------------------ |
+| proposalId | uint256 | the id of proposal       |
+| voter      | address | The address of the voter |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | struct GovernorBravoDelegateStorageV1.Receipt | The voting receipt |
+| Name | Type                                          | Description        |
+| ---- | --------------------------------------------- | ------------------ |
+| [0]  | struct GovernorBravoDelegateStorageV1.Receipt | The voting receipt |
 
 ### quorumVotes
 
@@ -239,15 +239,15 @@ Gets the state of a proposal.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type    | Description            |
+| ---------- | ------- | ---------------------- |
 | proposalId | uint256 | The id of the proposal |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | enum GovernorBravoDelegateStorageV1.ProposalState | Proposal state |
+| Name | Type                                              | Description    |
+| ---- | ------------------------------------------------- | -------------- |
+| [0]  | enum GovernorBravoDelegateStorageV1.ProposalState | Proposal state |
 
 #### ProposalState
 
@@ -266,7 +266,7 @@ enum ProposalState {
 
 ## Non-Constant Functions
 
-### _acceptAdmin
+### \_acceptAdmin
 
 ```solidity
 function _acceptAdmin() external
@@ -274,7 +274,7 @@ function _acceptAdmin() external
 
 This function is used to accept the transfer of admin rights. The message sender (i.e., msg.sender) must be the pending admin.
 
-### _setPendingAdmin
+### \_setPendingAdmin
 
 ```solidity
 function _setPendingAdmin(address newPendingAdmin) external
@@ -286,11 +286,11 @@ _Admin function to begin change of admin. The `newPendingAdmin` must call `_acce
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name            | Type    | Description        |
+| --------------- | ------- | ------------------ |
 | newPendingAdmin | address | New pending admin. |
 
-### _setProposalThreshold
+### \_setProposalThreshold
 
 ```solidity
 function _setProposalThreshold(uint256 newProposalThreshold) external
@@ -302,11 +302,11 @@ Admin function for setting the proposal threshold.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                 | Type    | Description            |
+| -------------------- | ------- | ---------------------- |
 | newProposalThreshold | uint256 | new proposal threshold |
 
-### _setVotingDelay
+### \_setVotingDelay
 
 ```solidity
 function _setVotingDelay(uint256 newVotingDelay) external
@@ -314,7 +314,7 @@ function _setVotingDelay(uint256 newVotingDelay) external
 
 Admin function for setting the voting delay.
 
-### _setVotingPeriod
+### \_setVotingPeriod
 
 ```solidity
 function _setVotingPeriod(uint256 newVotingPeriod) external
@@ -332,8 +332,8 @@ Cancels a proposal only if sender is the proposer, or proposer delegates dropped
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type    | Description                      |
+| ---------- | ------- | -------------------------------- |
 | proposalId | uint256 | The id of the proposal to cancel |
 
 ### castVote
@@ -346,10 +346,10 @@ Cast a vote for a proposal.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| proposalId | uint256 | The id of the proposal to vote on |
-| support | uint8 | The support value for the vote. 0=against, 1=for, 2=abstain |
+| Name       | Type    | Description                                                 |
+| ---------- | ------- | ----------------------------------------------------------- |
+| proposalId | uint256 | The id of the proposal to vote on                           |
+| support    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
 
 ### castVoteBySig
 
@@ -371,11 +371,11 @@ Cast a vote for a proposal with a reason.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| proposalId | uint256 | The id of the proposal to vote on |
-| support | uint8 | The support value for the vote. 0=against, 1=for, 2=abstain |
-| reason | string | The reason given for the vote by the voter |
+| Name       | Type    | Description                                                 |
+| ---------- | ------- | ----------------------------------------------------------- |
+| proposalId | uint256 | The id of the proposal to vote on                           |
+| support    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
+| reason     | string  | The reason given for the vote by the voter                  |
 
 ### execute
 
@@ -387,8 +387,8 @@ Executes a queued proposal if eta has passed.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type    | Description                       |
+| ---------- | ------- | --------------------------------- |
 | proposalId | uint256 | The id of the proposal to execute |
 
 ### initialize
@@ -401,13 +401,13 @@ Used to initialize the contract during delegator constructor.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| timelock_ | address | The address of the Timelock |
-| hifi_ | address | The address of the Hifi token |
-| votingPeriod_ | uint256 | The initial voting period |
-| votingDelay_ | uint256 | The initial voting delay |
-| proposalThreshold_ | uint256 | The initial proposal threshold |
+| Name                | Type    | Description                    |
+| ------------------- | ------- | ------------------------------ |
+| timelock\_          | address | The address of the Timelock    |
+| hifi\_              | address | The address of the Hifi token  |
+| votingPeriod\_      | uint256 | The initial voting period      |
+| votingDelay\_       | uint256 | The initial voting delay       |
+| proposalThreshold\_ | uint256 | The initial proposal threshold |
 
 ### propose
 
@@ -419,19 +419,19 @@ Function used to propose a new proposal. Sender must have delegates above the pr
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| targets | address[] | Target addresses for proposal calls |
-| values | uint256[] | Eth values for proposal calls |
-| signatures | string[] | Function signatures for proposal calls |
-| calldatas | bytes[] | Calldatas for proposal calls |
-| description | string | String description of the proposal |
+| Name        | Type      | Description                            |
+| ----------- | --------- | -------------------------------------- |
+| targets     | address[] | Target addresses for proposal calls    |
+| values      | uint256[] | Eth values for proposal calls          |
+| signatures  | string[]  | Function signatures for proposal calls |
+| calldatas   | bytes[]   | Calldatas for proposal calls           |
+| description | string    | String description of the proposal     |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | uint256 | Proposal id of new proposal |
+| Name | Type    | Description                 |
+| ---- | ------- | --------------------------- |
+| [0]  | uint256 | Proposal id of new proposal |
 
 ### queue
 
@@ -443,8 +443,8 @@ Queues a proposal of state succeeded.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type    | Description                     |
+| ---------- | ------- | ------------------------------- |
 | proposalId | uint256 | The id of the proposal to queue |
 
 ## Events

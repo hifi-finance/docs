@@ -6,9 +6,9 @@ sidebar_position: 2
 
 # HIFI
 
-HIFI is an ERC-20 token that empowers its holders to delegate voting rights to any address, including their own. 
+HIFI is an ERC-20 token that empowers its holders to delegate voting rights to any address, including their own.
 
-Any changes to a token holder's balance result in an automatic adjustment of the voting rights allocated to the delegated address. 
+Any changes to a token holder's balance result in an automatic adjustment of the voting rights allocated to the delegated address.
 
 This mechanism ensures that the Hifi Governance process remains dynamic, transparent, and responsive to the needs of the Hifi Finance community.
 
@@ -230,20 +230,20 @@ function approve(address spender, uint256 rawAmount) external returns (bool)
 Approve `spender` to transfer up to `amount` from `src`
 
 _This will overwrite the approval amount for `spender`
- and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)_
+and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| spender | address | The address of the account which may transfer tokens |
+| Name      | Type    | Description                                                     |
+| --------- | ------- | --------------------------------------------------------------- |
+| spender   | address | The address of the account which may transfer tokens            |
 | rawAmount | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | bool | Whether or not the approval succeeded |
+| Name | Type | Description                           |
+| ---- | ---- | ------------------------------------- |
+| [0]  | bool | Whether or not the approval succeeded |
 
 ### burn
 
@@ -255,8 +255,8 @@ Destroys `amount` tokens from the caller
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                  |
+| --------- | ------- | ---------------------------- |
 | rawAmount | uint256 | The number of tokens to burn |
 
 ### burnFrom
@@ -269,10 +269,10 @@ Destroys `amount` tokens from `account`, deducting from the caller's allowance.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| account | address | The address of the account to burn from |
-| rawAmount | uint256 | The number of tokens to burn |
+| Name      | Type    | Description                             |
+| --------- | ------- | --------------------------------------- |
+| account   | address | The address of the account to burn from |
+| rawAmount | uint256 | The number of tokens to burn            |
 
 ### delegate
 
@@ -285,8 +285,8 @@ delegation by users is limited to one address at a time. The number of votes tha
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
 | delegatee | address | The address to delegate votes to |
 
 ### delegateBySig
@@ -299,14 +299,14 @@ Delegates votes from signatory to `delegatee`.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| delegatee | address | The address to delegate votes to |
-| nonce | uint256 | The contract state required to match the signature |
-| expiry | uint256 | The time at which to expire the signature |
-| v | uint8 | The recovery byte of the signature |
-| r | bytes32 | Half of the ECDSA signature pair |
-| s | bytes32 | Half of the ECDSA signature pair |
+| Name      | Type    | Description                                        |
+| --------- | ------- | -------------------------------------------------- |
+| delegatee | address | The address to delegate votes to                   |
+| nonce     | uint256 | The contract state required to match the signature |
+| expiry    | uint256 | The time at which to expire the signature          |
+| v         | uint8   | The recovery byte of the signature                 |
+| r         | bytes32 | Half of the ECDSA signature pair                   |
+| s         | bytes32 | Half of the ECDSA signature pair                   |
 
 ### mint
 
@@ -318,10 +318,10 @@ Mint new tokens.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| dst | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to be minted |
+| Name      | Type    | Description                            |
+| --------- | ------- | -------------------------------------- |
+| dst       | address | The address of the destination account |
+| rawAmount | uint256 | The number of tokens to be minted      |
 
 ### permit
 
@@ -333,15 +333,15 @@ Triggers an approval from owner to spends.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| owner | address | The address to approve from |
-| spender | address | The address to be approved |
+| Name      | Type    | Description                                                     |
+| --------- | ------- | --------------------------------------------------------------- |
+| owner     | address | The address to approve from                                     |
+| spender   | address | The address to be approved                                      |
 | rawAmount | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
-| deadline | uint256 | The time at which to expire the signature |
-| v | uint8 | The recovery byte of the signature |
-| r | bytes32 | Half of the ECDSA signature pair |
-| s | bytes32 | Half of the ECDSA signature pair |
+| deadline  | uint256 | The time at which to expire the signature                       |
+| v         | uint8   | The recovery byte of the signature                              |
+| r         | bytes32 | Half of the ECDSA signature pair                                |
+| s         | bytes32 | Half of the ECDSA signature pair                                |
 
 ### setMinter
 
@@ -353,9 +353,9 @@ Change the minter address.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| minter_ | address | The address of the new minter |
+| Name     | Type    | Description                   |
+| -------- | ------- | ----------------------------- |
+| minter\_ | address | The address of the new minter |
 
 ### swap
 
@@ -373,16 +373,16 @@ Transfer `amount` tokens from `msg.sender` to `dst`.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| dst | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to transfer |
+| Name      | Type    | Description                            |
+| --------- | ------- | -------------------------------------- |
+| dst       | address | The address of the destination account |
+| rawAmount | uint256 | The number of tokens to transfer       |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | bool | Whether or not the transfer succeeded |
+| Name | Type | Description                           |
+| ---- | ---- | ------------------------------------- |
+| [0]  | bool | Whether or not the transfer succeeded |
 
 ### transferFrom
 
@@ -394,17 +394,17 @@ Transfer `amount` tokens from `src` to `dst`.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| src | address | The address of the source account |
-| dst | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to transfer |
+| Name      | Type    | Description                            |
+| --------- | ------- | -------------------------------------- |
+| src       | address | The address of the source account      |
+| dst       | address | The address of the destination account |
+| rawAmount | uint256 | The number of tokens to transfer       |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | bool | Whether or not the transfer succeeded |
+| Name | Type | Description                           |
+| ---- | ---- | ------------------------------------- |
+| [0]  | bool | Whether or not the transfer succeeded |
 
 ## Events
 

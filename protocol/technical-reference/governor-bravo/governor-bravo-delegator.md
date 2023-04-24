@@ -17,13 +17,12 @@ Hifi Finance's GovernorBravoDelegator is a smart contract that serves as a proxy
 
 Administrator for this contract.
 
-
 ### implementation
 
 - Type: `address`
 - Visibility: `public`
 
-The address of the current implementation contract. The implementation contract contains the actual implementation logic for the governor, and can be updated by the admin through the _setImplementation() function. When a function is called on the governor, the call is delegated to the implementation contract to execute the logic.
+The address of the current implementation contract. The implementation contract contains the actual implementation logic for the governor, and can be updated by the admin through the \_setImplementation() function. When a function is called on the governor, the call is delegated to the implementation contract to execute the logic.
 
 ### pendingAdmin
 
@@ -42,9 +41,9 @@ Called by the admin to update the implementation of the delegator
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| implementation_ | address | The address of the new implementation for delegation |
+| Name             | Type    | Description                                          |
+| ---------------- | ------- | ---------------------------------------------------- |
+| implementation\_ | address | The address of the new implementation for delegation |
 
 ## Events
 
