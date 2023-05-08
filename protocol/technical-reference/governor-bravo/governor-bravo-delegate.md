@@ -1,6 +1,6 @@
 ---
-id: governor-bravo-delegate
-title: Governor Bravo Delegate
+id: governor-bravo
+title: Governor Bravo
 sidebar_position: 4
 ---
 

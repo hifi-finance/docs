@@ -8,11 +8,11 @@ import LinkPreview from "../../src/components/LinkPreview";
 
 # Governance
 
-Hifi Governance and ERC-20 token implementation are each based on a common foundation stemming from Compound's GovernorBravo Smart Contracts. To meet our requirements we are pulling our ERC-20 token implementation from Uniswap's fork of Compound Governance, and pulling the Governance smart contracts from Ampleforth's fork of Compound Governance.
+The Hifi Governance and ERC-20 token implementation both derive from the foundation established by Compound's GovernorBravo Smart Contracts. Our ERC-20 token implementation originates from Uniswap's fork of Compound Governance, while the Governance smart contracts are adopted from Ampleforth's fork of Compound Governance.
 
-We chose Uniswap for the token implementation because it comes with the ERC-2612 functionality along with a governance based minting functionality we require. Uniswap's code for token implementation is in a direct fork from the Compound token implementation.
+We selected Uniswap for our token implementation as it includes ERC-2612 functionality and the governance-based minting feature we need. Uniswap's token implementation code is a direct fork of the Compound token implementation.
 
-The foundation of our governance contracts came from the Ampleforth fork of GovernorBravo, because similar to us and unlike Uniswap or Compound, they did not have legacy GovernorAlpha smart contracts before their GovernorBravo implementation. All changes we have made on top of this fork are outlined in COMMITLOG.md. Briefly, those changes include updating the Solidity version, adding support for our token swap, and integrating our token requirements to the codebase.
+Our governance contracts are built on the Ampleforth fork of GovernorBravo, primarily because, like Hifi and unlike Uniswap or Compound, they did not possess legacy GovernorAlpha smart contracts prior to their GovernorBravo implementation.
 
 ## Modus Operandi
 
@@ -32,7 +32,7 @@ The ephemeral nature of the hTokens permits us to make changes to their source c
 
 Smart contracts are powerful technology, but the fact that they are immutable once deployed brings risks. We hedge against these risks in the following ways:
 
-1. We designed the [BalanceSheet](../technical-reference/core/balance-sheet.md)) contract to be upgradeable. This is
+1. We designed the [BalanceSheet](../technical-reference/core/balance-sheet.md) contract to be upgradeable. This is
    the contract that holds all users' collateral deposits.
 2. We enforced caps on how much debt can be taken on by borrowers.
 3. We gave ourselves the ability to pause most operations (except for collateral withdrawals).

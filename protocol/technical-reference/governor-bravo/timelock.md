@@ -6,9 +6,7 @@ sidebar_position: 3
 
 # Timelock
 
-A Timelock contract serves as a crucial component for decentralized governance, ensuring that system parameters, logic, and contracts are updated securely and transparently. The Timelock contract enables a 'time-delayed, opt-out' upgrade pattern, which allows the community to review proposed changes and respond accordingly before they take effect.
-
-Protocol contract is controlled by the Timelock, which queues and executes proposals that have successfully passed a Governance vote. The Timelock contract features a hard-coded minimum delay, representing the shortest possible notice period for a governance action. This delay ensures that stakeholders have sufficient time to review and react to the proposed changes, fostering trust and transparency in the decentralized decision-making process.
+The Timelock contract is a vital component in decentralized governance, controlling each protocol contract and facilitating secure, transparent updates to system parameters, logic, and contracts. It operates through a "time-delayed, opt-out" upgrade pattern, allowing stakeholders ample time to review proposed changes and react accordingly. The Timelock contract, which has a hard-coded minimum delay, queues and executes proposals that have successfully passed a Governance vote, ensuring trust and transparency in the decision-making process.
 
 ## Variables
 
