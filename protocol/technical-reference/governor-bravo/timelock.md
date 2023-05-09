@@ -8,70 +8,57 @@ sidebar_position: 3
 
 The Timelock contract is a vital component in decentralized governance, controlling each protocol contract and facilitating secure, transparent updates to system parameters, logic, and contracts. It operates through a "time-delayed, opt-out" upgrade pattern, allowing stakeholders ample time to review proposed changes and react accordingly. The Timelock contract, which has a hard-coded minimum delay, queues and executes proposals that have successfully passed a Governance vote, ensuring trust and transparency in the decision-making process.
 
-## Variables
-
-### admin
-
-- Type: `address`
-- Visibility: `public`
-
-The address of the current admin.
+## Constant Functions
 
 ### delay
 
-- Type: `uint256`
-- Visibility: `public`
+```solidity
+function delay() external returns (uint256)
+```
 
-The delay period for the timelock (in seconds).
+The duration of the time after which a transaction can be executed.
 
 ### GRACE_PERIOD
 
-- Type: `uint256`
-- Visibility: `public constant`
+```solidity
+function GRACE_PERIOD() external returns (uint256)
+```
 
-The grace period for executing a scheduled transaction (in seconds).
-
-### MAXIMUM_DELAY
-
-- Type: `uint256`
-- Visibility: `public constant`
-
-The maximum delay period allowed for the timelock (in seconds).
-
-### MINIMUM_DELAY
-
-- Type: `uint256`
-- Visibility: `public constant`
-
-The minimum delay period allowed for the timelock (in seconds).
-
-### pendingAdmin
-
-- Type: `address`
-- Visibility: `public`
-
-The address of the pending admin, who will become the admin after accepting the admin role.
+The duration of the time after the transaction is available to be executed, but before it expires.
 
 ### queuedTransactions
 
-- Type: `mapping(bytes32 => bool)`
-- Visibility: `public`
-
-A mapping that stores the queued transactions, where the key is the transaction hash and the value is a boolean indicating if the transaction is queued.
-
-## Constant Functions
-
-### getBlockTimestamp
-
 ```solidity
-function getBlockTimestamp() internal view returns (uint256)
+function queuedTransactions(
+    bytes32 hash
+) external returns (bool)
 ```
 
-Get the current block timestamp.
+Get the details about a queued transaction.
 
-**Note**: This function is marked as `internal`, making it inaccessible outside of the contract.
+#### Parameters
+
+| Name   | Type    | Description                           |
+| :----- | :------ | :------------------------------------ |
+| `hash` | bytes32 | The hash of the transaction to check. |
 
 ## Non-Constant Functions
+
+### setDelay
+
+```solidity
+function setDelay(
+    uint256 delay_
+) public
+```
+
+Set the delay for the timelock.
+
+#### Parameters
+
+| Name     | Type    | Description                     |
+| :------- | :------ | :------------------------------ |
+| `delay_` | uint256 | The new delay that will be set. |
 
 ### acceptAdmin
 
@@ -81,92 +68,218 @@ function acceptAdmin() public
 
 Allows the pending admin to accept the admin role.
 
-### cancelTransaction
-
-```solidity
-function cancelTransaction(address target, uint256 value, string signature, bytes data, uint256 eta) public
-```
-
-Cancel a queued transaction.
-
-### executeTransaction
-
-```solidity
-function executeTransaction(address target, uint256 value, string signature, bytes data, uint256 eta) public payable returns (bytes)
-```
-
-Execute a queued transaction.
-
-### QueueTransaction
-
-```solidity
-event QueueTransaction(bytes32 txHash, address target, uint256 value, string signature, bytes data, uint256 eta)
-```
-
-Queue a transaction for future execution.
-
-### setDelay
-
-```solidity
-function setDelay(uint256 delay_) public
-```
-
-Set the delay for the timelock.
-
 ### setPendingAdmin
 
 ```solidity
-function setPendingAdmin(address pendingAdmin_) public
+function setPendingAdmin(
+    address pendingAdmin_
+) public
 ```
 
 Set the address of the pending admin.
 
+#### Parameters
+
+| Name            | Type    | Description                             |
+| :-------------- | :------ | :-------------------------------------- |
+| `pendingAdmin_` | address | The new pending admin that will be set. |
+
+### queueTransaction
+
+```solidity
+function queueTransaction(
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+) public returns (bytes32)
+```
+
+Queue a transaction for future execution.
+
+#### Parameters
+
+| Name        | Type    | Description                                                         |
+| :---------- | :------ | :------------------------------------------------------------------ |
+| `target`    | address | The target address of the contract which will be called.            |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
+| `signature` | string  | The signature of the function to be called.                         |
+| `data`      | bytes   | The data that will be passed to the function.                       |
+| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+
+### cancelTransaction
+
+```solidity
+function cancelTransaction(
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+) public
+```
+
+Cancel a queued transaction.
+
+#### Parameters
+
+| Name        | Type    | Description                                                         |
+| :---------- | :------ | :------------------------------------------------------------------ |
+| `target`    | address | The target address of the contract which will be called.            |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
+| `signature` | string  | The signature of the function to be called.                         |
+| `data`      | bytes   | The data that will be passed to the function.                       |
+| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+
+### executeTransaction
+
+```solidity
+function executeTransaction(
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+) public returns (bytes)
+```
+
+Execute a queued transaction.
+
+#### Parameters
+
+| Name        | Type    | Description                                                         |
+| :---------- | :------ | :------------------------------------------------------------------ |
+| `target`    | address | The target address of the contract which will be called.            |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
+| `signature` | string  | The signature of the function to be called.                         |
+| `data`      | bytes   | The data that will be passed to the function.                       |
+| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+
 ## Events
-
-### CancelTransaction
-
-```solidity
-event CancelTransaction(bytes32 txHash, address target, uint256 value, string signature, bytes data, uint256 eta)
-```
-
-Emitted when timelock admin cancel the transaction.
-
-### ExecuteTransaction
-
-```solidity
-event ExecuteTransaction(bytes32 txHash, address target, uint256 value, string signature, bytes data, uint256 eta)
-```
-
-Emitted when transaction is executed.
 
 ### NewAdmin
 
 ```solidity
-event NewAdmin(address newAdmin)
+event NewAdmin(
+    address newAdmin
+)
 ```
 
 Emitted when there is a change in admin.
 
-### NewDelay
+#### Parameters
 
-```solidity
-event NewDelay(uint256 newDelay)
-```
-
-Emitted when new delay is set.
+| Name       | Type    | Description                 |
+| :--------- | :------ | :-------------------------- |
+| `newAdmin` | address | The new admin that was set. |
 
 ### NewPendingAdmin
 
 ```solidity
-event NewPendingAdmin(address newPendingAdmin)
+event NewPendingAdmin(
+    address newPendingAdmin
+)
 ```
 
 Emitted when pending admin is set.
 
+#### Parameters
+
+| Name              | Type    | Description                         |
+| :---------------- | :------ | :---------------------------------- |
+| `newPendingAdmin` | address | The new pending admin that was set. |
+
+### NewDelay
+
+```solidity
+event NewDelay(
+    uint256 newDelay
+)
+```
+
+Emitted when new delay is set.
+
+#### Parameters
+
+| Name       | Type    | Description                 |
+| :--------- | :------ | :-------------------------- |
+| `newDelay` | uint256 | The new delay that was set. |
+
+### CancelTransaction
+
+```solidity
+event CancelTransaction(
+    bytes32 txHash,
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+)
+```
+
+Emitted when timelock admin cancel the transaction.
+
+#### Parameters
+
+| Name        | Type    | Description                                                            |
+| :---------- | :------ | :--------------------------------------------------------------------- |
+| `txHash`    | bytes32 | The hash of the transaction that was canceled.                         |
+| `target`    | address | The target contract address that contains the logic that was canceled. |
+| `value`     | uint256 | The amount of ether meant to be transferred to the target contract.    |
+| `signature` | string  | The signature of the function canceled.                                |
+| `data`      | bytes   | The data passed to the function that was canceled.                     |
+| `eta`       | uint256 | The timestamp after which the transaction was able to be canceled.     |
+
+### ExecuteTransaction
+
+```solidity
+event ExecuteTransaction(
+    bytes32 txHash,
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+)
+```
+
+Emitted when transaction is executed.
+
+#### Parameters
+
+| Name        | Type    | Description                                                            |
+| :---------- | :------ | :--------------------------------------------------------------------- |
+| `txHash`    | bytes32 | The hash of the transaction that was executed.                         |
+| `target`    | address | The target contract address that contains the logic that was executed. |
+| `value`     | uint256 | The amount of ether transferred to the target contract.                |
+| `signature` | string  | The signature of the function executed.                                |
+| `data`      | bytes   | The data passed to the function that was executed.                     |
+| `eta`       | uint256 | The timestamp after which the transaction was able to be executed.     |
+
 ### QueueTransaction
 
 ```solidity
-event QueueTransaction(bytes32 txHash, address target, uint256 value, string signature, bytes data, uint256 eta)
+event QueueTransaction(
+    bytes32 txHash,
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+)
 ```
 
 Emitted when transaction is queued.
+
+#### Parameters
+
+| Name        | Type    | Description                                                         |
+| :---------- | :------ | :------------------------------------------------------------------ |
+| `txHash`    | bytes32 | The hash of the transaction that was queued.                        |
+| `target`    | address | The target contract address that contains the logic to be executed. |
+| `value`     | uint256 | The amount of ether to transfer to the target contract.             |
+| `signature` | string  | The signature of the function to be executed.                       |
+| `data`      | bytes   | The data to be passed to the function to be executed.               |
+| `eta`       | uint256 | The timestamp after which the transaction can be executed.          |

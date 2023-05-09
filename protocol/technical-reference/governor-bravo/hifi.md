@@ -8,446 +8,459 @@ sidebar_position: 2
 
 HIFI is an ERC-20 token enabling its owners to assign voting rights to any address, even their own. Alterations in an owner's token balance automatically modify the delegate's voting rights, ensuring a dynamic, transparent, and responsive Hifi Governance process for the Hifi Finance community.
 
-## Variables
-
-### allowances
-
-- Type: `mapping(address => mapping(address => uint96))`
-- Visibility: `internal`
-
-Allowance amounts on behalf of others.
-
-### balances
-
-- Type: `mapping(address => uint96)`
-- Visibility: `internal`
-
-Official record of token balances for each account.
-
-### delegates
-
-- Type: `mapping(address => address)`
-- Visibility: `public`
-
-A record of each account's delegate.
-
-### DOMAIN_TYPEHASH
-
-- Type: `bytes32`
-- Visibility: `public`
-
-The EIP-712 typehash for the contract's domain.
-
-### mft
-
-- Type: `IERC20`
-- Visibility: `public`
-
-The MFT token contract.
-
-### minter
-
-- Type: `address`
-- Visibility: `public`
-
-Address which may mint new tokens.
-
-### name
-
-- Type: `string`
-- Visibility: `public`
-
-EIP-20 token name for this token.
-
-### nonces
-
-- Type: `mapping(address => uint256)`
-- Visibility: `public`
-
-A record of states for signing / validating signatures.
-
-### numCheckpoints
-
-- Type: `mapping(address => uint32)`
-- Visibility: `public`
-
-The number of checkpoints for each account.
-
-### PERMIT_TYPEHASH
-
-- Type: `bytes32`
-- Visibility: `public`
-
-The EIP-712 typehash for the permit struct used by the contract.
-
-### symbol
-
-- Type: `string`
-- Visibility: `public`
-
-EIP-20 token symbol for this token.
-
-### swapRatio
-
-- Type: `uint8`
-- Visibility: `public`
-
-Hifi to MFT token swap ratio.
-
-### totalSupply
-
-- Type: `uint256`
-- Visibility: `public`
-
-Total number of tokens in circulation.
-
-### DELEGATION_TYPEHASH
-
-- Type: `bytes32`
-- Visibility: `public`
-
-The EIP-712 typehash for the delegation struct used by the contract.
-
-### decimals
-
-- Type: `uint8`
-- Visibility: `public`
-
-EIP-20 token decimals for this token.
-
-### checkpoints
-
-- Type: `mapping(address => mapping(uint32 => Checkpoint))`
-- Visibility: `public`
-
-A record of votes checkpoints for each account, by index.
-
-### Checkpoint
-
-- Type: `struct`
-- Visibility: `internal`
-
-A checkpoint for marking number of votes from a given block.
-
 ## Constant Functions
 
 ### allowance
 
 ```solidity
-function allowance(address account, address spender) external view returns (uint256)
+function allowance(
+    address account,
+    address spender
+) external returns (uint256)
 ```
 
 Get the number of tokens `spender` is approved to spend on behalf of `account`
 
 #### Parameters
 
-| Name    | Type    | Description                                   |
-| ------- | ------- | --------------------------------------------- |
-| account | address | The address of the account holding the funds  |
-| spender | address | The address of the account spending the funds |
+| Name      | Type    | Description                                   |
+| :-------- | :------ | :-------------------------------------------- |
+| `account` | address | The address of the account holding the funds  |
+| `spender` | address | The address of the account spending the funds |
 
 #### Return Values
 
-| Name | Type    | Description                   |
-| ---- | ------- | ----------------------------- |
-| [0]  | uint256 | The number of tokens approved |
+| Name  | Type    | Description                   |
+| :---- | :------ | :---------------------------- |
+| `[0]` | uint256 | The number of tokens approved |
 
 ### balanceOf
 
 ```solidity
-function balanceOf(address account) external view returns (uint256)
+function balanceOf(
+    address account
+) external returns (uint256)
 ```
 
-Get the number of tokens held by the `account`.
+Get the number of tokens held by the `account`
+
+#### Parameters
+
+| Name      | Type    | Description                                      |
+| :-------- | :------ | :----------------------------------------------- |
+| `account` | address | The address of the account to get the balance of |
+
+#### Return Values
+
+| Name  | Type    | Description               |
+| :---- | :------ | :------------------------ |
+| `[0]` | uint256 | The number of tokens held |
+
+### totalSupply
+
+Get the total number of tokens in existence
+
+```solidity
+function totalSupply() external returns (uint256)
+```
 
 ### getCurrentVotes
 
 ```solidity
-function getCurrentVotes(address account) external view returns (uint96)
+function getCurrentVotes(
+    address account
+) external returns (uint96)
 ```
 
-Gets the current votes balance for `account`.
+Gets the current votes balance for `account`
 
 #### Parameters
 
-| Name    | Type    | Description                      |
-| ------- | ------- | -------------------------------- |
-| account | address | The address to get votes balance |
+| Name      | Type    | Description                      |
+| :-------- | :------ | :------------------------------- |
+| `account` | address | The address to get votes balance |
 
 #### Return Values
 
-| Name | Type   | Description                               |
-| ---- | ------ | ----------------------------------------- |
-| [0]  | uint96 | The number of current votes for `account` |
-
-#### Parameters
-
-| Name    | Type    | Description                                      |
-| ------- | ------- | ------------------------------------------------ |
-| account | address | The address of the account to get the balance of |
-
-#### Return Values
-
-| Name | Type    | Description               |
-| ---- | ------- | ------------------------- |
-| [0]  | uint256 | The number of tokens held |
+| Name  | Type   | Description                               |
+| :---- | :----- | :---------------------------------------- |
+| `[0]` | uint96 | The number of current votes for `account` |
 
 ### getPriorVotes
 
 ```solidity
-function getPriorVotes(address account, uint256 blockNumber) public view returns (uint96)
+function getPriorVotes(
+    address account,
+    uint256 blockNumber
+) public returns (uint96)
 ```
 
 Determine the prior number of votes for an account as of a block number
 
-_Block number must be a finalized block or else this function will revert to prevent misinformation._
+Block number must be a finalized block or else this function will revert to prevent misinformation.
 
 #### Parameters
 
-| Name        | Type    | Description                                 |
-| ----------- | ------- | ------------------------------------------- |
-| account     | address | The address of the account to check         |
-| blockNumber | uint256 | The block number to get the vote balance at |
+| Name          | Type    | Description                                 |
+| :------------ | :------ | :------------------------------------------ |
+| `account`     | address | The address of the account to check         |
+| `blockNumber` | uint256 | The block number to get the vote balance at |
 
 #### Return Values
 
-| Name | Type   | Description                                               |
-| ---- | ------ | --------------------------------------------------------- |
-| [0]  | uint96 | The number of votes the account had as of the given block |
+| Name  | Type   | Description                                               |
+| :---- | :----- | :-------------------------------------------------------- |
+| `[0]` | uint96 | The number of votes the account had as of the given block |
 
 ## Non-Constant Functions
+
+### setMinter
+
+```solidity
+function setMinter(
+    address minter_
+) external
+```
+
+Change the minter address
+
+#### Parameters
+
+| Name      | Type    | Description                   |
+| :-------- | :------ | :---------------------------- |
+| `minter_` | address | The address of the new minter |
+
+### mint
+
+```solidity
+function mint(
+    address dst,
+    uint256 rawAmount
+) external
+```
+
+Mint new tokens
+
+#### Parameters
+
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to be minted      |
 
 ### approve
 
 ```solidity
-function approve(address spender, uint256 rawAmount) external returns (bool)
+function approve(
+    address spender,
+    uint256 rawAmount
+) external returns (bool)
 ```
 
 Approve `spender` to transfer up to `amount` from `src`
 
-_This will overwrite the approval amount for `spender`
-and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)_
+This will overwrite the approval amount for `spender`
+and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)
 
 #### Parameters
 
-| Name      | Type    | Description                                                     |
-| --------- | ------- | --------------------------------------------------------------- |
-| spender   | address | The address of the account which may transfer tokens            |
-| rawAmount | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
+| Name        | Type    | Description                                                     |
+| :---------- | :------ | :-------------------------------------------------------------- |
+| `spender`   | address | The address of the account which may transfer tokens            |
+| `rawAmount` | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
 
 #### Return Values
 
-| Name | Type | Description                           |
-| ---- | ---- | ------------------------------------- |
-| [0]  | bool | Whether or not the approval succeeded |
+| Name  | Type | Description                           |
+| :---- | :--- | :------------------------------------ |
+| `[0]` | bool | Whether or not the approval succeeded |
 
 ### burn
 
 ```solidity
-function burn(uint256 rawAmount) external
+function burn(
+    uint256 rawAmount
+) external
 ```
 
 Destroys `amount` tokens from the caller
 
 #### Parameters
 
-| Name      | Type    | Description                  |
-| --------- | ------- | ---------------------------- |
-| rawAmount | uint256 | The number of tokens to burn |
+| Name        | Type    | Description                  |
+| :---------- | :------ | :--------------------------- |
+| `rawAmount` | uint256 | The number of tokens to burn |
 
 ### burnFrom
 
 ```solidity
-function burnFrom(address account, uint256 rawAmount) external
+function burnFrom(
+    address account,
+    uint256 rawAmount
+) external
 ```
 
-Destroys `amount` tokens from `account`, deducting from the caller's allowance.
+Destroys `amount` tokens from `account`, deducting from the caller's allowance
 
 #### Parameters
 
-| Name      | Type    | Description                             |
-| --------- | ------- | --------------------------------------- |
-| account   | address | The address of the account to burn from |
-| rawAmount | uint256 | The number of tokens to burn            |
-
-### delegate
-
-```solidity
-function delegate(address delegatee) public
-```
-
-Delegate votes from `msg.sender` to `delegatee`.
-delegation by users is limited to one address at a time. The number of votes that are credited to the delegatee's vote count is proportional to the HIFI balance held by the user. Delegation starts from the current block and continues until the user delegates again or transfers their HIFI.
-
-#### Parameters
-
-| Name      | Type    | Description                      |
-| --------- | ------- | -------------------------------- |
-| delegatee | address | The address to delegate votes to |
-
-### delegateBySig
-
-```solidity
-function delegateBySig(address delegatee, uint256 nonce, uint256 expiry, uint8 v, bytes32 r, bytes32 s) public
-```
-
-Delegates votes from signatory to `delegatee`.
-
-#### Parameters
-
-| Name      | Type    | Description                                        |
-| --------- | ------- | -------------------------------------------------- |
-| delegatee | address | The address to delegate votes to                   |
-| nonce     | uint256 | The contract state required to match the signature |
-| expiry    | uint256 | The time at which to expire the signature          |
-| v         | uint8   | The recovery byte of the signature                 |
-| r         | bytes32 | Half of the ECDSA signature pair                   |
-| s         | bytes32 | Half of the ECDSA signature pair                   |
-
-### mint
-
-```solidity
-function mint(address dst, uint256 rawAmount) external
-```
-
-Mint new tokens.
-
-#### Parameters
-
-| Name      | Type    | Description                            |
-| --------- | ------- | -------------------------------------- |
-| dst       | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to be minted      |
+| Name        | Type    | Description                             |
+| :---------- | :------ | :-------------------------------------- |
+| `account`   | address | The address of the account to burn from |
+| `rawAmount` | uint256 | The number of tokens to burn            |
 
 ### permit
 
 ```solidity
-function permit(address owner, address spender, uint256 rawAmount, uint256 deadline, uint8 v, bytes32 r, bytes32 s) external
+function permit(
+    address owner,
+    address spender,
+    uint256 rawAmount,
+    uint256 deadline,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+) external
 ```
 
-Triggers an approval from owner to spends.
+Approve `spender` to transfer up to `amount`tokens from `owner`
 
 #### Parameters
 
-| Name      | Type    | Description                                                     |
-| --------- | ------- | --------------------------------------------------------------- |
-| owner     | address | The address to approve from                                     |
-| spender   | address | The address to be approved                                      |
-| rawAmount | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
-| deadline  | uint256 | The time at which to expire the signature                       |
-| v         | uint8   | The recovery byte of the signature                              |
-| r         | bytes32 | Half of the ECDSA signature pair                                |
-| s         | bytes32 | Half of the ECDSA signature pair                                |
-
-### setMinter
-
-```solidity
-function setMinter(address minter_) external
-```
-
-Change the minter address.
-
-#### Parameters
-
-| Name     | Type    | Description                   |
-| -------- | ------- | ----------------------------- |
-| minter\_ | address | The address of the new minter |
-
-### swap
-
-```solidity
-function swap(uint256 mftAmount) external
-```
+| Name        | Type    | Description                                                     |
+| :---------- | :------ | :-------------------------------------------------------------- |
+| `owner`     | address | The address to approve from                                     |
+| `spender`   | address | The address to be approved                                      |
+| `rawAmount` | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
+| `deadline`  | uint256 | The time at which to expire the signature                       |
+| `v`         | uint8   | The recovery byte of the signature                              |
+| `r`         | bytes32 | Half of the ECDSA signature pair                                |
+| `s`         | bytes32 | Half of the ECDSA signature pair                                |
 
 ### transfer
 
 ```solidity
-function transfer(address dst, uint256 rawAmount) external returns (bool)
+function transfer(
+    address dst,
+    uint256 rawAmount
+) external returns (bool)
 ```
 
-Transfer `amount` tokens from `msg.sender` to `dst`.
+Transfer `amount` tokens from `msg.sender` to `dst`
 
 #### Parameters
 
-| Name      | Type    | Description                            |
-| --------- | ------- | -------------------------------------- |
-| dst       | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to transfer       |
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to transfer       |
 
 #### Return Values
 
-| Name | Type | Description                           |
-| ---- | ---- | ------------------------------------- |
-| [0]  | bool | Whether or not the transfer succeeded |
+| Name  | Type | Description                           |
+| :---- | :--- | :------------------------------------ |
+| `[0]` | bool | Whether or not the transfer succeeded |
 
 ### transferFrom
 
 ```solidity
-function transferFrom(address src, address dst, uint256 rawAmount) external returns (bool)
+function transferFrom(
+    address src,
+    address dst,
+    uint256 rawAmount
+) external returns (bool)
 ```
 
-Transfer `amount` tokens from `src` to `dst`.
+Transfer `amount` tokens from `src` to `dst`
 
 #### Parameters
 
-| Name      | Type    | Description                            |
-| --------- | ------- | -------------------------------------- |
-| src       | address | The address of the source account      |
-| dst       | address | The address of the destination account |
-| rawAmount | uint256 | The number of tokens to transfer       |
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `src`       | address | The address of the source account      |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to transfer       |
 
 #### Return Values
 
-| Name | Type | Description                           |
-| ---- | ---- | ------------------------------------- |
-| [0]  | bool | Whether or not the transfer succeeded |
+| Name  | Type | Description                           |
+| :---- | :--- | :------------------------------------ |
+| `[0]` | bool | Whether or not the transfer succeeded |
+
+### delegate
+
+```solidity
+function delegate(
+    address delegatee
+) public
+```
+
+Delegate votes from `msg.sender` to `delegatee`
+
+#### Parameters
+
+| Name        | Type    | Description                      |
+| :---------- | :------ | :------------------------------- |
+| `delegatee` | address | The address to delegate votes to |
+
+### delegateBySig
+
+```solidity
+function delegateBySig(
+    address delegatee,
+    uint256 nonce,
+    uint256 expiry,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+) public
+```
+
+Delegates votes from signatory to `delegatee`
+
+#### Parameters
+
+| Name        | Type    | Description                                        |
+| :---------- | :------ | :------------------------------------------------- |
+| `delegatee` | address | The address to delegate votes to                   |
+| `nonce`     | uint256 | The contract state required to match the signature |
+| `expiry`    | uint256 | The time at which to expire the signature          |
+| `v`         | uint8   | The recovery byte of the signature                 |
+| `r`         | bytes32 | Half of the ECDSA signature pair                   |
+| `s`         | bytes32 | Half of the ECDSA signature pair                   |
+
+### swap
+
+```solidity
+function swap(
+    uint256 mftAmount
+) external
+```
+
+Swap MFT tokens for Hifi
+
+#### Parameters
+
+| Name        | Type    | Description               |
+| :---------- | :------ | :------------------------ |
+| `mftAmount` | uint256 | The amount of MFT to swap |
 
 ## Events
-
-### Approval
-
-```solidity
-event Approval(address owner, address spender, uint256 amount)
-```
-
-The standard EIP-20 approval.
-
-### DelegateChanged
-
-```solidity
-event DelegateChanged(address delegator, address fromDelegate, address toDelegate)
-```
-
-An event thats emitted when an account changes its delegate.
-
-### DelegateVotesChanged
-
-```solidity
-event DelegateVotesChanged(address delegate, uint256 previousBalance, uint256 newBalance)
-```
-
-An event thats emitted when a delegate account's vote balance changes.
 
 ### MinterChanged
 
 ```solidity
-event MinterChanged(address minter, address newMinter)
+event MinterChanged(
+    address minter,
+    address newMinter
+)
 ```
 
-An event thats emitted when the minter address is changed.
+An event thats emitted when the minter address is changed
+
+#### Parameters
+
+| Name        | Type    | Description                        |
+| :---------- | :------ | :--------------------------------- |
+| `minter`    | address | The address of the previous minter |
+| `newMinter` | address | The address of the new minter      |
+
+### DelegateChanged
+
+```solidity
+event DelegateChanged(
+    address delegator,
+    address fromDelegate,
+    address toDelegate
+)
+```
+
+An event thats emitted when an account changes its delegate
+
+#### Parameters
+
+| Name           | Type    | Description                       |
+| :------------- | :------ | :-------------------------------- |
+| `delegator`    | address | The address which delegated votes |
+| `fromDelegate` | address | The previous address delegated to |
+| `toDelegate`   | address | The new address delegated to      |
+
+### DelegateVotesChanged
+
+```solidity
+event DelegateVotesChanged(
+    address delegate,
+    uint256 previousBalance,
+    uint256 newBalance
+)
+```
+
+An event thats emitted when a delegate account's vote balance changes
+
+#### Parameters
+
+| Name              | Type    | Description                                  |
+| :---------------- | :------ | :------------------------------------------- |
+| `delegate`        | address | The address that delegated votes are cast to |
+| `previousBalance` | uint256 | The previous balance of votes for `delegate` |
+| `newBalance`      | uint256 | The new balance of votes for `delegate`      |
 
 ### Swap
 
 ```solidity
-event Swap(address sender, uint256 mftAmount, uint256 hifiAmount)
+event Swap(
+    address sender,
+    uint256 mftAmount,
+    uint256 hifiAmount
+)
 ```
 
-An event thats emitted when an MFT token is swapped for HIFI.
+An event thats emitted when MFT tokens are swapped for HIFI
+
+#### Parameters
+
+| Name         | Type    | Description                 |
+| :----------- | :------ | :-------------------------- |
+| `sender`     | address | The address of the sender   |
+| `mftAmount`  | uint256 | The amount of MFT swapped   |
+| `hifiAmount` | uint256 | The amount of HIFI received |
 
 ### Transfer
 
 ```solidity
-event Transfer(address from, address to, uint256 amount)
+event Transfer(
+    address from,
+    address to,
+    uint256 amount
+)
 ```
 
-The standard EIP-20 transfer event.
+The standard EIP-20 transfer event
+
+#### Parameters
+
+| Name     | Type    | Description                 |
+| :------- | :------ | :-------------------------- |
+| `from`   | address | The address of the sender   |
+| `to`     | address | The address of the receiver |
+| `amount` | uint256 | The amount of tokens sent   |
+
+### Approval
+
+```solidity
+event Approval(
+    address owner,
+    address spender,
+    uint256 amount
+)
+```
+
+The standard EIP-20 approval event
+
+#### Parameters
+
+| Name      | Type    | Description                                     |
+| :-------- | :------ | :---------------------------------------------- |
+| `owner`   | address | The address of the account that owns the tokens |
+| `spender` | address | The address of the account to spend the tokens  |
+| `amount`  | uint256 | The number of tokens approved to spend          |
