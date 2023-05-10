@@ -56,14 +56,6 @@ Get the number of tokens held by the `account`
 | :---- | :------ | :------------------------ |
 | `[0]` | uint256 | The number of tokens held |
 
-### totalSupply
-
-Get the total number of tokens in existence
-
-```solidity
-function totalSupply() external returns (uint256)
-```
-
 ### getCurrentVotes
 
 ```solidity
@@ -95,9 +87,7 @@ function getPriorVotes(
 ) public returns (uint96)
 ```
 
-Determine the prior number of votes for an account as of a block number
-
-Block number must be a finalized block or else this function will revert to prevent misinformation.
+Determine the prior number of votes for an account as of a block number. The block number must be a finalized block or else this function will revert to prevent misinformation.
 
 #### Parameters
 
@@ -112,41 +102,15 @@ Block number must be a finalized block or else this function will revert to prev
 | :---- | :----- | :-------------------------------------------------------- |
 | `[0]` | uint96 | The number of votes the account had as of the given block |
 
+### totalSupply
+
+Get the total number of tokens in existence
+
+```solidity
+function totalSupply() external returns (uint256)
+```
+
 ## Non-Constant Functions
-
-### setMinter
-
-```solidity
-function setMinter(
-    address minter_
-) external
-```
-
-Change the minter address
-
-#### Parameters
-
-| Name      | Type    | Description                   |
-| :-------- | :------ | :---------------------------- |
-| `minter_` | address | The address of the new minter |
-
-### mint
-
-```solidity
-function mint(
-    address dst,
-    uint256 rawAmount
-) external
-```
-
-Mint new tokens
-
-#### Parameters
-
-| Name        | Type    | Description                            |
-| :---------- | :------ | :------------------------------------- |
-| `dst`       | address | The address of the destination account |
-| `rawAmount` | uint256 | The number of tokens to be minted      |
 
 ### approve
 
@@ -157,9 +121,7 @@ function approve(
 ) external returns (bool)
 ```
 
-Approve `spender` to transfer up to `amount` from `src`
-
-This will overwrite the approval amount for `spender`
+Approve `spender` to transfer up to `rawAmount` from `msg.sender`. This will overwrite the approval amount for `spender`
 and is subject to issues noted [here](https://eips.ethereum.org/EIPS/eip-20#approve)
 
 #### Parameters
@@ -183,7 +145,7 @@ function burn(
 ) external
 ```
 
-Destroys `amount` tokens from the caller
+Destroys `rawAmount` tokens from the caller
 
 #### Parameters
 
@@ -200,7 +162,7 @@ function burnFrom(
 ) external
 ```
 
-Destroys `amount` tokens from `account`, deducting from the caller's allowance
+Destroys `rawAmount` tokens from `account`, deducting from the caller's allowance
 
 #### Parameters
 
@@ -208,84 +170,6 @@ Destroys `amount` tokens from `account`, deducting from the caller's allowance
 | :---------- | :------ | :-------------------------------------- |
 | `account`   | address | The address of the account to burn from |
 | `rawAmount` | uint256 | The number of tokens to burn            |
-
-### permit
-
-```solidity
-function permit(
-    address owner,
-    address spender,
-    uint256 rawAmount,
-    uint256 deadline,
-    uint8 v,
-    bytes32 r,
-    bytes32 s
-) external
-```
-
-Approve `spender` to transfer up to `amount`tokens from `owner`
-
-#### Parameters
-
-| Name        | Type    | Description                                                     |
-| :---------- | :------ | :-------------------------------------------------------------- |
-| `owner`     | address | The address to approve from                                     |
-| `spender`   | address | The address to be approved                                      |
-| `rawAmount` | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
-| `deadline`  | uint256 | The time at which to expire the signature                       |
-| `v`         | uint8   | The recovery byte of the signature                              |
-| `r`         | bytes32 | Half of the ECDSA signature pair                                |
-| `s`         | bytes32 | Half of the ECDSA signature pair                                |
-
-### transfer
-
-```solidity
-function transfer(
-    address dst,
-    uint256 rawAmount
-) external returns (bool)
-```
-
-Transfer `amount` tokens from `msg.sender` to `dst`
-
-#### Parameters
-
-| Name        | Type    | Description                            |
-| :---------- | :------ | :------------------------------------- |
-| `dst`       | address | The address of the destination account |
-| `rawAmount` | uint256 | The number of tokens to transfer       |
-
-#### Return Values
-
-| Name  | Type | Description                           |
-| :---- | :--- | :------------------------------------ |
-| `[0]` | bool | Whether or not the transfer succeeded |
-
-### transferFrom
-
-```solidity
-function transferFrom(
-    address src,
-    address dst,
-    uint256 rawAmount
-) external returns (bool)
-```
-
-Transfer `amount` tokens from `src` to `dst`
-
-#### Parameters
-
-| Name        | Type    | Description                            |
-| :---------- | :------ | :------------------------------------- |
-| `src`       | address | The address of the source account      |
-| `dst`       | address | The address of the destination account |
-| `rawAmount` | uint256 | The number of tokens to transfer       |
-
-#### Return Values
-
-| Name  | Type | Description                           |
-| :---- | :--- | :------------------------------------ |
-| `[0]` | bool | Whether or not the transfer succeeded |
 
 ### delegate
 
@@ -329,6 +213,68 @@ Delegates votes from signatory to `delegatee`
 | `r`         | bytes32 | Half of the ECDSA signature pair                   |
 | `s`         | bytes32 | Half of the ECDSA signature pair                   |
 
+### mint
+
+```solidity
+function mint(
+    address dst,
+    uint256 rawAmount
+) external
+```
+
+Mint new tokens
+
+#### Parameters
+
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to be minted      |
+
+### permit
+
+```solidity
+function permit(
+    address owner,
+    address spender,
+    uint256 rawAmount,
+    uint256 deadline,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+) external
+```
+
+Approve by signature. For more details, see https://eips.ethereum.org/EIPS/eip-2612.
+
+#### Parameters
+
+| Name        | Type    | Description                                                     |
+| :---------- | :------ | :-------------------------------------------------------------- |
+| `owner`     | address | The address to approve from                                     |
+| `spender`   | address | The address to be approved                                      |
+| `rawAmount` | uint256 | The number of tokens that are approved (2^256-1 means infinite) |
+| `deadline`  | uint256 | The time at which to expire the signature                       |
+| `v`         | uint8   | The recovery byte of the signature                              |
+| `r`         | bytes32 | Half of the ECDSA signature pair                                |
+| `s`         | bytes32 | Half of the ECDSA signature pair                                |
+
+### setMinter
+
+```solidity
+function setMinter(
+    address minter_
+) external
+```
+
+Change the minter address
+
+#### Parameters
+
+| Name      | Type    | Description                   |
+| :-------- | :------ | :---------------------------- |
+| `minter_` | address | The address of the new minter |
+
 ### swap
 
 ```solidity
@@ -345,25 +291,77 @@ Swap MFT tokens for Hifi
 | :---------- | :------ | :------------------------ |
 | `mftAmount` | uint256 | The amount of MFT to swap |
 
-## Events
-
-### MinterChanged
+### transfer
 
 ```solidity
-event MinterChanged(
-    address minter,
-    address newMinter
-)
+function transfer(
+    address dst,
+    uint256 rawAmount
+) external returns (bool)
 ```
 
-An event thats emitted when the minter address is changed
+Transfer `rawAmount` tokens from `msg.sender` to `dst`
 
 #### Parameters
 
-| Name        | Type    | Description                        |
-| :---------- | :------ | :--------------------------------- |
-| `minter`    | address | The address of the previous minter |
-| `newMinter` | address | The address of the new minter      |
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to transfer       |
+
+#### Return Values
+
+| Name  | Type | Description                           |
+| :---- | :--- | :------------------------------------ |
+| `[0]` | bool | Whether or not the transfer succeeded |
+
+### transferFrom
+
+```solidity
+function transferFrom(
+    address src,
+    address dst,
+    uint256 rawAmount
+) external returns (bool)
+```
+
+Transfer `rawAmount` tokens from `src` to `dst`
+
+#### Parameters
+
+| Name        | Type    | Description                            |
+| :---------- | :------ | :------------------------------------- |
+| `src`       | address | The address of the source account      |
+| `dst`       | address | The address of the destination account |
+| `rawAmount` | uint256 | The number of tokens to transfer       |
+
+#### Return Values
+
+| Name  | Type | Description                           |
+| :---- | :--- | :------------------------------------ |
+| `[0]` | bool | Whether or not the transfer succeeded |
+
+## Events
+
+### Approval
+
+```solidity
+event Approval(
+    address owner,
+    address spender,
+    uint256 amount
+)
+```
+
+The standard EIP-20 approval event
+
+#### Parameters
+
+| Name      | Type    | Description                                     |
+| :-------- | :------ | :---------------------------------------------- |
+| `owner`   | address | The address of the account that owns the tokens |
+| `spender` | address | The address of the account to spend the tokens  |
+| `amount`  | uint256 | The number of tokens approved to spend          |
 
 ### DelegateChanged
 
@@ -405,6 +403,24 @@ An event thats emitted when a delegate account's vote balance changes
 | `previousBalance` | uint256 | The previous balance of votes for `delegate` |
 | `newBalance`      | uint256 | The new balance of votes for `delegate`      |
 
+### MinterChanged
+
+```solidity
+event MinterChanged(
+    address minter,
+    address newMinter
+)
+```
+
+An event thats emitted when the minter address is changed
+
+#### Parameters
+
+| Name        | Type    | Description                        |
+| :---------- | :------ | :--------------------------------- |
+| `minter`    | address | The address of the previous minter |
+| `newMinter` | address | The address of the new minter      |
+
 ### Swap
 
 ```solidity
@@ -444,23 +460,3 @@ The standard EIP-20 transfer event
 | `from`   | address | The address of the sender   |
 | `to`     | address | The address of the receiver |
 | `amount` | uint256 | The amount of tokens sent   |
-
-### Approval
-
-```solidity
-event Approval(
-    address owner,
-    address spender,
-    uint256 amount
-)
-```
-
-The standard EIP-20 approval event
-
-#### Parameters
-
-| Name      | Type    | Description                                     |
-| :-------- | :------ | :---------------------------------------------- |
-| `owner`   | address | The address of the account that owns the tokens |
-| `spender` | address | The address of the account to spend the tokens  |
-| `amount`  | uint256 | The number of tokens approved to spend          |

@@ -19,30 +19,6 @@ The core features of the Governor Bravo Delegate include:
 
 ## Constant Functions
 
-### MIN_PROPOSAL_THRESHOLD
-
-```solidity
-function MIN_PROPOSAL_THRESHOLD() public returns (uint256)
-```
-
-The minimum setable proposal threshold
-
-### MAX_PROPOSAL_THRESHOLD
-
-```solidity
-function MAX_PROPOSAL_THRESHOLD() public returns (uint256)
-```
-
-The maximum setable proposal threshold
-
-### quorumVotes
-
-```solidity
-function quorumVotes() public returns (uint256)
-```
-
-The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-
 ### getActions
 
 ```solidity
@@ -92,6 +68,14 @@ Gets the receipt for a voter on a given proposal
 | :---- | :-------------------------------------------- | :----------------- |
 | `[0]` | struct GovernorBravoDelegateStorageV1.Receipt | The voting receipt |
 
+### quorumVotes
+
+```solidity
+function quorumVotes() public returns (uint256)
+```
+
+The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
+
 ### state
 
 ```solidity
@@ -114,7 +98,195 @@ Gets the state of a proposal
 | :---- | :------------------------------------------------ | :------------- |
 | `[0]` | enum GovernorBravoDelegateStorageV1.ProposalState | Proposal state |
 
+### MAX_PROPOSAL_THRESHOLD
+
+```solidity
+function MAX_PROPOSAL_THRESHOLD() public returns (uint256)
+```
+
+The maximum setable proposal threshold
+
+### MIN_PROPOSAL_THRESHOLD
+
+```solidity
+function MIN_PROPOSAL_THRESHOLD() public returns (uint256)
+```
+
+The minimum setable proposal threshold
+
 ## Non-Constant Functions
+
+### \_acceptAdmin
+
+```solidity
+function _acceptAdmin() external
+```
+
+This function is used to accept the transfer of admin rights. The message sender (i.e., msg.sender) must be the pending admin.
+
+### \_setPendingAdmin
+
+```solidity
+function _setPendingAdmin(
+    address newPendingAdmin
+) external
+```
+
+Begins transfer of admin rights. The newPendingAdmin must call `_acceptAdmin` to finalize the transfer.
+
+Admin function to begin change of admin. The newPendingAdmin must call `_acceptAdmin` to finalize the transfer.
+
+#### Parameters
+
+| Name              | Type    | Description        |
+| :---------------- | :------ | :----------------- |
+| `newPendingAdmin` | address | New pending admin. |
+
+### \_setProposalThreshold
+
+```solidity
+function _setProposalThreshold(
+    uint256 newProposalThreshold
+) external
+```
+
+Admin function for setting the proposal threshold.
+
+`newProposalThreshold` must be greater than the hardcoded `MIN_PROPOSAL_THRESHOLD`
+
+#### Parameters
+
+| Name                   | Type    | Description            |
+| :--------------------- | :------ | :--------------------- |
+| `newProposalThreshold` | uint256 | new proposal threshold |
+
+### \_setVotingDelay
+
+```solidity
+function _setVotingDelay(
+    uint256 newVotingDelay
+) external
+```
+
+Admin function for setting the voting delay
+
+#### Parameters
+
+| Name             | Type    | Description                 |
+| :--------------- | :------ | :-------------------------- |
+| `newVotingDelay` | uint256 | new voting delay, in blocks |
+
+### \_setVotingPeriod
+
+```solidity
+function _setVotingPeriod(
+    uint256 newVotingPeriod
+) external
+```
+
+Admin function for setting the voting period
+
+#### Parameters
+
+| Name              | Type    | Description                  |
+| :---------------- | :------ | :--------------------------- |
+| `newVotingPeriod` | uint256 | new voting period, in blocks |
+
+### cancel
+
+```solidity
+function cancel(
+    uint256 proposalId
+) external
+```
+
+Cancels a proposal only if sender is the proposer, or proposer delegates dropped below proposal threshold
+
+#### Parameters
+
+| Name         | Type    | Description                      |
+| :----------- | :------ | :------------------------------- |
+| `proposalId` | uint256 | The id of the proposal to cancel |
+
+### castVote
+
+```solidity
+function castVote(
+    uint256 proposalId,
+    uint8 support
+) external
+```
+
+Cast a vote for a proposal
+
+#### Parameters
+
+| Name         | Type    | Description                                                 |
+| :----------- | :------ | :---------------------------------------------------------- |
+| `proposalId` | uint256 | The id of the proposal to vote on                           |
+| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
+
+### castVoteBySig
+
+```solidity
+function castVoteBySig(
+    uint256 proposalId,
+    uint8 support,
+    uint8 v,
+    bytes32 r,
+    bytes32 s
+) external
+```
+
+Cast a vote for a proposal by signature
+
+External function that accepts EIP-712 signatures for voting on proposals.
+
+#### Parameters
+
+| Name         | Type    | Description                                                 |
+| :----------- | :------ | :---------------------------------------------------------- |
+| `proposalId` | uint256 | The id of the proposal to vote on                           |
+| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
+| `v`          | uint8   | The recovery byte of the signature                          |
+| `r`          | bytes32 | The first 32 bytes of the signature                         |
+| `s`          | bytes32 | The second 32 bytes of the signature                        |
+
+### castVoteWithReason
+
+```solidity
+function castVoteWithReason(
+    uint256 proposalId,
+    uint8 support,
+    string reason
+) external
+```
+
+Cast a vote for a proposal with a reason
+
+#### Parameters
+
+| Name         | Type    | Description                                                 |
+| :----------- | :------ | :---------------------------------------------------------- |
+| `proposalId` | uint256 | The id of the proposal to vote on                           |
+| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
+| `reason`     | string  | The reason given for the vote by the voter                  |
+
+### execute
+
+```solidity
+function execute(
+    uint256 proposalId
+) external
+```
+
+Executes a queued proposal if eta has passed
+
+#### Parameters
+
+| Name         | Type    | Description                       |
+| :----------- | :------ | :-------------------------------- |
+| `proposalId` | uint256 | The id of the proposal to execute |
 
 ### initialize
 
@@ -186,179 +358,23 @@ Queues a proposal of state succeeded
 | :----------- | :------ | :------------------------------ |
 | `proposalId` | uint256 | The id of the proposal to queue |
 
-### execute
-
-```solidity
-function execute(
-    uint256 proposalId
-) external
-```
-
-Executes a queued proposal if eta has passed
-
-#### Parameters
-
-| Name         | Type    | Description                       |
-| :----------- | :------ | :-------------------------------- |
-| `proposalId` | uint256 | The id of the proposal to execute |
-
-### cancel
-
-```solidity
-function cancel(
-    uint256 proposalId
-) external
-```
-
-Cancels a proposal only if sender is the proposer, or proposer delegates dropped below proposal threshold
-
-#### Parameters
-
-| Name         | Type    | Description                      |
-| :----------- | :------ | :------------------------------- |
-| `proposalId` | uint256 | The id of the proposal to cancel |
-
-### castVote
-
-```solidity
-function castVote(
-    uint256 proposalId,
-    uint8 support
-) external
-```
-
-Cast a vote for a proposal
-
-#### Parameters
-
-| Name         | Type    | Description                                                 |
-| :----------- | :------ | :---------------------------------------------------------- |
-| `proposalId` | uint256 | The id of the proposal to vote on                           |
-| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
-
-### castVoteWithReason
-
-```solidity
-function castVoteWithReason(
-    uint256 proposalId,
-    uint8 support,
-    string reason
-) external
-```
-
-Cast a vote for a proposal with a reason
-
-#### Parameters
-
-| Name         | Type    | Description                                                 |
-| :----------- | :------ | :---------------------------------------------------------- |
-| `proposalId` | uint256 | The id of the proposal to vote on                           |
-| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
-| `reason`     | string  | The reason given for the vote by the voter                  |
-
-### castVoteBySig
-
-```solidity
-function castVoteBySig(
-    uint256 proposalId,
-    uint8 support,
-    uint8 v,
-    bytes32 r,
-    bytes32 s
-) external
-```
-
-Cast a vote for a proposal by signature
-
-External function that accepts EIP-712 signatures for voting on proposals.
-
-#### Parameters
-
-| Name         | Type    | Description                                                 |
-| :----------- | :------ | :---------------------------------------------------------- |
-| `proposalId` | uint256 | The id of the proposal to vote on                           |
-| `support`    | uint8   | The support value for the vote. 0=against, 1=for, 2=abstain |
-| `v`          | uint8   | The recovery byte of the signature                          |
-| `r`          | bytes32 | The first 32 bytes of the signature                         |
-| `s`          | bytes32 | The second 32 bytes of the signature                        |
-
-### \_setVotingDelay
-
-```solidity
-function _setVotingDelay(
-    uint256 newVotingDelay
-) external
-```
-
-Admin function for setting the voting delay
-
-#### Parameters
-
-| Name             | Type    | Description                 |
-| :--------------- | :------ | :-------------------------- |
-| `newVotingDelay` | uint256 | new voting delay, in blocks |
-
-### \_setVotingPeriod
-
-```solidity
-function _setVotingPeriod(
-    uint256 newVotingPeriod
-) external
-```
-
-Admin function for setting the voting period
-
-#### Parameters
-
-| Name              | Type    | Description                  |
-| :---------------- | :------ | :--------------------------- |
-| `newVotingPeriod` | uint256 | new voting period, in blocks |
-
-### \_setProposalThreshold
-
-```solidity
-function _setProposalThreshold(
-    uint256 newProposalThreshold
-) external
-```
-
-Admin function for setting the proposal threshold.
-
-`newProposalThreshold` must be greater than the hardcoded `MIN_PROPOSAL_THRESHOLD`
-
-#### Parameters
-
-| Name                   | Type    | Description            |
-| :--------------------- | :------ | :--------------------- |
-| `newProposalThreshold` | uint256 | new proposal threshold |
-
-### \_setPendingAdmin
-
-```solidity
-function _setPendingAdmin(
-    address newPendingAdmin
-) external
-```
-
-Begins transfer of admin rights. The newPendingAdmin must call `_acceptAdmin` to finalize the transfer.
-
-Admin function to begin change of admin. The newPendingAdmin must call `_acceptAdmin` to finalize the transfer.
-
-#### Parameters
-
-| Name              | Type    | Description        |
-| :---------------- | :------ | :----------------- |
-| `newPendingAdmin` | address | New pending admin. |
-
-### \_acceptAdmin
-
-```solidity
-function _acceptAdmin() external
-```
-
-This function is used to accept the transfer of admin rights. The message sender (i.e., msg.sender) must be the pending admin.
-
 ## Events
+
+### ProposalCanceled
+
+```solidity
+event ProposalCanceled(
+    uint256 id
+)
+```
+
+An event emitted when a proposal has been canceled
+
+#### Parameters
+
+| Name | Type    | Description                               |
+| :--- | :------ | :---------------------------------------- |
+| `id` | uint256 | The id of the proposal which was canceled |
 
 ### ProposalCreated
 
@@ -392,6 +408,40 @@ An event emitted when a new proposal is created
 | `endBlock`    | uint256   | The block at which voting ends: votes must be cast prior to this block                  |
 | `description` | string    | The description text for the proposal                                                   |
 
+### ProposalExecuted
+
+```solidity
+event ProposalExecuted(
+    uint256 id
+)
+```
+
+An event emitted when a proposal has been executed in the Timelock
+
+#### Parameters
+
+| Name | Type    | Description                              |
+| :--- | :------ | :--------------------------------------- |
+| `id` | uint256 | The id of the proposal that was executed |
+
+### ProposalQueued
+
+```solidity
+event ProposalQueued(
+    uint256 id,
+    uint256 eta
+)
+```
+
+An event emitted when a proposal has been queued in the Timelock
+
+#### Parameters
+
+| Name  | Type    | Description                                                        |
+| :---- | :------ | :----------------------------------------------------------------- |
+| `id`  | uint256 | The id of the proposal that was queued                             |
+| `eta` | uint256 | The timestamp at which the proposal will be queued in the Timelock |
+
 ### VoteCast
 
 ```solidity
@@ -415,56 +465,6 @@ An event emitted when a vote has been cast on a proposal
 | `support`    | uint8   | Support value for the vote. 0=against, 1=for, 2=abstain |
 | `votes`      | uint256 | Number of votes which were cast by the voter            |
 | `reason`     | string  | The reason given for the vote by the voter              |
-
-### ProposalCanceled
-
-```solidity
-event ProposalCanceled(
-    uint256 id
-)
-```
-
-An event emitted when a proposal has been canceled
-
-#### Parameters
-
-| Name | Type    | Description                               |
-| :--- | :------ | :---------------------------------------- |
-| `id` | uint256 | The id of the proposal which was canceled |
-
-### ProposalQueued
-
-```solidity
-event ProposalQueued(
-    uint256 id,
-    uint256 eta
-)
-```
-
-An event emitted when a proposal has been queued in the Timelock
-
-#### Parameters
-
-| Name  | Type    | Description                                                        |
-| :---- | :------ | :----------------------------------------------------------------- |
-| `id`  | uint256 | The id of the proposal that was queued                             |
-| `eta` | uint256 | The timestamp at which the proposal will be queued in the Timelock |
-
-### ProposalExecuted
-
-```solidity
-event ProposalExecuted(
-    uint256 id
-)
-```
-
-An event emitted when a proposal has been executed in the Timelock
-
-#### Parameters
-
-| Name | Type    | Description                              |
-| :--- | :------ | :--------------------------------------- |
-| `id` | uint256 | The id of the proposal that was executed |
 
 ### VotingDelaySet
 
@@ -502,6 +502,24 @@ An event emitted when the voting period is set
 | `oldVotingPeriod` | uint256 | The old voting period |
 | `newVotingPeriod` | uint256 | The new voting period |
 
+### NewAdmin
+
+```solidity
+event NewAdmin(
+    address oldAdmin,
+    address newAdmin
+)
+```
+
+Emitted when pendingAdmin is accepted, which means admin is updated
+
+#### Parameters
+
+| Name       | Type    | Description   |
+| :--------- | :------ | :------------ |
+| `oldAdmin` | address | The old admin |
+| `newAdmin` | address | The new admin |
+
 ### NewImplementation
 
 ```solidity
@@ -519,24 +537,6 @@ Emitted when implementation is changed
 | :------------------ | :------ | :--------------------- |
 | `oldImplementation` | address | The old implementation |
 | `newImplementation` | address | The new implementation |
-
-### ProposalThresholdSet
-
-```solidity
-event ProposalThresholdSet(
-    uint256 oldProposalThreshold,
-    uint256 newProposalThreshold
-)
-```
-
-Emitted when proposal threshold is set
-
-#### Parameters
-
-| Name                   | Type    | Description                |
-| :--------------------- | :------ | :------------------------- |
-| `oldProposalThreshold` | uint256 | The old proposal threshold |
-| `newProposalThreshold` | uint256 | The new proposal threshold |
 
 ### NewPendingAdmin
 
@@ -556,20 +556,20 @@ Emitted when pendingAdmin is changed
 | `oldPendingAdmin` | address | The old pending admin |
 | `newPendingAdmin` | address | The new pending admin |
 
-### NewAdmin
+### ProposalThresholdSet
 
 ```solidity
-event NewAdmin(
-    address oldAdmin,
-    address newAdmin
+event ProposalThresholdSet(
+    uint256 oldProposalThreshold,
+    uint256 newProposalThreshold
 )
 ```
 
-Emitted when pendingAdmin is accepted, which means admin is updated
+Emitted when proposal threshold is set
 
 #### Parameters
 
-| Name       | Type    | Description   |
-| :--------- | :------ | :------------ |
-| `oldAdmin` | address | The old admin |
-| `newAdmin` | address | The new admin |
+| Name                   | Type    | Description                |
+| :--------------------- | :------ | :------------------------- |
+| `oldProposalThreshold` | uint256 | The old proposal threshold |
+| `newProposalThreshold` | uint256 | The new proposal threshold |

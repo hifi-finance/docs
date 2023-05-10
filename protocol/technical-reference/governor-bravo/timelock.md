@@ -18,14 +18,6 @@ function delay() external returns (uint256)
 
 The duration of the time after which a transaction can be executed.
 
-### GRACE_PERIOD
-
-```solidity
-function GRACE_PERIOD() external returns (uint256)
-```
-
-The duration of the time after the transaction is available to be executed, but before it expires.
-
 ### queuedTransactions
 
 ```solidity
@@ -42,23 +34,15 @@ Get the details about a queued transaction.
 | :----- | :------ | :------------------------------------ |
 | `hash` | bytes32 | The hash of the transaction to check. |
 
-## Non-Constant Functions
-
-### setDelay
+### GRACE_PERIOD
 
 ```solidity
-function setDelay(
-    uint256 delay_
-) public
+function GRACE_PERIOD() external returns (uint256)
 ```
 
-Set the delay for the timelock.
+The duration of the time after the transaction is available to be executed, but before it expires.
 
-#### Parameters
-
-| Name     | Type    | Description                     |
-| :------- | :------ | :------------------------------ |
-| `delay_` | uint256 | The new delay that will be set. |
+## Non-Constant Functions
 
 ### acceptAdmin
 
@@ -67,46 +51,6 @@ function acceptAdmin() public
 ```
 
 Allows the pending admin to accept the admin role.
-
-### setPendingAdmin
-
-```solidity
-function setPendingAdmin(
-    address pendingAdmin_
-) public
-```
-
-Set the address of the pending admin.
-
-#### Parameters
-
-| Name            | Type    | Description                             |
-| :-------------- | :------ | :-------------------------------------- |
-| `pendingAdmin_` | address | The new pending admin that will be set. |
-
-### queueTransaction
-
-```solidity
-function queueTransaction(
-    address target,
-    uint256 value,
-    string signature,
-    bytes data,
-    uint256 eta
-) public returns (bytes32)
-```
-
-Queue a transaction for future execution.
-
-#### Parameters
-
-| Name        | Type    | Description                                                         |
-| :---------- | :------ | :------------------------------------------------------------------ |
-| `target`    | address | The target address of the contract which will be called.            |
-| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
-| `signature` | string  | The signature of the function to be called.                         |
-| `data`      | bytes   | The data that will be passed to the function.                       |
-| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
 
 ### cancelTransaction
 
@@ -156,55 +100,63 @@ Execute a queued transaction.
 | `data`      | bytes   | The data that will be passed to the function.                       |
 | `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
 
+### queueTransaction
+
+```solidity
+function queueTransaction(
+    address target,
+    uint256 value,
+    string signature,
+    bytes data,
+    uint256 eta
+) public returns (bytes32)
+```
+
+Queue a transaction for future execution.
+
+#### Parameters
+
+| Name        | Type    | Description                                                         |
+| :---------- | :------ | :------------------------------------------------------------------ |
+| `target`    | address | The target address of the contract which will be called.            |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
+| `signature` | string  | The signature of the function to be called.                         |
+| `data`      | bytes   | The data that will be passed to the function.                       |
+| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+
+### setDelay
+
+```solidity
+function setDelay(
+    uint256 delay_
+) public
+```
+
+Set the delay for the timelock.
+
+#### Parameters
+
+| Name     | Type    | Description                     |
+| :------- | :------ | :------------------------------ |
+| `delay_` | uint256 | The new delay that will be set. |
+
+### setPendingAdmin
+
+```solidity
+function setPendingAdmin(
+    address pendingAdmin_
+) public
+```
+
+Set the address of the pending admin.
+
+#### Parameters
+
+| Name            | Type    | Description                             |
+| :-------------- | :------ | :-------------------------------------- |
+| `pendingAdmin_` | address | The new pending admin that will be set. |
+
 ## Events
-
-### NewAdmin
-
-```solidity
-event NewAdmin(
-    address newAdmin
-)
-```
-
-Emitted when there is a change in admin.
-
-#### Parameters
-
-| Name       | Type    | Description                 |
-| :--------- | :------ | :-------------------------- |
-| `newAdmin` | address | The new admin that was set. |
-
-### NewPendingAdmin
-
-```solidity
-event NewPendingAdmin(
-    address newPendingAdmin
-)
-```
-
-Emitted when pending admin is set.
-
-#### Parameters
-
-| Name              | Type    | Description                         |
-| :---------------- | :------ | :---------------------------------- |
-| `newPendingAdmin` | address | The new pending admin that was set. |
-
-### NewDelay
-
-```solidity
-event NewDelay(
-    uint256 newDelay
-)
-```
-
-Emitted when new delay is set.
-
-#### Parameters
-
-| Name       | Type    | Description                 |
-| :--------- | :------ | :-------------------------- |
-| `newDelay` | uint256 | The new delay that was set. |
 
 ### CancelTransaction
 
@@ -257,6 +209,54 @@ Emitted when transaction is executed.
 | `signature` | string  | The signature of the function executed.                                |
 | `data`      | bytes   | The data passed to the function that was executed.                     |
 | `eta`       | uint256 | The timestamp after which the transaction was able to be executed.     |
+
+### NewAdmin
+
+```solidity
+event NewAdmin(
+    address newAdmin
+)
+```
+
+Emitted when there is a change in admin.
+
+#### Parameters
+
+| Name       | Type    | Description                 |
+| :--------- | :------ | :-------------------------- |
+| `newAdmin` | address | The new admin that was set. |
+
+### NewDelay
+
+```solidity
+event NewDelay(
+    uint256 newDelay
+)
+```
+
+Emitted when new delay is set.
+
+#### Parameters
+
+| Name       | Type    | Description                 |
+| :--------- | :------ | :-------------------------- |
+| `newDelay` | uint256 | The new delay that was set. |
+
+### NewPendingAdmin
+
+```solidity
+event NewPendingAdmin(
+    address newPendingAdmin
+)
+```
+
+Emitted when pending admin is set.
+
+#### Parameters
+
+| Name              | Type    | Description                         |
+| :---------------- | :------ | :---------------------------------- |
+| `newPendingAdmin` | address | The new pending admin that was set. |
 
 ### QueueTransaction
 
