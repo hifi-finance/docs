@@ -6,16 +6,9 @@ sidebar_position: 4
 
 # Governor Bravo
 
-Governor Bravo Delegate is an advanced and flexible governance system. It is a key component of the decentralized governance infrastructure, which allows token holders to participate in the decision-making process for the management and future direction of a Hifi protocol.
+Governor Bravo is an advanced and flexible governance system. It is a key component of the decentralized governance infrastructure, which allows token holders to participate in the decision-making process for the management and future direction of a Hifi protocol. It's responsible for handling proposal creation, voting, and execution of governance actions; and it's designed with upgradeability in mind, which means that its logic can be modified or extended without affecting the existing proposals and voting data.
 
-Governor Bravo Delegate serves as the implementation for the Governor Bravo Delegator. It is responsible for handling proposal creation, voting, and execution of governance actions. It is designed with upgradeability in mind, which means that its logic can be modified or extended without affecting the existing proposals and voting data.
-
-The core features of the Governor Bravo Delegate include:
-
-- `Proposals`: Users with sufficient voting power can create proposals, which consist of a set of actions, such as modifying system parameters or upgrading smart contracts. Proposals are subject to a voting period during which token holders can cast their votes.
-- `Voting`: Token holders can vote on proposals by delegating their tokens to express their support, opposition, or abstention. The voting process takes place within a specified voting period, and the outcome is determined by the aggregated voting power of the participating users.
-- `Execution`: If a proposal receives the required number of votes to pass, it is queued for execution after a predefined delay. This delay provides a window for token holders to review the proposal and potentially withdraw their support if they disagree with the changes.
-- `Upgradeability`: The Governor Bravo Delegate has been designed with a clear separation of concerns between the storage and the implementation. This allows for seamless upgrades of the governance logic without affecting the existing proposals and voting data.
+This is the only upgradeable contract in Hifi governance. The most up to date version is [v1.0.0](https://github.com/hifi-finance/hifi-governance/blob/1.0.0/contracts/GovernorBravoDelegate.sol).
 
 ## Constant Functions
 
