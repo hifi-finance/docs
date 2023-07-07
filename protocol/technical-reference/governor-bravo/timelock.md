@@ -6,7 +6,7 @@ sidebar_position: 3
 
 # Timelock
 
-The Timelock contract is a vital component in decentralized governance, controlling each protocol contract and facilitating secure, transparent updates to system parameters, logic, and contracts. It operates through a "time-delayed, opt-out" upgrade pattern, allowing stakeholders ample time to review proposed changes and react accordingly. The Timelock contract, which has a hard-coded minimum delay, queues and executes proposals that have successfully passed a Governance vote, ensuring trust and transparency in the decision-making process.
+The Timelock contract controls each protocol contract and facilitates secure and transparent updates to governance parameters, logic, and contracts. It operates through a "time-delayed, opt-out" upgrade pattern, allowing stakeholders ample time to review proposed changes and react accordingly. The Timelock contract, which has a hard-coded minimum delay, queues and executes proposals that have successfully passed a governance vote, ensuring trust and transparency in the decision-making process.
 
 ## Constant Functions
 
@@ -16,7 +16,7 @@ The Timelock contract is a vital component in decentralized governance, controll
 function delay() external returns (uint256)
 ```
 
-The duration of the time after which a transaction can be executed.
+The duration of time after which a transaction is available to be executed.
 
 ### queuedTransactions
 
@@ -40,7 +40,7 @@ Get the details about a queued transaction.
 function GRACE_PERIOD() external returns (uint256)
 ```
 
-The duration of the time after the transaction is available to be executed, but before it expires.
+The duration of time from the moment the transaction is available to be executed till it expires.
 
 ## Non-Constant Functions
 
@@ -68,13 +68,13 @@ Cancel a queued transaction.
 
 #### Parameters
 
-| Name        | Type    | Description                                                         |
-| :---------- | :------ | :------------------------------------------------------------------ |
-| `target`    | address | The target address of the contract which will be called.            |
-| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
-| `signature` | string  | The signature of the function to be called.                         |
-| `data`      | bytes   | The data that will be passed to the function.                       |
-| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+| Name        | Type    | Description                                                            |
+| :---------- | :------ | :--------------------------------------------------------------------- |
+| `target`    | address | The target address of the contract which will be called.               |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                        |
+| `signature` | string  | The signature of the function to be called.                            |
+| `data`      | bytes   | The data that will be passed to the function.                          |
+| `eta`       | uint256 | The timestamp of when the transaction will be available for execution. |
 
 ### executeTransaction
 
@@ -92,13 +92,13 @@ Execute a queued transaction.
 
 #### Parameters
 
-| Name        | Type    | Description                                                         |
-| :---------- | :------ | :------------------------------------------------------------------ |
-| `target`    | address | The target address of the contract which will be called.            |
-| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
-| `signature` | string  | The signature of the function to be called.                         |
-| `data`      | bytes   | The data that will be passed to the function.                       |
-| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+| Name        | Type    | Description                                                            |
+| :---------- | :------ | :--------------------------------------------------------------------- |
+| `target`    | address | The target address of the contract which will be called.               |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                        |
+| `signature` | string  | The signature of the function to be called.                            |
+| `data`      | bytes   | The data that will be passed to the function.                          |
+| `eta`       | uint256 | The timestamp of when the transaction will be available for execution. |
 
 ### queueTransaction
 
@@ -116,13 +116,13 @@ Queue a transaction for future execution.
 
 #### Parameters
 
-| Name        | Type    | Description                                                         |
-| :---------- | :------ | :------------------------------------------------------------------ |
-| `target`    | address | The target address of the contract which will be called.            |
-| `value`     | uint256 | The amount of ETH to send with the transaction.                     |
-| `signature` | string  | The signature of the function to be called.                         |
-| `data`      | bytes   | The data that will be passed to the function.                       |
-| `eta`       | uint256 | The timestamp of when the transaction will be available to execute. |
+| Name        | Type    | Description                                                            |
+| :---------- | :------ | :--------------------------------------------------------------------- |
+| `target`    | address | The target address of the contract which will be called.               |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                        |
+| `signature` | string  | The signature of the function to be called.                            |
+| `data`      | bytes   | The data that will be passed to the function.                          |
+| `eta`       | uint256 | The timestamp of when the transaction will be available for execution. |
 
 ### setDelay
 
@@ -178,11 +178,11 @@ Emitted when timelock admin cancel the transaction.
 | Name        | Type    | Description                                                            |
 | :---------- | :------ | :--------------------------------------------------------------------- |
 | `txHash`    | bytes32 | The hash of the transaction that was canceled.                         |
-| `target`    | address | The target contract address that contains the logic that was canceled. |
-| `value`     | uint256 | The amount of ether meant to be transferred to the target contract.    |
-| `signature` | string  | The signature of the function canceled.                                |
-| `data`      | bytes   | The data passed to the function that was canceled.                     |
-| `eta`       | uint256 | The timestamp after which the transaction was able to be canceled.     |
+| `target`    | address | The target address of the contract which will be called.               |
+| `value`     | uint256 | The amount of ETH to send with the transaction.                        |
+| `signature` | string  | The signature of the function to be called.                            |
+| `data`      | bytes   | The data that will be passed to the function.                          |
+| `eta`       | uint256 | The timestamp of when the transaction will be available for execution. |
 
 ### ExecuteTransaction
 

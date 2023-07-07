@@ -6,7 +6,7 @@ sidebar_position: 2
 
 # HIFI
 
-HIFI is an ERC-20 token enabling its owners to assign voting rights to any address, even their own. Alterations in an owner's token balance automatically modify the delegate's voting rights, ensuring a dynamic, transparent, and responsive Hifi Governance process for the Hifi Finance community.
+HIFI is an ERC-20 token enabling its owner to assign voting rights to any address, including their own. Alterations in an owner's token balance automatically adjust the delegate's voting rights, ensuring a dynamic, transparent, and responsive governance process for the DAO.
 
 ## Constant Functions
 

@@ -10,6 +10,4 @@ Hifi Finance is a decentralized protocol governed and upgraded by its community 
 
 HIFI token holders can delegate their voting rights to themselves or to an address of their choice. To create a governance proposal, an address must be delegated a minimum of 2,825 HIFI tokens.
 
-When a governance proposal is initiated, it enters a review period of up to one week. After this period, voting weights are recorded, and the voting phase begins, lasting for three days. For a proposal to be approved, it must receive both a majority vote and at least 2% of the HIFI token supply cast in its favor. Once approved, the proposal is queued in the Timelock and can be executed after a two-day waiting period. As a result, any changes to the protocol require a minimum of five days to be implemented.
-
-This documentation aims to offer detailed guidance on Hifi Finance governance contracts, encouraging community participation and fostering transparency in the decision-making process.
+When a governance proposal is created, voting weights are recorded, and the voting phase starts immediately lasting for two days. For a proposal to be approved, it must receive both a majority vote and at least 2% of the HIFI token supply cast in its favor. Once approved, the proposal is queued in the Timelock and can be executed after a two-day waiting period. As a result, any changes to the protocol require a minimum of four days to be implemented.
