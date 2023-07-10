@@ -46,7 +46,7 @@ function getReceipt(
 ) external returns (struct GovernorBravoDelegateStorageV1.Receipt)
 ```
 
-Gets the receipt for a voter on a given proposal
+Returns the receipt of a voter on a given proposal
 
 #### Parameters
 
@@ -77,7 +77,7 @@ function state(
 ) public returns (enum GovernorBravoDelegateStorageV1.ProposalState)
 ```
 
-Gets the state of a proposal
+Returns the state of a proposal
 
 #### Parameters
 
@@ -97,7 +97,7 @@ Gets the state of a proposal
 function MAX_PROPOSAL_THRESHOLD() public returns (uint256)
 ```
 
-The maximum setable proposal threshold
+The maximum settable proposal threshold
 
 ### MIN_PROPOSAL_THRESHOLD
 
@@ -105,7 +105,7 @@ The maximum setable proposal threshold
 function MIN_PROPOSAL_THRESHOLD() public returns (uint256)
 ```
 
-The minimum setable proposal threshold
+The minimum settable proposal threshold
 
 ## Non-Constant Functions
 
@@ -193,7 +193,7 @@ function cancel(
 ) external
 ```
 
-Cancels a proposal only if sender is the proposer, or proposer delegates dropped below proposal threshold
+Cancels a proposal if sender is the proposer, or proposer delegates dropped below proposal threshold
 
 #### Parameters
 
@@ -210,7 +210,7 @@ function castVote(
 ) external
 ```
 
-Cast a vote for a proposal
+Cast a vote on a proposal
 
 #### Parameters
 
@@ -231,9 +231,7 @@ function castVoteBySig(
 ) external
 ```
 
-Cast a vote for a proposal by signature
-
-External function that accepts EIP-712 signatures for voting on proposals.
+Cast a vote on a proposal via an EIP-712 signature.
 
 #### Parameters
 
@@ -255,7 +253,7 @@ function castVoteWithReason(
 ) external
 ```
 
-Cast a vote for a proposal with a reason
+Cast a vote on a proposal with a reason
 
 #### Parameters
 
@@ -293,7 +291,7 @@ function initialize(
 ) public
 ```
 
-Used to initialize the contract during delegator constructor
+Used to initialize the contract during delegator construction
 
 #### Parameters
 
@@ -317,7 +315,7 @@ function propose(
 ) public returns (uint256)
 ```
 
-Function used to propose a new proposal. Sender must have delegates above the proposal threshold
+Function used to submit a new proposal. Sender must have delegates above the proposal threshold
 
 #### Parameters
 
