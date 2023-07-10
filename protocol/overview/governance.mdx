@@ -8,7 +8,9 @@ import LinkPreview from "../../src/components/LinkPreview";
 
 # Governance
 
-With time, we will transition to a system whereby any user of the protocol can cast their opinion in the governance of Hifi.
+The Hifi Governance and ERC-20 token implementation both derive from the foundation established by Compound's GovernorBravo Smart Contracts. Our ERC-20 token implementation originates from Uniswap's fork of Compound Governance, while the Governance smart contracts are adopted from Ampleforth's fork of Compound Governance.
+
+We selected the Uniswap fork for our token implementation as it includes the features of ERC-2612 approvals and governance-based minting that we require, whereas our governance contracts are based on the Ampleforth fork of GovernorBravo primarily because—like Hifi and unlike Uniswap or Compound—they did not possess legacy GovernorAlpha smart contracts prior to their GovernorBravo implementation.
 
 ## Modus Operandi
 
@@ -28,7 +30,7 @@ The ephemeral nature of the hTokens permits us to make changes to their source c
 
 Smart contracts are powerful technology, but the fact that they are immutable once deployed brings risks. We hedge against these risks in the following ways:
 
-1. We designed the [BalanceSheet](../technical-reference/core/balance-sheet.md)) contract to be upgradeable. This is
+1. We designed the [BalanceSheet](../technical-reference/core/balance-sheet.md) contract to be upgradeable. This is
    the contract that holds all users' collateral deposits.
 2. We enforced caps on how much debt can be taken on by borrowers.
 3. We gave ourselves the ability to pause most operations (except for collateral withdrawals).
