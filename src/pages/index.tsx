@@ -89,7 +89,7 @@ export default function Home(): JSX.Element {
         <HomepageHeader />
         <FlexGrowDiv />
         <BodyWrapper>
-          <StyledLink href={"https://discord.com/invite/mhtSRz6"}>
+          <StyledLink href={"https://discord.com/invite/uGxaCppKSH"}>
             <img src="img/social/discord.svg" style={{ width: "48px", height: "48px" }} />
             <div>
               <h3>Discord</h3>

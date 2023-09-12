@@ -7,7 +7,7 @@ sidebar_position: 2
 # Network Addresses
 
 Depending on what network you want to use Hifi on, you need to use a different set of contract addresses.
-HTokens are rotated frequently because they each have a different expiration date. For brevity, we don't maintain addresses of hTokens. Reach out on [Discord](https://discord.com/invite/mhtSRz6) if you need those addresses.
+HTokens are rotated frequently because they each have a different expiration date. For brevity, we don't maintain addresses of hTokens. Reach out on [Discord](https://discord.com/invite/uGxaCppKSH) if you need those addresses.
 
 :::info
 Ethereum is a like a blueprint. Multiple independent networks conform to this blueprint, without interacting directly with one another.
