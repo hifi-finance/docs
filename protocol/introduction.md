@@ -18,6 +18,6 @@ own project. These are the main areas that we will cover:
 Let's dive right in.
 
 :::info
-If you have any questions, join the #development channel in our [Discord server](https://discord.com/invite/uGxaCppKSH).
+If you have any questions, join the #support channel in our [Discord server](https://discord.com/invite/uGxaCppKSH).
 Our team, and members of the community, look forward to helping you.‌
 :::
