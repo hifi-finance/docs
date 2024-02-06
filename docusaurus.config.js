@@ -55,7 +55,7 @@ const config = {
         respectPrefersColorScheme: true,
       },
       footer: {
-        style: "dark",
+        style: "light",
         links: [
           {
             title: "Company",

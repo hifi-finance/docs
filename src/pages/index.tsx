@@ -87,35 +87,6 @@ export default function Home(): JSX.Element {
     <Layout description="Technical Documentation for the Hifi Protocol" title={siteConfig.title}>
       <OuterWrapper>
         <HomepageHeader />
-        <FlexGrowDiv />
-        <BodyWrapper>
-          <StyledLink href={"https://discord.com/invite/uGxaCppKSH"}>
-            <img src="img/social/discord.svg" style={{ width: "48px", height: "48px" }} />
-            <div>
-              <h3>Discord</h3>
-              <p>Hop in to the #development channel to get help.</p>
-            </div>
-          </StyledLink>
-
-          <StyledLink href={"https://forum.hifi.finance/"}>
-            <ChatIcon style={{ width: "48px", height: "48px" }} />
-            <div>
-              <h3>Forum</h3>
-              <p>Discuss governance and more.</p>
-            </div>
-          </StyledLink>
-
-          <StyledLink href={"https://github.com/hifi-finance"}>
-            <StyledGitHubIcon>
-              <GitHubIcon size={48} />{" "}
-            </StyledGitHubIcon>
-            <div>
-              <h3>GitHub</h3>
-              <p>View all Hifi code repositories.</p>
-            </div>
-          </StyledLink>
-        </BodyWrapper>
-        <FlexGrowDiv />
       </OuterWrapper>
     </Layout>
   );

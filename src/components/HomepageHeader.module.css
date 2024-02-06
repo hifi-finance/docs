@@ -1,18 +1,30 @@
 .heroBanner {
-  padding: 4rem 0;
+  padding: 14rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
-
 .buttons {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
+  margin-top: 3rem;
+}
+
+.frontTitle {
+  text-align: left;
+  font-size: 3.75rem;
+  font-style: normal;
+  font-weight: 400;
+  margin-bottom: 1.25rem;
+}
+
+.frontSubtitle {
+  text-align: left;
+  max-width: 40rem;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
 }
