@@ -1,5 +1,14 @@
-.heroBanner {
-  background: url("./home-background.svg") no-repeat center center;
+html[data-theme="dark"] .heroBanner {
+  background: url("./home-background-dark.svg") no-repeat center center;
+  background-size: cover;
+  padding: 14rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .heroBanner {
+  background: url("./home-background-light.svg") no-repeat center center;
   background-size: cover;
   padding: 14rem 0;
   text-align: center;
