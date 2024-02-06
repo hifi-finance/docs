@@ -124,17 +124,12 @@ const config = {
         items: [
           {
             docId: "introduction",
-            label: "Protocol",
+            label: "PROTOCOL",
             position: "left",
             type: "doc",
           },
           { label: "SDK", position: "left", to: "/protocol/developers/sdk" },
-          { label: "Smart Contracts", position: "left", to: "/protocol/technical-reference/core/balance-sheet" },
-          {
-            href: "https://github.com/hifi-finance/hifi",
-            label: "GitHub",
-            position: "right",
-          },
+          { label: "SMART CONTRACTS", position: "left", to: "/protocol/technical-reference/core/balance-sheet" },
         ],
       },
       prism: {
