@@ -29,6 +29,12 @@ html[data-theme="light"] .heroBanner {
     flex-direction: column;
     gap: 0.75rem;
   }
+  html[data-theme="dark"] .heroBanner {
+    padding: 9.5rem 0;
+  }
+  html[data-theme="light"] .heroBanner {
+    padding: 9.5rem 0;
+  }
 }
 
 .frontTitle {
