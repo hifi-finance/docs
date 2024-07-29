@@ -196,7 +196,7 @@ You are not supposed to import the smart contracts. Instead, you should interact
 directly. For example, with the [UniswapV2Pair](https://github.com/Uniswap/v2-core/blob/v1.0.1/contracts/UniswapV2Pair.sol)
 contract you would call the `swap` function, and then Uniswap will forward the call to the `FlashUniswapV2`
 contract. You can read more about flash swaps work in Uniswap on
-[docs.uniswap.org](https://docs.uniswap.org/protocol/V2/concepts/core-concepts/flash-swaps).
+[docs.uniswap.org](https://docs.uniswap.org/contracts/v2/concepts/core-concepts/flash-swaps).
 
 #### JavaScript
 

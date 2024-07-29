@@ -61,16 +61,16 @@ const config = {
             title: "Company",
             items: [
               {
-                label: "About",
-                href: "https://hifi.finance/team",
+                label: "Website",
+                href: "https://hifi.finance/",
+              },
+              {
+                label: "Ecosystem",
+                href: "https://hifi.finance/ecosystem",
               },
               {
                 label: "Branding",
                 href: "https://hifi.finance/branding",
-              },
-              {
-                label: "Careers",
-                href: "https://hifi.finance/jobs",
               },
             ],
           },

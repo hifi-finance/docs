@@ -17,12 +17,12 @@ Ethereum is a like a blueprint. Multiple independent networks conform to this bl
 
 #### Ethereum Mainnet - Dec 20, 2022
 
-| Contract          | Address                                                                                                                |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| BalanceSheet      | [0x452467A37f7A0c1EA8432A52b8bbe3Cc31E9513b](https://etherscan.com/address/0x452467A37f7A0c1EA8432A52b8bbe3Cc31E9513b) |
-| ChainlinkOperator | [0xaFf0bb2f5C6E773ceE07E9465968f91Ca12A7EFe](https://etherscan.com/address/0xaFf0bb2f5C6E773ceE07E9465968f91Ca12A7EFe) |
-| Fintroller        | [0xEe46E4B672286392Fcb5308A58dCDb8f0bFcA8c3](https://etherscan.com/address/0xEe46E4B672286392Fcb5308A58dCDb8f0bFcA8c3) |
-| HifiPoolRegistry  | [0xbfFa648d87f1df00a82A6169D6AC38E9d990b0bC](https://etherscan.com/address/0xbfFa648d87f1df00a82A6169D6AC38E9d990b0bC) |
+| Contract          | Address                                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| BalanceSheet      | [0x452467A37f7A0c1EA8432A52b8bbe3Cc31E9513b](https://etherscan.io/address/0x452467A37f7A0c1EA8432A52b8bbe3Cc31E9513b) |
+| ChainlinkOperator | [0xaFf0bb2f5C6E773ceE07E9465968f91Ca12A7EFe](https://etherscan.io/address/0xaFf0bb2f5C6E773ceE07E9465968f91Ca12A7EFe) |
+| Fintroller        | [0xEe46E4B672286392Fcb5308A58dCDb8f0bFcA8c3](https://etherscan.io/address/0xEe46E4B672286392Fcb5308A58dCDb8f0bFcA8c3) |
+| HifiPoolRegistry  | [0xbfFa648d87f1df00a82A6169D6AC38E9d990b0bC](https://etherscan.io/address/0xbfFa648d87f1df00a82A6169D6AC38E9d990b0bC) |
 
 ### Legacy Deployments
 
