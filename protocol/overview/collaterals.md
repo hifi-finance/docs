@@ -14,3 +14,6 @@ reviewed. If you'd like to suggest the addition of a new asset, please reach out
 |  ETH   |       125%       |
 | VWMBp  |       125%       |
 | SHEETp |       333%       |
+| CRE1p  |       125%       |
+|  HC1   |       167%       |
+|  RCC1  |       125%       |
