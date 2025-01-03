@@ -1,0 +1,59 @@
+# Frequently Asked Questions
+
+## Protocol
+
+Q: What is Hifi Protocol?
+A: Hifi Protocol is a US-based decentralized lending protocol that enables fixed-rate, fixed-term borrowing using real-world assets and other ERC-20 tokens as collateral. We specialize in bringing real-world assets on-chain to serve as collateral.
+
+Q: What assets can I use as collateral?
+A: Currently supported collateral assets include:
+- ETH (125% collateral ratio)
+- VWMBp (125% collateral ratio) - Real-world asset token
+- SHEETp (333% collateral ratio) - Real-world asset token
+- CRE1p (125% collateral ratio) - Real-world asset token
+- HC1 (167% collateral ratio) - Real-world asset token
+- RCC1 (125% collateral ratio) - Real-world asset token
+
+Q: How do collateral ratios work?
+A: The collateral ratio represents the minimum amount of collateral value required relative to your borrowed amount. For example, with ETH's 125% ratio, you need at least $125 worth of ETH to borrow $100.
+
+Q: What makes Hifi unique?
+A: As a US-based protocol, Hifi distinguishes itself by focusing on bringing real-world assets on-chain as collateral, making DeFi more accessible to traditional finance while maintaining regulatory compliance.
+
+## Governance
+
+Q: How is Hifi Protocol governed?
+A: Hifi Protocol utilizes decentralized governance where token holders can propose and vote on protocol changes and improvements.
+
+Q: How can I participate in governance?
+A: Token holders can participate by creating proposals, voting on active proposals, and joining governance discussions in the community Discord server.
+
+## Hifi DAO
+
+Q: What is Hifi DAO?
+A: Hifi DAO (Decentralized Autonomous Organization) is the governing body of the Hifi Protocol, composed of token holders who collectively make decisions about protocol development and management.
+
+Q: How are DAO decisions made?
+A: Decisions are made through a democratic voting process where token holders can submit proposals and vote on changes to the protocol.
+
+## Security
+
+Q: How secure is Hifi Protocol?
+A: Hifi Protocol prioritizes security through:
+- Smart contract audits
+- Bug bounty programs
+- Conservative collateral ratios
+- Transparent protocol operations
+- Compliance with US regulations and standards
+
+Q: What happens if my collateral value drops?
+A: If your collateral value drops below the required ratio, your position may be liquidated to protect the protocol and other users. It's important to maintain a healthy collateral ratio above the minimum requirement.
+
+Q: How can I ensure the safety of my assets?
+A: To protect your assets:
+- Monitor your collateral ratio regularly
+- Maintain a buffer above minimum requirements
+- Use official interfaces and contracts
+- Never share private keys or seed phrases
+- Verify you're interacting with official Hifi Protocol contracts
+
